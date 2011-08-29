@@ -1,7 +1,8 @@
 require "vendor_kit/version"
-require "vendor_kit/xcode/proxy"
 
+require "vendor_kit/xcode/project"
 require "vendor_kit/xcode/object"
+
 require "vendor_kit/xcode/objects/pbx_project"
 require "vendor_kit/xcode/objects/pbx_file_reference"
 require "vendor_kit/xcode/objects/pbx_group"
