@@ -23,7 +23,7 @@ module VendorKit::XCode
       @objects = parsed['objects'].map do |id, attributes|
         klass = VendorKit::XCode::Objects.const_get(attributes['isa'])
 
-        @objects_by_id[id] = klass.new(self, attributes)
+        @objects_by_id[id] = klass.new(:project => self, :id => id, :attributes => attributes)
       end
 
       @root_object = @objects_by_id[parsed['rootObject']]
