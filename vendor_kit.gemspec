@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "vendor/version"
+require "vendor_kit/version"
 
 Gem::Specification.new do |s|
-  s.name        = "vendor"
-  s.version     = Vendor::VERSION
+  s.name        = "vendor_kit"
+  s.version     = VendorKit::VERSION
   s.authors     = ["keithpitt"]
   s.email       = ["me@keithpitt.com"]
   s.homepage    = ""
   s.summary     = %q{TODO: Write a gem summary}
   s.description = %q{TODO: Write a gem description}
 
-  s.rubyforge_project = "vendor"
+  s.rubyforge_project = "vendor_kit"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

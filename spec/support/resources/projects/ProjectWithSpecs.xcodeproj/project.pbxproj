@@ -1,0 +1,320 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		537874B014010A0A00D9B746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 537874AF14010A0A00D9B746 /* main.m */; };
+		537874BD14010A1F00D9B746 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537874BC14010A1F00D9B746 /* UIKit.framework */; };
+		537874BF14010A2500D9B746 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537874BE14010A2500D9B746 /* Foundation.framework */; };
+		537874D514010A5700D9B746 /* Cedar-iPhone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537874C114010A5700D9B746 /* Cedar-iPhone.framework */; };
+		537874D614010A5700D9B746 /* libExpecta-ios-universal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 537874D214010A5700D9B746 /* libExpecta-ios-universal.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5378749F14010A0A00D9B746 /* Specs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Specs.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		537874AB14010A0A00D9B746 /* Specs-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Specs-Info.plist"; sourceTree = "<group>"; };
+		537874AF14010A0A00D9B746 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		537874B114010A0A00D9B746 /* Specs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Specs-Prefix.pch"; sourceTree = "<group>"; };
+		537874BC14010A1F00D9B746 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		537874BE14010A2500D9B746 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		537874C114010A5700D9B746 /* Cedar-iPhone.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "Cedar-iPhone.framework"; sourceTree = "<group>"; };
+		537874C314010A5700D9B746 /* Expecta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Expecta.h; sourceTree = "<group>"; };
+		537874C414010A5700D9B746 /* ExpectaSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpectaSupport.h; sourceTree = "<group>"; };
+		537874C514010A5700D9B746 /* EXPExpect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPExpect.h; sourceTree = "<group>"; };
+		537874C614010A5700D9B746 /* EXPMatcherHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPMatcherHelpers.h; sourceTree = "<group>"; };
+		537874C714010A5700D9B746 /* EXPMatchers+toBeFalsy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeFalsy.h"; sourceTree = "<group>"; };
+		537874C814010A5700D9B746 /* EXPMatchers+toBeIdenticalTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeIdenticalTo.h"; sourceTree = "<group>"; };
+		537874C914010A5700D9B746 /* EXPMatchers+toBeInstanceOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeInstanceOf.h"; sourceTree = "<group>"; };
+		537874CA14010A5700D9B746 /* EXPMatchers+toBeKindOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeKindOf.h"; sourceTree = "<group>"; };
+		537874CB14010A5700D9B746 /* EXPMatchers+toBeNil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeNil.h"; sourceTree = "<group>"; };
+		537874CC14010A5700D9B746 /* EXPMatchers+toBeSubclassOf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeSubclassOf.h"; sourceTree = "<group>"; };
+		537874CD14010A5700D9B746 /* EXPMatchers+toBeTruthy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toBeTruthy.h"; sourceTree = "<group>"; };
+		537874CE14010A5700D9B746 /* EXPMatchers+toContain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toContain.h"; sourceTree = "<group>"; };
+		537874CF14010A5700D9B746 /* EXPMatchers+toEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EXPMatchers+toEqual.h"; sourceTree = "<group>"; };
+		537874D014010A5700D9B746 /* EXPMatchers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPMatchers.h; sourceTree = "<group>"; };
+		537874D114010A5700D9B746 /* EXPUnsupportedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPUnsupportedObject.h; sourceTree = "<group>"; };
+		537874D214010A5700D9B746 /* libExpecta-ios-universal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libExpecta-ios-universal.a"; sourceTree = "<group>"; };
+		537874D314010A5700D9B746 /* NSObject+Expecta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Expecta.h"; sourceTree = "<group>"; };
+		537874D414010A5700D9B746 /* NSValue+Expecta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+Expecta.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5378749C14010A0A00D9B746 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				537874BF14010A2500D9B746 /* Foundation.framework in Frameworks */,
+				537874BD14010A1F00D9B746 /* UIKit.framework in Frameworks */,
+				537874D514010A5700D9B746 /* Cedar-iPhone.framework in Frameworks */,
+				537874D614010A5700D9B746 /* libExpecta-ios-universal.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5378747D140109AE00D9B746 = {
+			isa = PBXGroup;
+			children = (
+				537874A914010A0A00D9B746 /* Specs */,
+				537874C014010A5700D9B746 /* External */,
+				537874A214010A0A00D9B746 /* Frameworks */,
+				537874A014010A0A00D9B746 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		537874A014010A0A00D9B746 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5378749F14010A0A00D9B746 /* Specs.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		537874A214010A0A00D9B746 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				537874BE14010A2500D9B746 /* Foundation.framework */,
+				537874BC14010A1F00D9B746 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		537874A914010A0A00D9B746 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				537874AA14010A0A00D9B746 /* Supporting Files */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		537874AA14010A0A00D9B746 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				537874AB14010A0A00D9B746 /* Specs-Info.plist */,
+				537874AF14010A0A00D9B746 /* main.m */,
+				537874B114010A0A00D9B746 /* Specs-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		537874C014010A5700D9B746 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				537874C114010A5700D9B746 /* Cedar-iPhone.framework */,
+				537874C214010A5700D9B746 /* Expecta */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		537874C214010A5700D9B746 /* Expecta */ = {
+			isa = PBXGroup;
+			children = (
+				537874C314010A5700D9B746 /* Expecta.h */,
+				537874C414010A5700D9B746 /* ExpectaSupport.h */,
+				537874C514010A5700D9B746 /* EXPExpect.h */,
+				537874C614010A5700D9B746 /* EXPMatcherHelpers.h */,
+				537874C714010A5700D9B746 /* EXPMatchers+toBeFalsy.h */,
+				537874C814010A5700D9B746 /* EXPMatchers+toBeIdenticalTo.h */,
+				537874C914010A5700D9B746 /* EXPMatchers+toBeInstanceOf.h */,
+				537874CA14010A5700D9B746 /* EXPMatchers+toBeKindOf.h */,
+				537874CB14010A5700D9B746 /* EXPMatchers+toBeNil.h */,
+				537874CC14010A5700D9B746 /* EXPMatchers+toBeSubclassOf.h */,
+				537874CD14010A5700D9B746 /* EXPMatchers+toBeTruthy.h */,
+				537874CE14010A5700D9B746 /* EXPMatchers+toContain.h */,
+				537874CF14010A5700D9B746 /* EXPMatchers+toEqual.h */,
+				537874D014010A5700D9B746 /* EXPMatchers.h */,
+				537874D114010A5700D9B746 /* EXPUnsupportedObject.h */,
+				537874D214010A5700D9B746 /* libExpecta-ios-universal.a */,
+				537874D314010A5700D9B746 /* NSObject+Expecta.h */,
+				537874D414010A5700D9B746 /* NSValue+Expecta.h */,
+			);
+			path = Expecta;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5378749E14010A0A00D9B746 /* Specs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 537874BA14010A0A00D9B746 /* Build configuration list for PBXNativeTarget "Specs" */;
+			buildPhases = (
+				5378749B14010A0A00D9B746 /* Sources */,
+				5378749C14010A0A00D9B746 /* Frameworks */,
+				5378749D14010A0A00D9B746 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Specs;
+			productName = Specs;
+			productReference = 5378749F14010A0A00D9B746 /* Specs.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5378747F140109AE00D9B746 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectName" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5378747D140109AE00D9B746;
+			productRefGroup = 537874A014010A0A00D9B746 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5378749E14010A0A00D9B746 /* Specs */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5378749D14010A0A00D9B746 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5378749B14010A0A00D9B746 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				537874B014010A0A00D9B746 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		53787484140109AE00D9B746 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		53787485140109AE00D9B746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		537874B814010A0A00D9B746 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/External\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Specs/Specs-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Specs/Specs-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/External/Expecta\"",
+				);
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		537874B914010A0A00D9B746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_FRAMEWORKS_DIR)\"",
+					"\"$(SRCROOT)/External\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Specs/Specs-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "Specs/Specs-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/External/Expecta\"",
+				);
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectName" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53787484140109AE00D9B746 /* Debug */,
+				53787485140109AE00D9B746 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		537874BA14010A0A00D9B746 /* Build configuration list for PBXNativeTarget "Specs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				537874B814010A0A00D9B746 /* Debug */,
+				537874B914010A0A00D9B746 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5378747F140109AE00D9B746 /* Project object */;
+}
