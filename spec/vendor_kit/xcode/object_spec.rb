@@ -14,7 +14,7 @@ describe VendorKit::XCode::Object do
       @pbx_project.build_configuration_list.inspect.should include("id: \"53787482140109AE00D9B746\"")
       @pbx_project.build_configuration_list.inspect.should include("build_configurations: [\"53787484140109AE00D9B746\", \"53787485140109AE00D9B746\"]")
       @pbx_project.build_configuration_list.inspect.should include("default_configuration_is_visible: \"0\"")
-      @pbx_project.build_configuration_list.inspect.should include("default_configuration_name: \"Release\">")
+      @pbx_project.build_configuration_list.inspect.should include("default_configuration_name: \"Release\"")
     end
 
   end

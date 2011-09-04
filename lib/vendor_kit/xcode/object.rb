@@ -35,7 +35,7 @@ module VendorKit::XCode
       properties.delete("isa")
 
       # Always show the ID first
-      keys = properties.keys
+      keys = properties.keys.map(&:to_s)
       keys.delete("id")
       keys.unshift("id")
 
