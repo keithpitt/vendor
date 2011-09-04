@@ -28,7 +28,15 @@ module VendorKit::XCode
 
     def inspect
       properties = { "id" => @id }.merge(@attributes)
-      keys = properties.keys.map(&:to_s).sort
+
+      # The class name contains the ISA (the type of the object)
+      properties.delete("isa")
+
+      # Always show the ID first
+      keys = properties.keys
+      keys.delete("id")
+      keys.unshift("id")
+
       "#<#{self.class.name} #{keys.map{ |key| "#{underscore(key)}: #{properties[key].inspect}" }.join(', ')}>"
     end
 
