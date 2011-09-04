@@ -5,7 +5,12 @@ module VendorKit::XCode
     def self.reference(name)
       attribute = attribute_name(name)
       define_method name do
-        @project.find_object(@attributes[attribute])
+        value = @attributes[attribute]
+        if value.kind_of?(Array)
+          value.map { |id| @project.find_object(id) }
+        else
+          @project.find_object(value)
+        end
       end
     end
 
