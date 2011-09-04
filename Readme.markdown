@@ -1,4 +1,4 @@
-# VendorKit
+# VendorKit <img src="http://travis-ci.org/keithpitt/VendorKit.png" />
 
 TODO
 
