@@ -27,8 +27,9 @@ module VendorKit::XCode
     end
 
     def inspect
-      properties = { :id => @id }.merge(@attributes)
-      "#<#{self.class.name} #{properties.map{ |k, v| "#{k}: #{v.inspect}" }.join(', ')}>"
+      properties = { "id" => @id }.merge(@attributes)
+      keys = properties.keys.map(&:to_s).sort
+      "#<#{self.class.name} #{keys.map{ |key| "#{key}: #{properties[key].inspect}" }.join(', ')}>"
     end
 
   end

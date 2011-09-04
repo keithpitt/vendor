@@ -10,7 +10,7 @@ describe VendorKit::XCode::Object do
   context "#inspect" do
 
     it "should give you the attributes in the object" do
-      @pbx_project.build_configuration_list.inspect.should == "#<VendorKit::XCode::Objects::XCConfigurationList id: \"53787482140109AE00D9B746\", isa: \"XCConfigurationList\", defaultConfigurationIsVisible: \"0\", defaultConfigurationName: \"Release\", buildConfigurations: [\"53787484140109AE00D9B746\", \"53787485140109AE00D9B746\"]>"
+      @pbx_project.build_configuration_list.inspect.should == "#<VendorKit::XCode::Objects::XCConfigurationList buildConfigurations: [\"53787484140109AE00D9B746\", \"53787485140109AE00D9B746\"], defaultConfigurationIsVisible: \"0\", defaultConfigurationName: \"Release\", id: \"53787482140109AE00D9B746\", isa: \"XCConfigurationList\">"
     end
 
   end

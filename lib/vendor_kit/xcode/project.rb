@@ -13,7 +13,16 @@ module VendorKit::XCode
 
       pbxproject = ::File.join(project_folder, "project.pbxproj")
 
-      parsed = JSON.parse(`plutil -convert json -o - "#{pbxproject}"`)
+      # We switch between our custom PList converter and the JSON format
+      # because the custom implementation isn't very reliable. We use it mainly
+      # so the gem can run on systems that don't have plutil installed (like our
+      # CI server). The plutil app is far more reliable.
+      if RUBY_PLATFORM !=~ /darwin/ || ENV['PARSER'] == 'custom'
+        contents = File.readlines(pbxproject).join("\n")
+        parsed = VendorKit::Plist.parse_ascii(contents)
+      else
+        parsed = JSON.parse(`plutil -convert json -o - "#{pbxproject}"`)
+      end
 
       @object_version = parsed['objectVersion'].to_i
       @archive_version = parsed['archiveVersion'].to_i

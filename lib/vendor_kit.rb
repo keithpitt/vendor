@@ -1,4 +1,5 @@
 require "vendor_kit/version"
+require "vendor_kit/plist"
 
 require "vendor_kit/xcode/project"
 require "vendor_kit/xcode/object"
