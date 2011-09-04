@@ -20,7 +20,6 @@ describe VendorKit::XCode::Project do
   end
 
   it "should reference the targets" do
-    puts @pbx_project.inspect
     @pbx_project.targets.should ==
       [ @project.find_object("5378749E14010A0A00D9B746") ]
   end
