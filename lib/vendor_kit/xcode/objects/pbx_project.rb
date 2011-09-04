@@ -2,7 +2,7 @@ module VendorKit::XCode::Objects
 
   class PBXProject < VendorKit::XCode::Object
 
-    reference :buildConfigurationList
+    reference :build_configuration_list
 
   end
 

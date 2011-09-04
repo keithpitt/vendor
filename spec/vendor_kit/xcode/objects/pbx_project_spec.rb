@@ -8,7 +8,7 @@ describe VendorKit::XCode::Project do
   end
 
   it "should reference the build configuration list" do
-    @pbx_project.buildConfigurationList.should == @project.find_object('53787482140109AE00D9B746')
+    @pbx_project.build_configuration_list.should == @project.find_object('53787482140109AE00D9B746')
   end
 
 end

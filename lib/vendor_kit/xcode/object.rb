@@ -3,9 +3,16 @@ module VendorKit::XCode
   class Object
 
     def self.reference(name)
+      attribute = attribute_name(name)
       define_method name do
-        @project.find_object(@attributes[name.to_s])
+        @project.find_object(@attributes[attribute])
       end
+    end
+
+    # References are stored in camel case in the project file
+    def self.attribute_name(name)
+      camelized = name.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      camelized[0].chr.downcase + camelized[1..-1]
     end
 
     def initialize(options)
