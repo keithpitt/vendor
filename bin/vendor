@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+require "rubygems"
+require "bundler/setup"
+
+require "thor"
+require "irb"
+require "ripl"
+
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'lib', 'vendor_kit')
+require File.join(File.expand_path(File.dirname(__FILE__)), '..', 'lib', 'vendor_kit', 'cli')
+
+class VendorKit::App < Thor
+
+  desc "console", "Load an interactive shell with the VendorKit classes loaded"
+  def console
+    # Need to clear the arguments otherwise they are passed through to RIPL
+    ARGV.clear
+    Ripl.start :binding => VendorKit::CLI.instance_eval{ binding }
+  end
+
+end
+
+VendorKit::App.start

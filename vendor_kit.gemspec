@@ -3,6 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "vendor_kit/version"
 
 Gem::Specification.new do |s|
+
   s.name        = "vendor_kit"
   s.version     = VendorKit::VERSION
   s.authors     = ["keithpitt"]
@@ -20,5 +21,9 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   s.add_development_dependency "rspec"
+  s.add_development_dependency "ripl"
+
   s.add_runtime_dependency "rake"
+  s.add_runtime_dependency "thor"
+
 end
