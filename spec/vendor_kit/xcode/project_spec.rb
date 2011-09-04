@@ -38,4 +38,19 @@ describe VendorKit::XCode::Project do
 
   end
 
+  context "#to_ascii_plist" do
+
+    it "should convert it to the correct format" do
+      # Reload the project from the filesystem
+      @project.reload
+
+      contents = File.readlines(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs.xcodeproj", "project.pbxproj")).join("\n")
+      original = VendorKit::Plist.parse_ascii(contents)
+      saved = VendorKit::Plist.parse_ascii(@project.to_ascii_plist)
+
+      original.should == saved
+    end
+
+  end
+
 end

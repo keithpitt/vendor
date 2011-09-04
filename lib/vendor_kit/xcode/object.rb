@@ -2,6 +2,8 @@ module VendorKit::XCode
 
   class Object
 
+    attr_accessor :id
+
     def self.reference(name)
       attribute = attribute_name(name)
       define_method name do
@@ -61,6 +63,10 @@ module VendorKit::XCode
 
     def read_attribute(name)
       @attributes[name]
+    end
+
+    def to_ascii_plist
+      @attributes.to_ascii_plist
     end
 
     private
