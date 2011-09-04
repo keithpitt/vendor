@@ -41,7 +41,7 @@ module VendorKit::XCode
     end
 
     def method_missing(v, *args)
-      setting = v.match(/\=$/)
+      setting = v.to_s.match(/\=$/)
       name = self.class.attribute_name(v)
 
       if @attributes.has_key?(name)
