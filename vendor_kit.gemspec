@@ -8,9 +8,9 @@ Gem::Specification.new do |s|
   s.version     = VendorKit::VERSION
   s.authors     = ["keithpitt"]
   s.email       = ["me@keithpitt.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://www.vendorkit.com"
+  s.summary     = %q{Dependency management for iOS and OSX development}
+  s.description = %q{VendorKit manages an application's dependencies}
 
   s.rubyforge_project = "vendor_kit"
 

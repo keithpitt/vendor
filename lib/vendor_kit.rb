@@ -1,3 +1,5 @@
+$:.push File.expand_path("../", __FILE__)
+
 require "vendor_kit/version"
 require "vendor_kit/plist"
 
