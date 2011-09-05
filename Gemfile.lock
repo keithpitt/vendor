@@ -4,6 +4,7 @@ PATH
     vendor_kit (0.0.1)
       json
       rake
+      ripl
       thor
 
 GEM
@@ -29,6 +30,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ripl
   rspec
   vendor_kit!
