@@ -6,3 +6,4 @@ pkg
 *.xcworkspace
 xcuserdata
 contents.xcworkspacedata
+*.gem
