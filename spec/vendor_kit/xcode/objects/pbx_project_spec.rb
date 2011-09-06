@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VendorKit::XCode::Project do
 
   before :all do
-    @project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs.xcodeproj"))
+    @project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs/ProjectWithSpecs.xcodeproj"))
     @pbx_project = @project.root_object
   end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VendorKit::XCode::Object do
 
   before :all do
-    @project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs.xcodeproj"))
+    @project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs/ProjectWithSpecs.xcodeproj"))
     @pbx_project = @project.root_object
   end
 
@@ -45,7 +45,13 @@ describe VendorKit::XCode::Object do
 
     it "should allow you to set existing attributes" do
       @pbx_project.write_attribute('knownRegions', [ "en" ])
+    end
 
+    it "should allow symbols to be passed" do
+      @pbx_project.write_attribute(:knownRegions, [ "en" ])
+    end
+
+    after :each do
       @pbx_project.known_regions.should == [ "en" ]
     end
 
@@ -53,10 +59,16 @@ describe VendorKit::XCode::Object do
 
   context "#read_attribute" do
 
-    it "should allow you to read an attribute" do
+    before :each do
       @pbx_project.known_regions = [ 'uk' ]
+    end
 
+    it "should allow you to read an attribute" do
       @pbx_project.read_attribute('knownRegions').should == [ 'uk' ]
+    end
+
+    it 'should allow symbols to be used' do
+      @pbx_project.read_attribute(:knownRegions).should == [ 'uk' ]
     end
 
   end

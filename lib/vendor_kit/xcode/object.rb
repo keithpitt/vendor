@@ -66,11 +66,11 @@ module VendorKit::XCode
     end
 
     def write_attribute(name, value)
-      @attributes[name] = value
+      @attributes[name.to_s] = value
     end
 
     def read_attribute(name)
-      @attributes[name]
+      @attributes[name.to_s]
     end
 
     def to_ascii_plist

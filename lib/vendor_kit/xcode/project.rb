@@ -4,6 +4,8 @@ module VendorKit::XCode
 
   class Project
 
+    require 'fileutils'
+
     attr_reader :object_version
     attr_reader :archive_version
     attr_reader :objects
@@ -46,6 +48,29 @@ module VendorKit::XCode
       @objects_by_id[id]
     end
 
+    def find_target(name)
+      root_object.targets.find { |x| x.name == name }
+    end
+
+    def add_file(options)
+      require_options options, :target, :path, :file
+
+      # Ensure file exists
+      raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
+
+      # Ensure target exists
+      target = find_target(options[:target])
+      raise StandardError.new("Could not find target `#{options[:target]}`") unless target
+
+      # Ensure the path exists
+      path = File.join(@project_folder, "..", options[:path])
+      FileUtils.mkdir_p path
+
+      # Copy the file
+      name = File.basename(options[:file])
+      FileUtils.cp options[:file], File.join(path, name)
+    end
+
     def to_ascii_plist
       plist = { :archiveVersion => archive_version,
                 :classes => {},
@@ -61,6 +86,12 @@ module VendorKit::XCode
         f << to_ascii_plist
       end
     end
+
+    private
+
+      def require_options(options, *keys)
+        keys.each { |k| raise StandardError.new("Missing :#{k} option") unless options[k] }
+      end
 
   end
 

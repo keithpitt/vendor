@@ -7,3 +7,4 @@ pkg
 xcuserdata
 contents.xcworkspacedata
 *.gem
+tmp

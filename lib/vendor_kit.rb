@@ -8,8 +8,8 @@ require "vendor_kit/extensions/hash"
 require "vendor_kit/extensions/fixnum"
 require "vendor_kit/extensions/string"
 
-require "vendor_kit/xcode/project"
 require "vendor_kit/xcode/object"
+require "vendor_kit/xcode/project"
 
 require "vendor_kit/xcode/objects/pbx_project"
 require "vendor_kit/xcode/objects/pbx_file_reference"

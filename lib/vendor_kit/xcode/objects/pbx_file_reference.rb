@@ -4,6 +4,10 @@ module VendorKit::XCode::Objects
 
     reference :file_ref
 
+    def name
+      read_attribute :path
+    end
+
   end
 
 end
