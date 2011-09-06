@@ -8,5 +8,4 @@ RSpec::Core::RakeTask.new(:test) do |spec|
   spec.rspec_opts = ['--backtrace']
 end
 
-task :default => :test do
-end
+task :default => :test
