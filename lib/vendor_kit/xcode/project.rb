@@ -53,14 +53,10 @@ module VendorKit::XCode
     end
 
     def add_file(options)
-      require_options options, :target, :path, :file
+      require_options options, :targets, :path, :file
 
       # Ensure file exists
       raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
-
-      # Ensure target exists
-      target = find_target(options[:target])
-      raise StandardError.new("Could not find target `#{options[:target]}`") unless target
 
       # Ensure the path exists
       path = File.join(@project_folder, "..", options[:path])

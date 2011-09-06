@@ -48,6 +48,18 @@ describe VendorKit::XCode::Project do
 
   end
 
+  context "#find_target" do
+
+    it "should return the target" do
+      @project.find_target('Specs').should == @project.root_object.targets.first
+    end
+
+    it "should return nil if one cannot be found" do
+      @project.find_target('Ruut').should be_nil
+    end
+
+  end
+
   context '#add_file' do
 
     let(:first_file) { File.join(FILE_RESOURCE_PATH, "SecondViewController.h") }
@@ -57,8 +69,10 @@ describe VendorKit::XCode::Project do
       @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs"))
       @temp_project = VendorKit::XCode::Project.new(File.join(@temp_path, "ProjectWithSpecs.xcodeproj"))
 
-      @temp_project.add_file :target => "Specs", :file => first_file, :path => "Controllers/SecondViewController"
-      @temp_project.add_file :target => "Specs", :file => second_file, :path => "Controllers/SecondViewController"
+      @target = @temp_project.find_target("Specs")
+
+      @temp_project.add_file :targets => [ @target ], :file => first_file, :path => "Controllers/SecondViewController"
+      @temp_project.add_file :targets => [ @target ], :file => second_file, :path => "Controllers/SecondViewController"
     end
 
     it 'should add the file to the filesystem' do
@@ -78,30 +92,24 @@ describe VendorKit::XCode::Project do
       it 'there is no target set' do
         expect do
           @temp_project.add_file :file => "ASD", :path => "ASD"
-        end.to raise_exception(StandardError, "Missing :target option")
+        end.to raise_exception(StandardError, "Missing :targets option")
       end
 
       it 'there is no path set' do
         expect do
-          @temp_project.add_file :target => "Specs", :file => first_file
+          @temp_project.add_file :targets => "Specs", :file => first_file
         end.to raise_exception(StandardError, "Missing :path option")
       end
 
       it 'there is no file set' do
         expect do
-          @temp_project.add_file :target => "Specs", :path => "ASD"
+          @temp_project.add_file :targets => "Specs", :path => "ASD"
         end.to raise_exception(StandardError, "Missing :file option")
-      end
-
-      it "the target doesn't exist" do
-        expect do
-          @temp_project.add_file :target => "Ruut", :file => second_file, :path => "Controllers/SecondViewController"
-        end.to raise_exception(StandardError, "Could not find target `Ruut`")
       end
 
       it "the file doesn't exist" do
         expect do
-          @temp_project.add_file :target => "Ruut", :file => "foo", :path => "Controllers/SecondViewController"
+          @temp_project.add_file :targets => "Ruut", :file => "foo", :path => "Controllers/SecondViewController"
         end.to raise_exception(StandardError, "Could not find file `foo`")
       end
 
