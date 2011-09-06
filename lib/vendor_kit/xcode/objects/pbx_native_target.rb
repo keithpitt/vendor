@@ -4,6 +4,7 @@ module VendorKit::XCode::Objects
 
     reference :build_phases
     reference :product_reference
+    reference :build_configuration_list
 
   end
 
