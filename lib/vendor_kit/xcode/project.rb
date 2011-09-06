@@ -52,6 +52,29 @@ module VendorKit::XCode
       root_object.targets.find { |x| x.name == name }
     end
 
+    def find_and_make_group(path)
+      current = root_object.main_group
+
+      path.split("/").each do |name|
+        group = current.children.find { |x| x.name == name }
+
+        unless group
+          group = VendorKit::XCode::Objects::PBXGroup.new(:project => self,
+                                                          :id => VendorKit::XCode::Object.generate_id,
+                                                          :attributes => { 'path' => name, 'sourceTree' => '<group>', 'children' => [] })
+
+          @objects_by_id[group.id] = group
+
+          # This is hacky
+          current.attributes['children'] << group.id
+        end
+
+        current = group
+      end
+
+      current
+    end
+
     def add_file(options)
       require_options options, :targets, :path, :file
 
@@ -65,6 +88,19 @@ module VendorKit::XCode
       # Copy the file
       name = File.basename(options[:file])
       FileUtils.cp options[:file], File.join(path, name)
+
+      # Add the file to XCode
+      group = find_and_make_group(options[:path])
+      relative_path = File.join(options[:path], name)
+      file_type = VendorKit::XCode::Objects::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
+
+      file = VendorKit::XCode::Objects::PBXFileReference.new(:project => self,
+                                                             :id => VendorKit::XCode::Object.generate_id,
+                                                             :attributes => { 'path' => relative_path, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
+
+      group.attributes['children'] << file.id
+
+      @objects_by_id[file.id] = file
     end
 
     def to_ascii_plist

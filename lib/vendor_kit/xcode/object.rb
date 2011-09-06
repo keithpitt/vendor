@@ -3,6 +3,13 @@ module VendorKit::XCode
   class Object
 
     attr_accessor :id
+    attr_reader :attributes
+
+    # I don't know what the ID's are made up of in XCode,
+    # so lets just generate a 24 character string.
+    def self.generate_id
+      (0...24).map{65.+(rand(25)).chr}.join
+    end
 
     def self.object_references
       @references || []

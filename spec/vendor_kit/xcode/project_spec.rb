@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe VendorKit::XCode::Project do
 
-  before :all do
+  before :each do
     @project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs/ProjectWithSpecs.xcodeproj"))
   end
 
@@ -60,6 +60,28 @@ describe VendorKit::XCode::Project do
 
   end
 
+  context '#find_and_make_group' do
+
+    it "should return an existing group" do
+      @project.find_and_make_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
+    end
+
+    it "should create a group if it doesn't exist" do
+      group = @project.find_and_make_group("Specs/Supporting Files/Something/Goes Inside/Here")
+
+      supporting_files_group = @project.root_object.main_group.children.first.children.first
+      something_group = supporting_files_group.children.last
+      inside_group = something_group.children.last
+      here_group = inside_group.children.last
+
+      something_group.name.should == "Something"
+      inside_group.name.should == "Goes Inside"
+      here_group.name.should == "Here"
+      here_group.source_tree.should == "<group>"
+    end
+
+  end
+
   context '#add_file' do
 
     let(:first_file) { File.join(FILE_RESOURCE_PATH, "SecondViewController.h") }
@@ -71,8 +93,8 @@ describe VendorKit::XCode::Project do
 
       @target = @temp_project.find_target("Specs")
 
-      @temp_project.add_file :targets => [ @target ], :file => first_file, :path => "Controllers/SecondViewController"
-      @temp_project.add_file :targets => [ @target ], :file => second_file, :path => "Controllers/SecondViewController"
+      @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file, :path => "Controllers/SecondViewController"
+      @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file, :path => "Controllers/SecondViewController"
     end
 
     it 'should add the file to the filesystem' do
@@ -83,8 +105,23 @@ describe VendorKit::XCode::Project do
       File.exists?(new_second_path).should be_true
     end
 
-    it 'should add it as the correct file type'
-    it 'should add it to the XCode project'
+    it 'should add it as the correct file type' do
+      @first_file_added.last_known_file_type.should == "sourcecode.c.h"
+      @second_file_added.last_known_file_type.should == "sourcecode.c.objc"
+    end
+
+    it 'should add the files with the correct path' do
+      @first_file_added.path.should == "Controllers/SecondViewController/SecondViewController.h"
+      @second_file_added.path.should == "Controllers/SecondViewController/SecondViewController.m"
+    end
+
+    it 'should add it to the correct group' do
+      group = @temp_project.find_and_make_group("Controllers/SecondViewController")
+
+      group.children[0].should == @first_file_added
+      group.children[1].should == @second_file_added
+    end
+
     it 'should add it to the build targets specified'
 
     context 'should raise an error if' do
