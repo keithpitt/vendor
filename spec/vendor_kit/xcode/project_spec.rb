@@ -28,6 +28,16 @@ describe VendorKit::XCode::Project do
 
     end
 
+    context "TabBarWithUnitTests.xcodeproj" do
+
+      it "should parse and load all the objects" do
+        project = VendorKit::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "TabBarWithUnitTests.xcodeproj"))
+
+        project.objects.length.should == 74
+      end
+
+    end
+
   end
 
   context "#find_object" do

@@ -10,16 +10,13 @@ module VendorKit::XCode
     attr_reader :root_object
 
     def initialize(project_folder)
-
       @project_folder = project_folder
       @pbxproject = ::File.join(project_folder, "project.pbxproj")
 
       reload
-
     end
 
     def reload
-
       # We switch between our custom PList converter and the JSON format
       # because the custom implementation isn't very reliable. We use it mainly
       # so the gem can run on systems that don't have plutil installed (like our
@@ -43,7 +40,6 @@ module VendorKit::XCode
       end
 
       @root_object = @objects_by_id[parsed['rootObject']]
-
     end
 
     def find_object(id)
