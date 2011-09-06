@@ -13,7 +13,7 @@ TODO
 ## Contributers
 
 * [Keith Pitt](http://www.keithpitt.com)
-* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb)
+* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb) (For his ASCII Plist Parser)
 
 ## Note on Patches/Pull Requests
 
