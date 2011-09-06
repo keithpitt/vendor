@@ -96,7 +96,7 @@ module VendorKit::XCode
 
       file = VendorKit::XCode::Objects::PBXFileReference.new(:project => self,
                                                              :id => VendorKit::XCode::Object.generate_id,
-                                                             :attributes => { 'path' => relative_path, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
+                                                             :attributes => { 'path' => name, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
 
       group.attributes['children'] << file.id
 

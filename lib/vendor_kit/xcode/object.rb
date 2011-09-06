@@ -8,7 +8,7 @@ module VendorKit::XCode
     # I don't know what the ID's are made up of in XCode,
     # so lets just generate a 24 character string.
     def self.generate_id
-      (0...24).map{65.+(rand(25)).chr}.join
+      (0...24).map { '%02X' % rand(256) }.join
     end
 
     def self.object_references
@@ -41,6 +41,8 @@ module VendorKit::XCode
       @id = options[:id]
       @project = options[:project]
       @attributes = options[:attributes]
+
+      @attributes['isa'] = self.class.name.split('::').last unless @attributes['isa']
     end
 
     def inspect

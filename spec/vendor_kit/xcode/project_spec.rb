@@ -62,22 +62,47 @@ describe VendorKit::XCode::Project do
 
   context '#find_and_make_group' do
 
-    it "should return an existing group" do
-      @project.find_and_make_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
+    context 'when finding an existing group' do
+
+      it "should return the group" do
+        @project.find_and_make_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
+      end
+
     end
 
-    it "should create a group if it doesn't exist" do
-      group = @project.find_and_make_group("Specs/Supporting Files/Something/Goes Inside/Here")
+    context 'when creating a group' do
 
-      supporting_files_group = @project.root_object.main_group.children.first.children.first
-      something_group = supporting_files_group.children.last
-      inside_group = something_group.children.last
-      here_group = inside_group.children.last
+      before :each do
+        @group = @project.find_and_make_group("Specs/Supporting Files/Something/Goes Inside/Here")
 
-      something_group.name.should == "Something"
-      inside_group.name.should == "Goes Inside"
-      here_group.name.should == "Here"
-      here_group.source_tree.should == "<group>"
+        @supporting_files_group = @project.root_object.main_group.children.first.children.first
+        @something_group = @supporting_files_group.children.last
+        @inside_group = @something_group.children.last
+        @here_group = @inside_group.children.last
+      end
+
+      it 'should create it in the correct location' do
+        @here_group.should_not be_nil
+      end
+
+      it 'should give the new groups the right names' do
+        @something_group.name.should == "Something"
+        @inside_group.name.should == "Goes Inside"
+        @here_group.name.should == "Here"
+      end
+
+      it 'should give the new groups the correct source tree property' do
+        @here_group.source_tree.should == "<group>"
+      end
+
+      it 'should give the new groups an ID' do
+        @here_group.source_tree.should_not be_nil
+      end
+
+      it 'should give the new groups a valid ISA' do
+        @here_group.isa.should == 'PBXGroup'
+      end
+
     end
 
   end
@@ -111,8 +136,18 @@ describe VendorKit::XCode::Project do
     end
 
     it 'should add the files with the correct path' do
-      @first_file_added.path.should == "Controllers/SecondViewController/SecondViewController.h"
-      @second_file_added.path.should == "Controllers/SecondViewController/SecondViewController.m"
+      @first_file_added.path.should == "SecondViewController.h"
+      @second_file_added.path.should == "SecondViewController.m"
+    end
+
+    it 'should have the correct ISA' do
+      @first_file_added.isa.should == "PBXFileReference"
+      @second_file_added.isa.should == "PBXFileReference"
+    end
+
+    it 'should have an ID' do
+      @first_file_added.id.should_not be_nil
+      @second_file_added.id.should_not be_nil
     end
 
     it 'should add it to the correct group' do
@@ -120,6 +155,10 @@ describe VendorKit::XCode::Project do
 
       group.children[0].should == @first_file_added
       group.children[1].should == @second_file_added
+    end
+
+    it 'should still save' do
+      @temp_project.save
     end
 
     it 'should add it to the build targets specified'
