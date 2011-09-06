@@ -11,7 +11,7 @@ module TempProject
     name = File.basename(project_path)
     location = File.join(TEMP_PROJECT_PATH, name)
 
-    FileUtils.rm_rf location if Dir.exists?(location)
+    FileUtils.rm_rf location if File.exists?(location)
 
     FileUtils.cp_r project_path, TEMP_PROJECT_PATH
 
