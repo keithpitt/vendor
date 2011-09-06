@@ -7,6 +7,5 @@ pkg
 xcuserdata
 contents.xcworkspacedata
 *.gem
-*.vendor
 tmp
 log
