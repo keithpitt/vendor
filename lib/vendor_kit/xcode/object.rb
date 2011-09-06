@@ -4,8 +4,13 @@ module VendorKit::XCode
 
     attr_accessor :id
 
+    def self.object_references
+      @references || []
+    end
+
     def self.reference(name)
       attribute = attribute_name(name)
+
       define_method name do
         value = @attributes[attribute]
         if value.kind_of?(Array)
@@ -14,6 +19,9 @@ module VendorKit::XCode
           @project.find_object(value)
         end
       end
+
+      @references ||= []
+      @references << name
     end
 
     # References are stored in camel case in the project file

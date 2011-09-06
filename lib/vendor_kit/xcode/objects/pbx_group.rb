@@ -4,6 +4,10 @@ module VendorKit::XCode::Objects
 
     reference :children
 
+    def name
+      @attributes['name'] || @attributes['path']
+    end
+
   end
 
 end
