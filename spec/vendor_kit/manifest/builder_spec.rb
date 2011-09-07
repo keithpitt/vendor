@@ -63,9 +63,9 @@ describe VendorKit::Manifest::Builder do
     end
 
     it "should be a zip file" do
-      mimetype = `file -Ib #{builder.filename}`.chomp
+      mimetype = `file #{builder.filename} --mime-type`.chomp
 
-      mimetype.should == "application/zip; charset=binary"
+      mimetype.should =~ /application\/zip/
     end
 
     it "should contain a vendor.json file" do
