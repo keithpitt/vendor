@@ -27,6 +27,11 @@ class VendorKit::App < Thor
     end
   end
 
+  # Exit with 1 if thor encounters an error (such as command missing)
+  def self.exit_on_failure?
+    true
+  end
+
 end
 
 VendorKit::App.start
