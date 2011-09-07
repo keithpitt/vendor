@@ -1,7 +1,7 @@
-manifest do
+vendor do
 
-  name          "DKBenchmark"
-  version       "0.1"
+  name          "DKBen!/asdf535chmark"
+  version       "0.1/asdf52fs"
 
   authors       "keithpitt"
   email         "me@keithpitt.com"

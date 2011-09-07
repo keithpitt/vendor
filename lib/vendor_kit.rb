@@ -3,9 +3,9 @@ $:.push File.expand_path("../", __FILE__)
 require "vendor_kit/version"
 require "vendor_kit/plist"
 
-require "vendor_kit/manifest/builder"
-require "vendor_kit/manifest/dsl"
-require "vendor_kit/manifest/loader"
+require "vendor_kit/vendor_spec/builder"
+require "vendor_kit/vendor_spec/dsl"
+require "vendor_kit/vendor_spec/loader"
 
 require "vendor_kit/extensions/array"
 require "vendor_kit/extensions/hash"

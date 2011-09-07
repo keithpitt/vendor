@@ -1,5 +1,5 @@
 module VendorKit
-  module Manifest
+  module VendorSpec
 
     class Builder
 
@@ -12,17 +12,17 @@ module VendorKit
       attr_reader :name
       attr_reader :version
       attr_reader :filename
-      attr_reader :manifest
+      attr_reader :vendor_spec
 
       def initialize(vendor_spec)
-        loader = VendorKit::Manifest::Loader.new
+        loader = VendorKit::VendorSpec::Loader.new
         loader.load vendor_spec
 
         @folder = File.expand_path(File.join(vendor_spec, '..'))
-        @manifest = loader.dsl.manifest
+        @vendor_spec = loader.dsl.vendor_spec
 
-        @name = safe_filename(@manifest[:name])
-        @version = safe_filename(@manifest[:version])
+        @name = safe_filename(@vendor_spec[:name])
+        @version = safe_filename(@vendor_spec[:version])
         @filename = "#{@name}-#{@version}.vendor"
       end
 
@@ -33,7 +33,7 @@ module VendorKit
         data_dir = File.join(tmpdir, "data")
         data_files = copy_files(data_dir)
 
-        open(vendor_file, 'w+') { |f| f << @manifest.to_json }
+        open(vendor_file, 'w+') { |f| f << @vendor_spec.to_json }
 
         FileUtils.rm(@filename) if File.exist?(@filename)
 
@@ -47,7 +47,7 @@ module VendorKit
         def copy_files(data_dir)
           data_files = []
 
-          @manifest[:files].each do |file|
+          @vendor_spec[:files].each do |file|
             dir = File.dirname(file)
             path = File.join(@folder, file)
             copy_to_dir = File.expand_path(File.join(data_dir, dir))

@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe VendorKit::Manifest::Builder do
+describe VendorKit::VendorSpec::Builder do
 
   context "#initialize" do
 
     context "with a valid vendor spec" do
 
-      let (:builder) { VendorKit::Manifest::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.manifest")) }
+      let (:builder) { VendorKit::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")) }
 
       it "should load in the vendor spec" do
-        builder.manifest[:name].should == "DKBenchmark"
+        builder.vendor_spec[:name].should == "DKBenchmark"
       end
 
       it "should load the name of the vendor" do
@@ -28,10 +28,10 @@ describe VendorKit::Manifest::Builder do
 
     context "with an invalid vendor spec" do
 
-      let (:builder) { VendorKit::Manifest::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmarkUnsafe", "DKBenchmark.manifest")) }
+      let (:builder) { VendorKit::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmarkUnsafe", "DKBenchmark.vendorspec")) }
 
       it "should load in the vendor spec" do
-        builder.manifest[:name].should == "DKBen!/asdf535chmark"
+        builder.vendor_spec[:name].should == "DKBen!/asdf535chmark"
       end
 
       it "should load the name of the vendor" do
@@ -52,7 +52,7 @@ describe VendorKit::Manifest::Builder do
 
   context "#build" do
 
-    let (:builder) { VendorKit::Manifest::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.manifest")) }
+    let (:builder) { VendorKit::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")) }
 
     before :all do
       builder.build
@@ -70,7 +70,7 @@ describe VendorKit::Manifest::Builder do
 
     it "should contain a vendor.json file" do
       Zip::ZipFile.open(builder.filename) do |zipfile|
-        zipfile.file.read("vendor.json").should == builder.manifest.to_json
+        zipfile.file.read("vendor.json").should == builder.vendor_spec.to_json
       end
     end
 

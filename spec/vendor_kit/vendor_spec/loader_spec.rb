@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe VendorKit::Manifest::Loader do
+describe VendorKit::VendorSpec::Loader do
 
-  let (:loader) { VendorKit::Manifest::Loader.new }
+  let (:loader) { VendorKit::VendorSpec::Loader.new }
 
   context "#initialize" do
 
     it "should create a dsl" do
-      loader.dsl.should be_kind_of?(VendorKit::Manifest::DSL)
+      loader.dsl.should be_kind_of?(VendorKit::VendorSpec::DSL)
     end
 
   end
 
   context "#vendor" do
 
-    it "should allow you to pass a block and define manifest properties" do
-      loader.manifest do
+    it "should allow you to pass a block and define vendor spec properties" do
+      loader.vendor do
         name "Something"
         files [ "Foo", "Bar" ]
       end
@@ -29,7 +29,7 @@ describe VendorKit::Manifest::Loader do
   context "#load" do
 
     it "should allow you to load from a file" do
-      loader.load File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.manifest")
+      loader.load File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")
 
       loader.dsl.name.should == "DKBenchmark"
       loader.dsl.authors.should == "keithpitt"

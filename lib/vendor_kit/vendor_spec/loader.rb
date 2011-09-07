@@ -1,15 +1,15 @@
 module VendorKit
-  module Manifest
+  module VendorSpec
 
     class Loader
 
       attr_reader :dsl
 
       def initialize
-        @dsl = VendorKit::Manifest::DSL.new
+        @dsl = VendorKit::VendorSpec::DSL.new
       end
 
-      def manifest(&block)
+      def vendor(&block)
         @dsl.instance_eval &block
       end
 

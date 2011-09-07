@@ -16,7 +16,7 @@ class VendorKit::App < Thor
     Ripl.start :binding => VendorKit::CLI.instance_eval{ binding }
   end
 
-  desc "build MANIFEST_FILE", "Build a vendor package from a manifest file"
+  desc "build MANIFEST_FILE", "Build a vendor package from a vendorspec file"
   def build(file)
     builder = VendorKit::Manifest::Builder.new(File.expand_path(file))
     if builder.build
