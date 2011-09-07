@@ -9,3 +9,4 @@ contents.xcworkspacedata
 *.gem
 tmp
 log
+*.vendor

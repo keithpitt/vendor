@@ -1,0 +1,15 @@
+manifest do
+
+  name          "DKBen!/asdf535chmark"
+  version       "0.1/asdf52fs"
+
+  authors       "keithpitt"
+  email         "me@keithpitt.com"
+  homepage      "http://www.keithpitt.com"
+  description   "Easy benchmarking in Objective-C using blocks"
+
+  github        "https://github.com/keithpitt/DKBenchmark"
+
+  files         [ "DKBenchmark.h", "DKBenchmark.m" ]
+
+end

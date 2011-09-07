@@ -16,6 +16,17 @@ class VendorKit::App < Thor
     Ripl.start :binding => VendorKit::CLI.instance_eval{ binding }
   end
 
+  desc "build MANIFEST_FILE", "Build a vendor package from a manifest file"
+  def build(file)
+    builder = VendorKit::Manifest::Builder.new(File.expand_path(file))
+    if builder.build
+      puts "Successfully built Vendor".green
+      puts "Name: #{builder.name}"
+      puts "Version: #{builder.version}"
+      puts "File: #{builder.filename}"
+    end
+  end
+
 end
 
 VendorKit::App.start
