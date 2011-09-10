@@ -3,6 +3,7 @@ PATH
   specs:
     vendor_kit (0.0.1)
       colorize
+      httparty
       json
       rake
       ripl
@@ -16,7 +17,11 @@ GEM
     bond (0.4.1)
     colorize (0.5.8)
     columnize (0.3.4)
+    crack (0.1.8)
     diff-lcs (1.1.2)
+    fakeweb (1.3.0)
+    httparty (0.7.8)
+      crack (= 0.1.8)
     json (1.5.4)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -56,6 +61,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  fakeweb
   rspec
   ruby-debug
   ruby-debug19

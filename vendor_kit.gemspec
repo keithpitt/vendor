@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "rspec"
+  s.add_development_dependency "fakeweb"
 
   s.add_runtime_dependency "ripl"
   s.add_runtime_dependency "rake"
@@ -27,5 +28,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "thor"
   s.add_runtime_dependency "rubyzip"
   s.add_runtime_dependency "colorize"
+  s.add_runtime_dependency "httparty"
 
 end

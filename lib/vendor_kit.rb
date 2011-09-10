@@ -2,6 +2,8 @@ $:.push File.expand_path("../", __FILE__)
 
 require "vendor_kit/version"
 require "vendor_kit/plist"
+require "vendor_kit/config"
+require "vendor_kit/api"
 
 require "vendor_kit/vendor_spec/builder"
 require "vendor_kit/vendor_spec/dsl"

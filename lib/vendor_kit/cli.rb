@@ -1,3 +1,5 @@
+require "vendor_kit/cli/auth"
+
 module VendorKit
 
   module CLI
