@@ -7,7 +7,7 @@ module VendorKit
 
     include HTTParty
 
-    base_uri VendorKit::Config.get(:"development.api_uri") || 'http://vendorage.com'
+    base_uri ENV["API_URI"] || 'http://vendorage.com'
 
     def self.api_key(username, password)
       options = { :basic_auth => { :username => username, :password => password } }
