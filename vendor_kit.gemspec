@@ -28,6 +28,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "thor"
   s.add_runtime_dependency "rubyzip"
   s.add_runtime_dependency "colorize"
-  s.add_runtime_dependency "httparty"
+  s.add_runtime_dependency "rest-client"
 
 end
