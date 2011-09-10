@@ -2,6 +2,7 @@ module VendorKit
   module Config
 
     require 'fileutils'
+    require 'yaml'
 
     extend self
 
@@ -35,7 +36,7 @@ module VendorKit
 
       def load_or_create
         if File.exist?(config_file)
-          YAML::load_file(config_file)
+          YAML.load_file(config_file) || {}
         else
           {}
         end

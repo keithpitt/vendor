@@ -13,7 +13,7 @@ describe VendorKit::API do
     it "should raise an error if the server returns a non 200" do
       expect do
         VendorKit::API.api_key("keithpitt", "error")
-      end.should raise_error(VendorKit::API::Error, "Could not download API key from server. Server returned a staus code of 500")
+      end.should raise_error(VendorKit::API::Error, "Could not complete request. Server returned a status code of 500")
     end
 
     it "should return an API key if the server returns a 200" do

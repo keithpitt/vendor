@@ -22,13 +22,6 @@ class VendorKit::App < Thor
     end
   end
 
-  desc "console", "Load an interactive shell with the VendorKit classes loaded"
-  def console
-    # Need to clear the arguments otherwise they are passed through to RIPL
-    ARGV.clear
-    Ripl.start :binding => VendorKit::CLI.instance_eval{ binding }
-  end
-
   desc "build MANIFEST_FILE", "Build a vendor package from a vendorspec file"
   def build(file)
     builder = VendorKit::Manifest::Builder.new(File.expand_path(file))
@@ -38,6 +31,25 @@ class VendorKit::App < Thor
       puts "Version: #{builder.version}"
       puts "File: #{builder.filename}"
     end
+  end
+
+  desc "publish VENDOR_FILE", "Publish a vendor package to vendorage.com"
+  def publish(file)
+    begin
+      VendorKit::CLI::Auth.with_api_key do |api_key|
+        url = VendorKit::API.publish :file => File.expand_path(file), :api_key => api_key
+        puts "Successfully published to #{url}".green
+      end
+    rescue VendorKit::API::Error => e
+      puts "Error: #{e.message}".red
+    end
+  end
+
+  desc "console", "Load an interactive shell with the VendorKit classes loaded"
+  def console
+    # Need to clear the arguments otherwise they are passed through to RIPL
+    ARGV.clear
+    Ripl.start :binding => VendorKit::CLI.instance_eval{ binding }
   end
 
   # Exit with 1 if thor encounters an error (such as command missing)
