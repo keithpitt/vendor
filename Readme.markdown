@@ -71,6 +71,12 @@ following:
 
 `$ vendor library publish`
 
+## History
+
+Vendor was inspired by [this blog post](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/), and subsequently [this repo](https://github.com/bazaarlabs/vendor).
+
+After reading [this blog post](http://www.germanforblack.com/articles/false-fears) by Ben Schwarz, I decided just to start something. So I've probably made mistaked, or written somehting poorly. But thats OK, because at least I have *something* working. If you see something you think could be done better, feel free to fork and submit a pull request :)
+
 ## Contributers
 
 * [Keith Pitt](http://www.keithpitt.com)
