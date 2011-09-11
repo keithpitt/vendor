@@ -84,8 +84,8 @@ After reading [this blog post](http://www.germanforblack.com/articles/false-fear
 ## Contributers
 
 * [Keith Pitt](http://www.keithpitt.com)
-* [Tim Lee](http://twitter.com/#!/timothy1ee) (For his inspiring post on [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/))
-* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb) (For his ASCII Plist Parser)
+* [Tim Lee](http://twitter.com/#!/timothy1ee)
+* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb)
 
 ## Note on Patches/Pull Requests
 
