@@ -1,10 +1,16 @@
 # Vendor – an iOS library management system
 
-Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after Bundler. Vendor streamlines the installation and update process for dependent libraries.  It also tracks versions and manages dependencies between libraries.
+Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after [Bundler](https://github.com/carlhuda/bundler). Vendor streamlines the installation and update process for dependent libraries.  It also tracks versions and manages dependencies between libraries.
 
 ## Installation
 
-`$ gem install vendor`
+If you have [RVM](http://beginrescueend.com/rvm/install/) installed, simply run:
+
+```bash
+$ gem install vendor
+```
+
+Otherwise, you'll need to `sudo gem install vendor`
 
 ## Installing Libraries
 
@@ -15,20 +21,30 @@ Specify your dependencies in a Vendors file in your project's root.
 ```ruby
 source "https://vendorage.com"
 
-lib "facebook-ios-sdk"  # Formula specified at source above
+lib "facebook-ios-sdk"
 lib "three20"
 lib "asi-http-request", :git => "https://github.com/pokeb/asi-http-request.git"
 lib "JSONKit", :git => "https://github.com/johnezang/JSONKit.git"
 ```
 
+You can do this by either creating a `Vendorfile` manually, or simply typing:
+
+```bash
+$ vendor init
+```
+
 ### Step 2) Install dependencies
 
-```ruby
+```bash
 $ vendor install
 $ git add Vendors.lock
 ```
 
-Installing a vendor library gets the latest version of the code, and adds them directly to your project under a "Vendor" group.  As part of the installation process, the required frameworks are added aswell as any compiler/linker flags.  The installed version of the library is captured in the Vendors.lock file.
+Installing a vendor library gets the latest version of the code, and adds them directly to your project in a "Vendor" group.  As part of the installation process the required frameworks are added aswell as any compiler/linker flags.  The installed version of the library is captured in the Vendors.lock file.
+
+### Step 3) Restart XCode
+
+XCode sometimes goes bonkers if you try and make a modification to it while its running. Its easier just to either `vendor install` while its not running, or restart right after installing libraries.
 
 ## Creating Libraries
 
