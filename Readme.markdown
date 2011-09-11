@@ -43,7 +43,7 @@ $ vendor install
 $ git add Vendors.lock
 ```
 
-Installing a vendor library gets the latest version of the code, and adds them directly to your project in a "Vendor" group.
+Installing a vendor library gets the latest version of the code, and adds them directly to your project in a `Vendor` group.
 
 As part of the installation process the required frameworks are added aswell as any compiler/linker flags. The installed version of the library is captured in the Vendors.lock file.
 
