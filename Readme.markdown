@@ -14,6 +14,8 @@ TODO
 
 * [Keith Pitt](http://www.keithpitt.com)
 * [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb) (For his ASCII Plist Parser)
+* [Tim Lee](http://twitter.com/#!/timothy1ee) (For his
+  inspiring post on [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/)
 
 ## Note on Patches/Pull Requests
 
