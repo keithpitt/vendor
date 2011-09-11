@@ -73,9 +73,11 @@ following:
 
 ## History
 
-Vendor was inspired by [this blog post](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/), and subsequently [this repo](https://github.com/bazaarlabs/vendor).
+Vendor was inspired by a blog post entitled [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/). I had started working on Vendor after they started doing it themselves. Their repo can be found here [https://github.com/bazaarlabs/vendor](https://github.com/bazaarlabs/vendor). I took many of the ideas (and parts of this Readme) from their code.
 
 After reading [this blog post](http://www.germanforblack.com/articles/false-fears) by Ben Schwarz, I decided just to start something. So I've probably made mistaked, or written somehting poorly. But thats OK, because at least I have *something* working. If you see something you think could be done better, feel free to fork and submit a pull request :)
+
+> There is no value in hoarding away your treasures. If you’re genuinely creating things that you want to share with other people, then put them out there, fail, make mistakes and poor judgements... but for gods sake, do something!
 
 ## Contributers
 
