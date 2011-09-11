@@ -7,7 +7,7 @@ describe Vendor::VendorSpec::Loader do
   context "#initialize" do
 
     it "should create a dsl" do
-      loader.dsl.should be_kind_of?(Vendor::VendorSpec::DSL)
+      loader.dsl.should be_kind_of(Vendor::VendorSpec::DSL)
     end
 
   end

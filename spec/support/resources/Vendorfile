@@ -4,7 +4,7 @@ source "http://vendorage.com"
 lib "Lib"
 lib "LibWithVersion", "4.1"
 lib "LibWithGreaterThanVersion", ">=1.0"
-lib "LibWithApproxVersion", "~>1.0"
+lib "LibWithApproxVersionAndTarget", "~>1.0", :target => "something"
 
 lib "LibWithGit", :git => "https://github.com/keithpitt/vendor.git"
 lib "LibWithGitAndBranch", :git => "https://github.com/keithpitt/vendor.git", :branch => "1.4"
@@ -13,10 +13,10 @@ lib "LibWithGitAndRef", :git => "https://github.com/keithpitt/vendor.git", :ref 
 
 lib "LibWithPath", :path => "~/Development/Library/Path"
 
-target "LibWithSpecificTarget", :target => "UISpecs"
-target "LibWithMultipleTarget", :target => [ "Specs", "UISpecs" ]
+lib "LibWithSpecificTarget", :target => "UISpecs"
+lib "LibWithMultipleTarget", :target => [ "Specs", "UISpecs" ]
 
-target "Specs" do
+target "Specs", "UISpecs" do
   lib "SpecLib1"
   lib "SpecLib2"
 end

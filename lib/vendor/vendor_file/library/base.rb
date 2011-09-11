@@ -15,6 +15,8 @@ module Vendor
           @targets = [ *value ]
         end
 
+        alias :target= :targets=
+
       end
 
     end

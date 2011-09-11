@@ -9,6 +9,7 @@ module Vendor
 
         alias :branch= :tag=
         alias :ref= :tag=
+        alias :git= :uri=
 
         def initialize(attributes = {})
           super({ :tag => "master" }.merge(attributes))
