@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'rspec'
 
-require './lib/vendor_kit'
-require './lib/vendor_kit/cli'
+require './lib/vendor'
+require './lib/vendor/cli'
 
 Dir["spec/support/**/*.rb"].each { |f| require "./#{f}" }
 
@@ -14,4 +14,4 @@ TEMP_PROJECT_PATH = File.join(File.dirname(__FILE__), "..", "tmp")
 
 TempProject.cleanup
 
-VendorKit::Config.directory = File.expand_path(File.join(__FILE__, "..", "..", "tmp", "config"))
+Vendor::Config.directory = File.expand_path(File.join(__FILE__, "..", "..", "tmp", "config"))

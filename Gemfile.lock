@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vendor_kit (0.0.1)
+    vendor (0.0.1)
       colorize
       json
       rake
@@ -65,4 +65,4 @@ DEPENDENCIES
   rspec
   ruby-debug
   ruby-debug19
-  vendor_kit!
+  vendor!
