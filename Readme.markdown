@@ -25,13 +25,12 @@ Specify your dependencies in a Vendors file in your project's root.
 ```ruby
 source "https://vendorage.com"
 
-lib "facebook-ios-sdk"
-lib "three20"
-lib "asi-http-request", :git => "https://github.com/pokeb/asi-http-request.git"
+lib "DKBenchmark"
+lib "DKPredicateBuilder"
 lib "JSONKit", :git => "https://github.com/johnezang/JSONKit.git"
 ```
 
-You can do this by either creating a `Vendorfile` manually, or simply typing:
+You can do this by either creating a `Vendorfile` manually, or by running:
 
 ```bash
 $ vendor init
@@ -44,11 +43,13 @@ $ vendor install
 $ git add Vendors.lock
 ```
 
-Installing a vendor library gets the latest version of the code, and adds them directly to your project in a "Vendor" group.  As part of the installation process the required frameworks are added aswell as any compiler/linker flags.  The installed version of the library is captured in the Vendors.lock file.
+Installing a vendor library gets the latest version of the code, and adds them directly to your project in a "Vendor" group.
+
+As part of the installation process the required frameworks are added aswell as any compiler/linker flags. The installed version of the library is captured in the Vendors.lock file.
 
 ### Step 3) Restart XCode
 
-XCode sometimes goes bonkers if you try and make a modification to it while its running. Its easier just to either `vendor install` while its not running, or restart right after installing libraries.
+XCode sometimes goes bonkers if you try and make a modification to it while its running. It's easier just to either `vendor install` while its not running, or restart right after installing libraries.
 
 ## Creating Libraries
 
