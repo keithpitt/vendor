@@ -18,7 +18,7 @@ $ sudo gem install vendor
 
 ## Installing Libraries
 
-### Step 1) Specify dependencies
+### Step 1: Specify dependencies
 
 Specify your dependencies in a Vendors file in your project's root.
 
@@ -36,7 +36,7 @@ You can do this by either creating a `Vendorfile` manually, or by running:
 $ vendor init
 ```
 
-### Step 2) Install dependencies
+### Step 2: Install dependencies
 
 ```bash
 $ vendor install
@@ -47,7 +47,7 @@ Installing a vendor library gets the latest version of the code, and adds them d
 
 As part of the installation process the required frameworks are added aswell as any compiler/linker flags. The installed version of the library is captured in the Vendors.lock file.
 
-### Step 3) Restart XCode
+### Step 3: Restart XCode
 
 XCode sometimes goes bonkers if you try and make a modification to it while its running. It's easier just to either `vendor install` while its not running, or restart right after installing libraries.
 
