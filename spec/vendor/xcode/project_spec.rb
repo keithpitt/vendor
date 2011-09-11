@@ -109,8 +109,8 @@ describe Vendor::XCode::Project do
 
   context '#add_file' do
 
-    let(:first_file) { File.join(FILE_RESOURCE_PATH, "SecondViewController.h") }
-    let(:second_file) { File.join(FILE_RESOURCE_PATH, "SecondViewController.m") }
+    let(:first_file) { File.join(SOURCE_RESOURCE_PATH, "SecondViewController.h") }
+    let(:second_file) { File.join(SOURCE_RESOURCE_PATH, "SecondViewController.m") }
 
     before :all do
       @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs"))
