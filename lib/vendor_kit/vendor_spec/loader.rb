@@ -14,7 +14,7 @@ module VendorKit
       end
 
       def load(filename)
-        self.instance_eval(File.read(filename), filename)
+        @dsl.instance_eval(File.read(filename), filename)
       end
 
     end
