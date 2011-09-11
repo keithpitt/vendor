@@ -13,7 +13,7 @@ $ gem install vendor
 Otherwise, you'll need to:
 
 ```bash
-sudo gem install vendor
+$ sudo gem install vendor
 ```
 
 ## Installing Libraries
