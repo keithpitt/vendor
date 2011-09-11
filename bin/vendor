@@ -6,8 +6,8 @@ require "ripl"
 
 $:.push File.expand_path(File.join(__FILE__, "..", "..", "lib"))
 
-require "vendor_kit"
-require "vendor_kit/cli"
+require "vendor"
+require "vendor/cli"
 
 class VendorKit::App < Thor
 
