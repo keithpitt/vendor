@@ -10,7 +10,11 @@ If you have [RVM](http://beginrescueend.com/rvm/install/) installed, simply run:
 $ gem install vendor
 ```
 
-Otherwise, you'll need to `sudo gem install vendor`
+Otherwise, you'll need to:
+
+```bash
+sudo gem install vendor
+```
 
 ## Installing Libraries
 
@@ -48,8 +52,11 @@ XCode sometimes goes bonkers if you try and make a modification to it while its 
 
 ## Creating Libraries
 
-Run `vendor library create` in the root of your library. It will create a
-`.vendorspec` file that looks something like this:
+```bash
+$ vendor library create
+```
+
+Will create a `.vendorspec` file that looks something like this:
 
 ```ruby
 name          "DKBenchmark"
@@ -66,8 +73,7 @@ files         [ "DKBenchmark.h", "DKBenchmark.m" ]
 ```
 
 Change what you need to match your project, and to push the library to
-[http://vendorage.com](http://vendorage.com), just type in the
-following:
+[http://vendorage.com](http://vendorage.com), just run the following:
 
 `$ vendor library publish`
 
@@ -79,7 +85,7 @@ After reading [this blog post](http://www.germanforblack.com/articles/false-fear
 
 > There is no value in hoarding away your treasures. If you’re genuinely creating things that you want to share with other people, then put them out there, fail, make mistakes and poor judgements... but for gods sake, do something!
 
- So I've probably made mistake or two. But thats OK, because at least I have *something* working. If you see something you think could be done better, feel free to fork and submit a pull request :)
+So I've probably made mistake or two. But thats OK, because at least I have *something* working. If you see something you think could be done better, feel free to fork and submit a pull request :)
 
 ## Contributers
 
