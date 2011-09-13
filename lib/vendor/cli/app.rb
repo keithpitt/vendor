@@ -26,6 +26,7 @@ module Vendor
             end
           rescue Vendor::API::Error => e
             puts "Error: #{e.message}".red
+            exit 1
           end
         end
 
@@ -37,6 +38,23 @@ module Vendor
       end
 
       register Library, 'library', 'library <command>', 'Commands that will help you create and publish libraries', :hide => true
+
+      desc "install", "Install the libraries defined in your Vendorfile to the current project"
+      def install
+        vendorfile = File.expand_path("Vendorfile")
+
+        unless File.exist?(vendorfile)
+          puts "Could not find Vendorfile".red
+          exit 1
+        end
+
+        download_path = File.expand_path("~/.vendor/libraries/")
+
+        loader = Vendor::VendorFile::Loader.new
+        loader.load vendorfile
+        loader.download download_path
+        loader.install "Project"
+      end
 
       desc "auth", "Login to your vendorage.com account"
       def auth
