@@ -6,9 +6,9 @@ module Vendor
 
       class Library < Thor
 
-        desc "library build MANIFEST_FILE", "Build a vendor package from a vendorspec file"
+        desc "library build VENDORSPEC_FILE", "Build a vendor package from a vendorspec file"
         def build(file)
-          builder = Vendor::Manifest::Builder.new(File.expand_path(file))
+          builder = Vendor::VendorSpec::Builder.new(File.expand_path(file))
           if builder.build
             puts "Successfully built Vendor".green
             puts "Name: #{builder.name}"
