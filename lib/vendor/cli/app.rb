@@ -17,7 +17,7 @@ module Vendor
           end
         end
 
-        desc "library publish VENDOR_FILE", "Publish a vendor package to vendorage.com"
+        desc "library publish VENDOR_FILE", "Publish a vendor package to vendorforge.org"
         def publish(file)
           begin
             Vendor::CLI::Auth.with_api_key do |api_key|
@@ -56,7 +56,7 @@ module Vendor
         loader.install "Project"
       end
 
-      desc "auth", "Login to your vendorage.com account"
+      desc "auth", "Login to your vendorforge.org account"
       def auth
         begin
           Vendor::CLI::Auth.with_api_key do |api_key|

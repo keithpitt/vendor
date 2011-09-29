@@ -42,7 +42,7 @@ module Vendor
       end
 
       def resource(user = nil, pass = nil)
-        RestClient::Resource.new(ENV["API_URI"] || 'http://vendorage.com', :user => user, :password => pass)
+        RestClient::Resource.new(ENV["API_URI"] || 'http://vendorforge.org', :user => user, :password => pass)
       end
 
   end
