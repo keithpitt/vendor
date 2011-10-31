@@ -1,4 +1,5 @@
 module Vendor
+
   module VendorFile
 
     class DSL
@@ -47,4 +48,5 @@ module Vendor
     end
 
   end
+
 end

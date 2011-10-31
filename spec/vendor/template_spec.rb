@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'vendor/template'
 
 describe Vendor::Template do
 

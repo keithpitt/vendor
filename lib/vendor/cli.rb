@@ -1,7 +1,11 @@
-require "thor"
-require "thor/group"
-require "ripl"
+module Vendor
 
-require "vendor/cli/auth"
-require "vendor/cli/console"
-require "vendor/cli/app"
+  module CLI
+
+    autoload :Auth,    "vendor/cli/auth"
+    autoload :Console, "vendor/cli/console"
+    autoload :App,     "vendor/cli/app"
+
+  end
+
+end

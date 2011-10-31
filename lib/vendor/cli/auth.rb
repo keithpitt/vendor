@@ -1,4 +1,5 @@
 module Vendor
+
   module CLI
 
     module Auth
@@ -35,4 +36,5 @@ module Vendor
     end
 
   end
+
 end

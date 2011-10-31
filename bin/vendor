@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby
 require "rubygems"
 
+require "thor"
+require "thor/group"
+require "ripl"
+
 # During development, I symlink /usr/local/bin/vendor to this file
 this_file = File.symlink?(__FILE__) ? File.readlink(__FILE__) : __FILE__
 $:.push File.expand_path(File.join(this_file, "..", "..", "lib"))
 
 require "vendor"
-require "vendor/cli"
 
 Vendor::CLI::App.start

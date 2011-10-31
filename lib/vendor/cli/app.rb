@@ -67,8 +67,6 @@ module Vendor
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"
       def init
-        require 'vendor/template'
-
         Vendor::Template.copy "Vendorfile"
       end
 

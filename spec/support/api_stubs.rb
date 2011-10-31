@@ -1,4 +1,5 @@
 require 'fakeweb'
+require 'json'
 
 FakeWeb.register_uri :get, "http://keithpitt:password@vendorforge.org/users/keithpitt/api_key.json",
                      :body => { :api_key => "secret" }.to_json
