@@ -53,11 +53,21 @@ XCode sometimes goes bonkers if you try and make a modification to it while its 
 
 ## Creating Libraries
 
+If a vendor library has no framework dependencies, has no required additional compiler/linker flags, and has an XCode project, it doesn’t require a `.vendorspec`. An example is JSONKit, which may be specified as below. However, if another Vendor library requires JSONKit, JSONKit must have a Vendor formula.
+
+```ruby
+lib "JSONKit", :git => "https://github.com/johnezang/JSONKit.git"
+```
+
+However, if the vendor library requires frameworks or has dependencies on other Vendor libraries, it must have a `.vendorspec`. As with Rubygems, a `.vendorspec` is some declarative Ruby code that is open source and centrally managed.
+
+To create a `.vendorspec` simply run:
+
 ```bash
 $ vendor library create
 ```
 
-Will create a `.vendorspec` file that looks something like this:
+This command will create a blank `.vendorspec` file that looks something like this:
 
 ```ruby
 name          "DKBenchmark"
