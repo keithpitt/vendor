@@ -2,8 +2,7 @@ module Vendor
 
   module XCode
 
-    autoload :Object,  "vendor/xcode/object"
-    autoload :Objects, "vendor/xcode/objects"
+    autoload :Proxy,   "vendor/xcode/proxy"
     autoload :Project, "vendor/xcode/project"
 
   end

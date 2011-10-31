@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Vendor::XCode::Project do
+describe Vendor::XCode::Proxy::PBXProject do
 
   before :all do
     @project = Vendor::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs/ProjectWithSpecs.xcodeproj"))

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Vendor::XCode::Object do
+describe Vendor::XCode::Proxy::Base do
 
   before :all do
     @project = Vendor::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs/ProjectWithSpecs.xcodeproj"))
@@ -10,7 +10,7 @@ describe Vendor::XCode::Object do
   context "#inspect" do
 
     it "should give you the attributes in the object" do
-      @pbx_project.build_configuration_list.inspect.should include("Vendor::XCode::Objects::XCConfigurationList")
+      @pbx_project.build_configuration_list.inspect.should include("Vendor::XCode::Proxy::XCConfigurationList")
       @pbx_project.build_configuration_list.inspect.should include("id: \"53787482140109AE00D9B746\"")
       @pbx_project.build_configuration_list.inspect.should include("build_configurations: [\"53787484140109AE00D9B746\", \"53787485140109AE00D9B746\"]")
       @pbx_project.build_configuration_list.inspect.should include("default_configuration_is_visible: \"0\"")
@@ -22,7 +22,7 @@ describe Vendor::XCode::Object do
   context "#attribute_name"do
 
     it "should convert the attribute to the correct format used in the project file (camel case)" do
-      Vendor::XCode::Object.attribute_name('build_config_list').should == "buildConfigList"
+      Vendor::XCode::Proxy::Base.attribute_name('build_config_list').should == "buildConfigList"
     end
 
   end

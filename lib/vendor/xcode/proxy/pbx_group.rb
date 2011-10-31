@@ -1,6 +1,6 @@
-module Vendor::XCode::Objects
+module Vendor::XCode::Proxy
 
-  class PBXGroup < Vendor::XCode::Object
+  class PBXGroup < Vendor::XCode::Proxy::Base
 
     reference :children
 

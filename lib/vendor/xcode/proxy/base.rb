@@ -1,6 +1,6 @@
-module Vendor::XCode
+module Vendor::XCode::Proxy
 
-  class Object
+  class Base
 
     attr_accessor :id
     attr_reader :attributes

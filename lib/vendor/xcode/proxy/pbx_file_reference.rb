@@ -1,6 +1,6 @@
-module Vendor::XCode::Objects
+module Vendor::XCode::Proxy
 
-  class PBXFileReference < Vendor::XCode::Object
+  class PBXFileReference < Vendor::XCode::Proxy::Base
 
     reference :file_ref
 

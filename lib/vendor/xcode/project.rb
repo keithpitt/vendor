@@ -36,7 +36,7 @@ module Vendor::XCode
       @objects_by_id = {}
 
       @objects = parsed['objects'].map do |id, attributes|
-        klass = Vendor::XCode::Objects.const_get(attributes['isa'])
+        klass = Vendor::XCode::Proxy.const_get(attributes['isa'])
 
         @objects_by_id[id] = klass.new(:project => self, :id => id, :attributes => attributes)
       end
@@ -59,8 +59,8 @@ module Vendor::XCode
         group = current.children.find { |x| x.name == name }
 
         unless group
-          group = Vendor::XCode::Objects::PBXGroup.new(:project => self,
-                                                          :id => Vendor::XCode::Object.generate_id,
+          group = Vendor::XCode::Proxy::PBXGroup.new(:project => self,
+                                                          :id => Vendor::XCode::Proxy::Base.generate_id,
                                                           :attributes => { 'path' => name, 'sourceTree' => '<group>', 'children' => [] })
 
           @objects_by_id[group.id] = group
@@ -92,10 +92,10 @@ module Vendor::XCode
       # Add the file to XCode
       group = find_and_make_group(options[:path])
       relative_path = File.join(options[:path], name)
-      file_type = Vendor::XCode::Objects::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
+      file_type = Vendor::XCode::Proxy::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
 
-      file = Vendor::XCode::Objects::PBXFileReference.new(:project => self,
-                                                             :id => Vendor::XCode::Object.generate_id,
+      file = Vendor::XCode::Proxy::PBXFileReference.new(:project => self,
+                                                             :id => Vendor::XCode::Proxy::Base.generate_id,
                                                              :attributes => { 'path' => name, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
 
       group.attributes['children'] << file.id

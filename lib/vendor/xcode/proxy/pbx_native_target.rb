@@ -1,6 +1,6 @@
-module Vendor::XCode::Objects
+module Vendor::XCode::Proxy
 
-  class PBXNativeTarget < Vendor::XCode::Object
+  class PBXNativeTarget < Vendor::XCode::Proxy::Base
 
     reference :build_phases
     reference :product_reference
