@@ -15,18 +15,21 @@ module Vendor
         @dsl.instance_eval(File.read(filename), filename)
       end
 
-      def download(path)
-        FileUtils.mkdir_p(path)
-
+      def download
         @dsl.libraries.each do |lib|
           if lib.respond_to?(:sources=)
             lib.sources = @dsl.sources
           end
-          lib.download(path)
+          lib.download
         end
       end
 
       def install(project)
+        Vendor.ui.info "Installing into #{project}"
+
+        @dsl.libraries.each do |lib|
+          lib.install project
+        end
       end
 
     end

@@ -61,7 +61,7 @@ module Vendor::XCode
         unless group
           group = Vendor::XCode::Proxy::PBXGroup.new(:project => self,
                                                           :id => Vendor::XCode::Proxy::Base.generate_id,
-                                                          :attributes => { 'path' => name, 'sourceTree' => '<group>', 'children' => [] })
+                                                  :attributes => { 'path' => name, 'sourceTree' => '<group>', 'children' => [] })
 
           @objects_by_id[group.id] = group
 
@@ -76,7 +76,7 @@ module Vendor::XCode
     end
 
     def add_file(options)
-      require_options options, :targets, :path, :file
+      require_options options, :path, :file
 
       # Ensure file exists
       raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
@@ -96,7 +96,7 @@ module Vendor::XCode
 
       file = Vendor::XCode::Proxy::PBXFileReference.new(:project => self,
                                                              :id => Vendor::XCode::Proxy::Base.generate_id,
-                                                             :attributes => { 'path' => name, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
+                                                     :attributes => { 'path' => name, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
 
       group.attributes['children'] << file.id
 

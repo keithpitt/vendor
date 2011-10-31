@@ -19,9 +19,7 @@ module Vendor
           super(attributes)
         end
 
-        def download(path)
-          cache_path = File.join(path, "git", name)
-
+        def download
           if File.exist?(cache_path)
             Vendor.ui.info "Updating #{uri}"
 

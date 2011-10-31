@@ -29,6 +29,14 @@ module Vendor
       @ui ||= UI.new
     end
 
+    def library_path
+      unless @library_path
+        @library_path = File.expand_path("~/.vendor/libraries/")
+        FileUtils.mkdir_p @library_path
+      end
+      @library_path
+    end
+
   end
 
 end

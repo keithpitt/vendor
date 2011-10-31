@@ -44,6 +44,9 @@ module Vendor
         Vendor.ui.debug! if options["verbose"]
       end
 
+      default_task :install
+      class_option "no-color", :type => :boolean, :banner => "Disable colorization in output"
+      class_option "verbose",  :type => :boolean, :banner => "Enable verbose output mode", :aliases => "-V"
       map "--version" => :version
 
       register Library, 'library', 'library <command>', 'Commands that will help you create and publish libraries', :hide => true
@@ -57,12 +60,21 @@ module Vendor
           exit 1
         end
 
-        download_path = File.expand_path("~/.vendor/libraries/")
+        projects = Dir["*.xcodeproj"]
+
+        if projects.length > 1
+          Vendor.ui.error "Mutiple projects found #{projects.join(', ')}. I don't know how to deal with this yet."
+          exit 1
+        end
+
+        project = Vendor::XCode::Project.new(projects.first)
 
         loader = Vendor::VendorFile::Loader.new
         loader.load vendorfile
-        loader.download download_path
-        loader.install "Project"
+        loader.download
+        loader.install project
+
+        project.save
       end
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"

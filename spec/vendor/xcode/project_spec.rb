@@ -165,12 +165,6 @@ describe Vendor::XCode::Project do
 
     context 'should raise an error if' do
 
-      it 'there is no target set' do
-        expect do
-          @temp_project.add_file :file => "ASD", :path => "ASD"
-        end.to raise_exception(StandardError, "Missing :targets option")
-      end
-
       it 'there is no path set' do
         expect do
           @temp_project.add_file :targets => "Specs", :file => first_file

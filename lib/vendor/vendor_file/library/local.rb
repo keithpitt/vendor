@@ -6,9 +6,11 @@ module Vendor
 
         attr_accessor :path
 
-        def download(path)
-          Vendor.ui.info "nothing to download, just reference #{path}"
-        end
+        private
+
+          def cache_path
+            File.expand_path(path)
+          end
 
       end
 

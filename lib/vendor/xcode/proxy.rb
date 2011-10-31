@@ -19,6 +19,7 @@ module Vendor
       autoload :PBXShellScriptBuildPhase,  "vendor/xcode/proxy/pbx_shell_script_build_phase"
       autoload :XCBuildConfiguration,      "vendor/xcode/proxy/xc_build_configuration"
       autoload :XCConfigurationList,       "vendor/xcode/proxy/xc_configuration_list"
+      autoload :XCVersionGroup,            "vendor/xcode/proxy/xc_version_group"
 
     end
 
