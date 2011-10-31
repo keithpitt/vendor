@@ -26,7 +26,7 @@ module Vendor
             Vendor.ui.info "Updating #{uri}"
 
             Dir.chdir(cache_path) do
-              git %|fetch --force --quiet --tags #{uri_escaped} "refs/heads/*:refs/heads/*"|
+              git %|fetch --force --quiet --tags #{uri_escaped}|
             end
           else
             Vendor.ui.info "Fetching #{uri}"
@@ -46,8 +46,7 @@ module Vendor
             out = %x{git #{command}}
 
             if $?.exitstatus != 0
-              msg = "Git error: command `git #{command}` in directory #{Dir.pwd} has failed.".red
-              raise GitError, msg
+              raise GitError, "Git error: command `git #{command}` in directory #{Dir.pwd} has failed."
             end
             out
           end
