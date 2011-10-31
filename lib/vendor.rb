@@ -1,4 +1,24 @@
-$:.push File.expand_path("../", __FILE__)
+module Vendor
+
+  autoload :UI, 'vendor/ui'
+
+  class << self
+
+    attr_writer :ui
+
+    def root
+      File.join File.expand_path("../", __FILE__)
+    end
+
+    def ui
+      @ui ||= UI.new
+    end
+
+  end
+
+end
+
+$:.push Vendor.root
 
 require "vendor/version"
 require "vendor/plist"

@@ -10,10 +10,10 @@ module Vendor
         def build(file)
           builder = Vendor::VendorSpec::Builder.new(File.expand_path(file))
           if builder.build
-            puts "Successfully built Vendor".green
-            puts "Name: #{builder.name}"
-            puts "Version: #{builder.version}"
-            puts "File: #{builder.filename}"
+            Vendor.ui.success "Successfully built Vendor".green
+            Vendor.ui.info "Name: #{builder.name}"
+            Vendor.ui.info "Version: #{builder.version}"
+            Vendor.ui.info "File: #{builder.filename}"
           end
         end
 
@@ -22,10 +22,10 @@ module Vendor
           begin
             Vendor::CLI::Auth.with_api_key do |api_key|
               url = Vendor::API.publish :file => File.expand_path(file), :api_key => api_key
-              puts "Successfully published to #{url}".green
+              Vendor.ui.success "Successfully published to #{url}"
             end
           rescue Vendor::API::Error => e
-            puts "Error: #{e.message}".red
+            Vendor.ui.error "Error: #{e.message}"
             exit 1
           end
         end
@@ -37,6 +37,13 @@ module Vendor
 
       end
 
+      def initialize(*)
+        super
+        the_shell = (options["no-color"] ? Thor::Shell::Basic.new : shell)
+        Vendor.ui = UI::Shell.new(the_shell)
+        Vendor.ui.debug! if options["verbose"]
+      end
+
       map "--version" => :version
 
       register Library, 'library', 'library <command>', 'Commands that will help you create and publish libraries', :hide => true
@@ -46,7 +53,7 @@ module Vendor
         vendorfile = File.expand_path("Vendorfile")
 
         unless File.exist?(vendorfile)
-          puts "Could not find Vendorfile".red
+          Vendor.ui.error "Could not find Vendorfile"
           exit 1
         end
 
@@ -58,18 +65,25 @@ module Vendor
         loader.install "Project"
       end
 
+      desc "init", "Generate a simple Vendorfile, placed in the current directory"
+      def init
+        require 'vendor/template'
+
+        Vendor::Template.copy "Vendorfile"
+      end
+
       desc "auth", "Login to your vendorforge.org account"
       def auth
         begin
           Vendor::CLI::Auth.with_api_key do |api_key|
-            puts "Successfully authenticated".green
+            Vendor.ui.success "Successfully authenticated"
           end
         rescue Vendor::API::Error => e
-          puts "Error: #{e.message}".red
+          Vendor.ui.error "Error: #{e.message}"
         end
       end
 
-      desc "console", "Load an interactive shell with the Vendor classes loaded"
+      desc "console", "Load an interactive shell with the Vendor classes loaded (used for development)"
       def console
         # Need to clear the arguments otherwise they are passed through to RIPL
         ARGV.clear
@@ -78,7 +92,7 @@ module Vendor
 
       desc "version", "Output the current version of vendor", :hide => true
       def version
-        puts Vendor::VERSION
+        Vendor.ui.info Vendor::VERSION
       end
 
       # Exit with 1 if thor encounters an error (such as command missing)

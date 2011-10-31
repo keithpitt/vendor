@@ -21,13 +21,13 @@ module Vendor
           cache_path = File.join(path, "git", name)
 
           if File.exist?(cache_path)
-            puts "Updating #{uri}"
+            Vendor.ui.info "Updating #{uri}"
 
             Dir.chdir(cache_path) do
               git %|fetch --force --quiet --tags #{uri_escaped} "refs/heads/*:refs/heads/*"|
             end
           else
-            puts "Fetching #{uri}"
+            Vendor.ui.info "Fetching #{uri}"
 
             FileUtils.mkdir_p(cache_path)
             git %|clone #{uri_escaped} "#{cache_path}"|

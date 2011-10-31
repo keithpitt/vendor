@@ -7,7 +7,6 @@ module Vendor
       require 'tmpdir'
       require 'find'
       require 'zip/zipfilesystem'
-      require 'colorize'
 
       attr_reader :name
       attr_reader :version

@@ -14,7 +14,7 @@ module Vendor
       end
 
       def fetch_api_key
-        puts "Please enter your vendorforge.org login and password".yellow
+        Vendor.ui.warn "Please enter your vendorforge.org login and password"
         printf "Login: "
         username = STDIN.gets.chomp.strip
         printf "Password: "

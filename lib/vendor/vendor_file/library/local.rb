@@ -7,7 +7,7 @@ module Vendor
         attr_accessor :path
 
         def download(path)
-          puts "nothing to download, just reference #{path}"
+          Vendor.ui.info "nothing to download, just reference #{path}"
         end
 
       end

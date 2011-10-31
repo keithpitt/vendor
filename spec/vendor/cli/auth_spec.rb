@@ -43,7 +43,7 @@ describe Vendor::CLI::Auth do
     it "should ask for their username and password" do
       STDIN.should_receive(:gets).once.ordered.and_return "keithpitt"
       STDIN.should_receive(:gets).once.ordered.and_return "password"
-      Vendor::CLI::Auth.should_receive(:puts).once
+      Vendor.ui.should_receive(:warn).once
       Vendor::CLI::Auth.should_receive(:printf).twice
 
       Vendor::CLI::Auth.fetch_api_key.should == "secret"
