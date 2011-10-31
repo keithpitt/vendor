@@ -37,6 +37,8 @@ module Vendor
 
       end
 
+      map "--version" => :version
+
       register Library, 'library', 'library <command>', 'Commands that will help you create and publish libraries', :hide => true
 
       desc "install", "Install the libraries defined in your Vendorfile to the current project"
@@ -72,6 +74,11 @@ module Vendor
         # Need to clear the arguments otherwise they are passed through to RIPL
         ARGV.clear
         Ripl.start :binding => Vendor::CLI::Console.instance_eval{ binding }
+      end
+
+      desc "version", "Output the current version of vendor", :hide => true
+      def version
+        puts Vendor::VERSION
       end
 
       # Exit with 1 if thor encounters an error (such as command missing)
