@@ -26,8 +26,11 @@ Specify your dependencies in a Vendors file in your project's root.
 source "https://vendorage.com"
 
 lib "DKBenchmark"
-lib "DKPredicateBuilder"
-lib "JSONKit", :git => "https://github.com/johnezang/JSONKit.git"
+lib "DKPredicateBuilder", '0.5'
+
+target "Integration Tests" do
+  lib "cedar", '0.2'
+end
 ```
 
 You can do this by either creating a `Vendorfile` manually, or by running:
