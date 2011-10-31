@@ -14,7 +14,9 @@ module Vendor
         alias :git= :uri=
 
         def initialize(attributes = {})
-          super({ :tag => "master" }.merge(attributes))
+          attributes[:tag] ||= attributes[:ref] || attributes[:branch] || "master"
+
+          super(attributes)
         end
 
         def download(path)

@@ -34,9 +34,11 @@ module Vendor
           end
         end
 
-        options = { :version => version }.merge(options || {}) if version
+        opts = { :name => name }.merge(options || {})
+        opts[:targets] = @with_targets if @with_targets && !opts.has_key?(:target) && !opts.has_key?(:targets)
+        opts[:version] = version if version
 
-        @libraries << klass.new({ :name => name, :targets => @with_targets }.merge(options || {}))
+        @libraries << klass.new(opts)
       end
 
       def target(*targets, &block)
