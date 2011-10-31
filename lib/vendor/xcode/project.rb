@@ -6,6 +6,7 @@ module Vendor::XCode
 
     require 'fileutils'
 
+    attr_reader :name
     attr_reader :object_version
     attr_reader :archive_version
     attr_reader :objects
@@ -14,6 +15,7 @@ module Vendor::XCode
     def initialize(project_folder)
       @project_folder = project_folder
       @pbxproject = ::File.join(project_folder, "project.pbxproj")
+      @name = File.basename(project_folder).split(".").first
 
       reload
     end
@@ -116,6 +118,22 @@ module Vendor::XCode
     def save
       open(@pbxproject, 'w+') do |f|
         f << to_ascii_plist
+      end if valid?
+    end
+
+    def valid?
+      begin
+        # Try and parse the plist again. If it parses, then we've
+        # got valid syntax, if it fails, it will raise a parse error. We
+        # know we've done something bad at this point.
+        Vendor::Plist.parse_ascii(to_ascii_plist)
+
+        true
+      rescue Vendor::Plist::AsciiParser::ParseError => e
+        Vendor.ui.error "There was an error converting the XCode project back to a Plist"
+        Vendor.ui.error e.inspect
+
+        false
       end
     end
 

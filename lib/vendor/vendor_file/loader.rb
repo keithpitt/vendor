@@ -25,7 +25,7 @@ module Vendor
       end
 
       def install(project)
-        Vendor.ui.info "Installing into #{project}"
+        Vendor.ui.info "Installing into #{project.name}"
 
         @dsl.libraries.each do |lib|
           lib.install project

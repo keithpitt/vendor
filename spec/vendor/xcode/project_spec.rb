@@ -33,9 +33,17 @@ describe Vendor::XCode::Project do
       it "should parse and load all the objects" do
         project = Vendor::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "TabBarWithUnitTests/TabBarWithUnitTests.xcodeproj"))
 
-        project.objects.length.should == 74
+        project.objects.length.should == 78
       end
 
+    end
+
+  end
+
+  context "#name" do
+
+    it "should have the correct project name" do
+      @project.name.should == "ProjectWithSpecs"
     end
 
   end
@@ -183,6 +191,20 @@ describe Vendor::XCode::Project do
         end.to raise_exception(StandardError, "Could not find file `foo`")
       end
 
+    end
+
+  end
+
+  context "#valid?" do
+
+    it "should return true the plist format is valid" do
+      @project.valid?.should be_true
+    end
+
+    it "should raise an error if there is an invalid format" do
+      @project.should_receive(:to_ascii_plist).and_return { "asd; { fasdfas" }
+
+      @project.valid?.should be_false
     end
 
   end

@@ -4,7 +4,7 @@ class String
     if length == 0
       "\"\""
     else
-      match(/\-|\s|\+|\<|\$|\"|\[|\=|\*/) ? self.inspect : self
+      match(/\-|\s|\+|\<|\$|\"|\[|\=|\*|@/) ? self.inspect : self
     end
   end
 

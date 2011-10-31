@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		532F5364145F68BB007AF27D /* Mario.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 532F5362145F68BB007AF27D /* Mario.jpg */; };
+		532F5365145F68BB007AF27D /* Mario@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 532F5363145F68BB007AF27D /* Mario@2x.jpg */; };
 		53FA525A1415C530001D35FA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FA52591415C530001D35FA /* UIKit.framework */; };
 		53FA525C1415C530001D35FA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FA525B1415C530001D35FA /* Foundation.framework */; };
 		53FA525E1415C530001D35FA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53FA525D1415C530001D35FA /* CoreGraphics.framework */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		532F5362145F68BB007AF27D /* Mario.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Mario.jpg; sourceTree = SOURCE_ROOT; };
+		532F5363145F68BB007AF27D /* Mario@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Mario@2x.jpg"; sourceTree = SOURCE_ROOT; };
 		53FA52551415C530001D35FA /* TabBarWithUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TabBarWithUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FA52591415C530001D35FA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		53FA525B1415C530001D35FA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -138,6 +142,8 @@
 		53FA52601415C530001D35FA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				532F5362145F68BB007AF27D /* Mario.jpg */,
+				532F5363145F68BB007AF27D /* Mario@2x.jpg */,
 				53FA52611415C530001D35FA /* TabBarWithUnitTests-Info.plist */,
 				53FA52621415C530001D35FA /* InfoPlist.strings */,
 				53FA52651415C530001D35FA /* main.m */,
@@ -236,6 +242,8 @@
 				53FA526D1415C530001D35FA /* MainWindow.xib in Resources */,
 				53FA52761415C530001D35FA /* FirstView.xib in Resources */,
 				53FA52791415C530001D35FA /* SecondView.xib in Resources */,
+				532F5364145F68BB007AF27D /* Mario.jpg in Resources */,
+				532F5365145F68BB007AF27D /* Mario@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +466,7 @@
 				53FA52951415C530001D35FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		53FA52961415C530001D35FA /* Build configuration list for PBXNativeTarget "TabBarWithUnitTestsTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +475,7 @@
 				53FA52981415C530001D35FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
