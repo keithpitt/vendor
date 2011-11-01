@@ -12,10 +12,13 @@ module Vendor::XCode
     attr_reader :objects
     attr_reader :root_object
 
+    attr_accessor :dirty
+
     def initialize(project_folder)
       @project_folder = project_folder
       @pbxproject = ::File.join(project_folder, "project.pbxproj")
       @name = File.basename(project_folder).split(".").first
+      @dirty = false
 
       reload
     end
@@ -87,6 +90,9 @@ module Vendor::XCode
         current = group
       end
 
+      # Mark as dirty
+      @dirty = true
+
       current
     end
 
@@ -118,6 +124,9 @@ module Vendor::XCode
         # Remove the group from the parent
         group.parent.attributes['children'].delete group.id
 
+        # Mark as dirty
+        @dirty = true
+
       else
         false
       end
@@ -148,6 +157,9 @@ module Vendor::XCode
 
       group.attributes['children'] << file.id
 
+      # Mark as dirty
+      @dirty = true
+
       @objects_by_id[file.id] = file
     end
 
@@ -165,6 +177,13 @@ module Vendor::XCode
       open(@pbxproject, 'w+') do |f|
         f << to_ascii_plist
       end if valid?
+
+      # Not dirty anymore
+      @dirty = false
+    end
+
+    def dirty?
+      @dirty
     end
 
     def valid?

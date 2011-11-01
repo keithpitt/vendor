@@ -74,7 +74,7 @@ module Vendor
         loader.download
         loader.install project
 
-        project.save
+        project.save if project.dirty?
       end
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"

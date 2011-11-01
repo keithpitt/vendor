@@ -26,6 +26,10 @@ describe Vendor::XCode::Project do
         @project.root_object.should_not be_nil
       end
 
+      it "should not be dirty" do
+        @project.dirty?.should be_false
+      end
+
     end
 
     context "TabBarWithUnitTests.xcodeproj" do
@@ -109,6 +113,10 @@ describe Vendor::XCode::Project do
         @here_group = @inside_group.children.last
       end
 
+      it "should mark the project as dirty" do
+        @project.dirty.should be_true
+      end
+
       it 'should create it in the correct location' do
         @here_group.should_not be_nil
       end
@@ -145,6 +153,12 @@ describe Vendor::XCode::Project do
     end
 
     context "removing an existing group" do
+
+      it "should mark the project as dirty" do
+        remove_group
+
+        @temp_project.dirty.should be_true
+      end
 
       it "should return true" do
         remove_group.should be_true
@@ -207,6 +221,10 @@ describe Vendor::XCode::Project do
 
       @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file, :path => "Controllers/SecondViewController"
       @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file, :path => "Controllers/SecondViewController"
+    end
+
+    it "should mark the project as dirty" do
+      @temp_project.dirty.should be_true
     end
 
     it 'should add the file to the filesystem' do
