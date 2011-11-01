@@ -1,0 +1,11 @@
+name          "DKBenchmark"
+version       "0.1"
+
+authors       "keithpitt"
+email         "me@keithpitt.com"
+homepage      "http://www.keithpitt.com"
+description   "Easy benchmarking in Objective-C using blocks"
+
+github        "https://github.com/keithpitt/DKBenchmark"
+
+files         [ "DKBenchmark.h", "DKBenchmark.m" ]

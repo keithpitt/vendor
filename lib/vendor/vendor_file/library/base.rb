@@ -42,19 +42,28 @@ module Vendor
           return [] unless File.exist?(cache_path)
 
           # Try and find a vendorspec in the cached folder
-          vendorspec = Dir[File.join(cache_path, "*.vendorspec")].first
+          vendor_spec = Dir[File.join(cache_path, "*.vendorspec")].first
 
           # Try and find a manifest (a built vendor file)
           manifest = File.join(cache_path, "vendor.json")
 
           # Calculate the files we need to add
           install_files = if manifest && File.exist?(manifest)
-            puts "Pulling from #{manifest}"
-          elsif vendorspec && File.exist?(vendorspec)
-            puts "Pulling from #{vendorspec}"
+
+            json = JSON.parse(File.read(manifest))
+            json['files'].map { |file| File.join(cache_path, "data", file) }
+
+          elsif vendor_spec && File.exist?(vendor_spec)
+
+            loader = Vendor::VendorSpec::Loader.new
+            loader.load vendor_spec
+            loader.dsl.files.map { |file| File.join(cache_path, file) }
+
           else
-            parts = [cache_path, self.require, "**/*.*"].compact
-            Dir[File.join(*parts)]
+
+            location = [ cache_path, self.require, "**/*.*" ].compact
+            Dir[ File.join *location ]
+
           end
 
           # Remove files that are within folders with a ".", such as ".bundle"

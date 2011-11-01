@@ -39,7 +39,9 @@ describe Vendor::VendorFile::Library::Base do
 
   describe "#files" do
 
-    let(:bing_library) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
+    let(:no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
+    let(:with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Manifest") }
+    let(:with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Vendorspec") }
 
     before :each do
       Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
@@ -47,9 +49,10 @@ describe Vendor::VendorFile::Library::Base do
 
     context "with no manifest or vendorspec" do
 
-      it "should return the correct files" do
-        names = bing_library.files.map { |file| File.basename(file) }
+      let(:files) { no_manifest_or_vendorspec.files }
+      let(:names) { files.map { |file| File.basename(file) } }
 
+      it "should return the correct files" do
         # This test is a little ugly, but meh, the Bing maps library has a good selection
         # of file types to test (including a ".a" and a ".bundle")
         ["BingMaps.h", "BMEntity.h", "BMGeometry.h", "BMMapView.h", "BMMarker.h",
@@ -59,20 +62,75 @@ describe Vendor::VendorFile::Library::Base do
         end
       end
 
+      it "should return files in the correct location" do
+        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/BingMapsIOS/MapControl/")
+        regex_path = /^#{path}.+$/
+
+        files.each do |file|
+          file.should =~ regex_path
+        end
+      end
+
+      it "should return files that exist" do
+        files.each do |file|
+          File.exist?(file).should be_true
+        end
+      end
+
     end
 
     context "with a vendorspec" do
 
-      it "should return the correct files" do
+      let(:files) { with_vendorspec.files }
+      let(:names) { files.map { |file| File.basename(file) } }
 
+      it "should return the correct files" do
+        ["DKBenchmark.h", "DKBenchmark.m"].each do |file|
+          names.should include(file)
+        end
+      end
+
+      it "should return files in the correct location" do
+        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-Vendorspec/")
+        regex_path = /^#{path}.+$/
+
+        files.each do |file|
+          file.should =~ regex_path
+        end
+      end
+
+      it "should return files that exist" do
+        files.each do |file|
+          File.exist?(file).should be_true
+        end
       end
 
     end
 
     context "with a manifest" do
 
-      it "should return the correct files" do
+      let(:files) { with_manifest.files }
+      let(:names) { files.map { |file| File.basename(file) } }
 
+      it "should return the correct files" do
+        ["DKBenchmark.h", "DKBenchmark.m"].each do |file|
+          names.should include(file)
+        end
+      end
+
+      it "should return files in the correct location" do
+        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-Manifest/data/")
+        regex_path = /^#{path}.+$/
+
+        files.each do |file|
+          file.should =~ regex_path
+        end
+      end
+
+      it "should return files that exist" do
+        files.each do |file|
+          File.exist?(file).should be_true
+        end
       end
 
     end
