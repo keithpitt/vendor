@@ -2,6 +2,8 @@ module Vendor
   module VendorFile
     module Library
 
+      require 'digest/md5'
+
       class Git < Base
 
         class GitError < StandardError; end
@@ -36,6 +38,13 @@ module Vendor
           Dir.chdir(cache_path) do
             git "reset --hard #{tag}"
           end
+        end
+
+        # If you change the git path, and not the lib name, we want to update
+        # the sources correctly. So instead of using the name, use a hash of
+        # the URI
+        def cache_path
+          @cache_path ||= File.join(Vendor.library_path, "git", Digest::MD5.hexdigest(uri))
         end
 
         private

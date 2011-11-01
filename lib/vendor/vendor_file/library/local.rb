@@ -6,11 +6,9 @@ module Vendor
 
         attr_accessor :path
 
-        private
-
-          def cache_path
-            File.expand_path(path)
-          end
+        def cache_path
+          File.expand_path(path)
+        end
 
       end
 
