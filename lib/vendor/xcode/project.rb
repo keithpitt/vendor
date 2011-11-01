@@ -105,7 +105,7 @@ module Vendor::XCode
 
             # Remove the file from the filesystem
             if File.exist?(file)
-              FileUtils.rm
+              FileUtils.rm file
             end
           else
             Vendor.ui.error "Couldn't remove object: #{child}"

@@ -6,36 +6,40 @@ module Vendor::XCode::Proxy
     attr_accessor :parent
     attr_reader :attributes
 
-    # I don't know what the ID's are made up of in XCode,
-    # so lets just generate a 24 character string.
-    def self.generate_id
-      (0...24).map { '%02X' % rand(256) }.join
-    end
+    class << self
 
-    def self.object_references
-      @references || []
-    end
-
-    def self.reference(name)
-      attribute = attribute_name(name)
-
-      define_method name do
-        value = @attributes[attribute]
-        if value.kind_of?(Array)
-          value.map { |id| @project.find_object(id) }
-        else
-          @project.find_object(value)
-        end
+      # I don't know what the ID's are made up of in XCode,
+      # so lets just generate a 24 character string.
+      def generate_id
+        (0...24).map { '%02X' % rand(256) }.join
       end
 
-      @references ||= []
-      @references << name
-    end
+      def object_references
+        @references || []
+      end
 
-    # References are stored in camel case in the project file
-    def self.attribute_name(name)
-      camelized = name.to_s.gsub(/[^\w]/, '').gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
-      camelized[0].chr.downcase + camelized[1..-1]
+      def reference(name)
+        attribute = attribute_name(name)
+
+        define_method name do
+          value = @attributes[attribute]
+          if value.kind_of?(Array)
+            value.map { |id| @project.find_object(id) }
+          else
+            @project.find_object(value)
+          end
+        end
+
+        @references ||= []
+        @references << name
+      end
+
+      # References are stored in camel case in the project file
+      def attribute_name(name)
+        camelized = name.to_s.gsub(/[^\w]/, '').gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+        camelized[0].chr.downcase + camelized[1..-1]
+      end
+
     end
 
     def initialize(options)
