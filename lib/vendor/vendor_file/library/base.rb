@@ -31,38 +31,40 @@ module Vendor
           project.remove_group destination
 
           # Install the files back into the project
-          install_files.each do |file|
+          files.each do |file|
             Vendor.ui.debug "Copying file #{file} to #{destination}"
 
             project.add_file :targets => targets, :path => destination, :file => file
           end
         end
 
+        def files
+          return [] unless File.exist?(cache_path)
+
+          # Try and find a vendorspec in the cached folder
+          vendorspec = Dir[File.join(cache_path, "*.vendorspec")].first
+
+          # Try and find a manifest (a built vendor file)
+          manifest = File.join(cache_path, "vendor.json")
+
+          # Calculate the files we need to add
+          install_files = if manifest && File.exist?(manifest)
+            puts "Pulling from #{manifest}"
+          elsif vendorspec && File.exist?(vendorspec)
+            puts "Pulling from #{vendorspec}"
+          else
+            parts = [cache_path, self.require, "**/*.*"].compact
+            Dir[File.join(*parts)]
+          end
+
+          # Remove files that are within folders with a ".", such as ".bundle"
+          # and ".frameworks"
+          install_files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+        end
+
         alias :target= :targets=
 
         private
-
-          def install_files
-            if File.exist?(cache_path)
-              vendorspec = Dir[File.join(cache_path, "*.vendorspec")].first
-              manifest = File.join(cache_path, "vendor.json")
-
-              if manifest && File.exist?(manifest)
-                puts "Pulling from #{manifest}"
-              elsif vendorspec && File.exist?(vendorspec)
-                puts "Pulling from #{vendorspec}"
-              else
-                parts = [cache_path, self.require, "**/*.*"].compact
-                files = Dir[File.join(*parts)]
-
-                # Remove files that are within folders with a ".", such as ".bundle"
-                # and ".frameworks"
-                files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
-              end
-            else
-              []
-            end
-          end
 
           def cache_path
             @cache_path ||= File.join(Vendor.library_path, self.class.name.split('::').last.downcase, name)
