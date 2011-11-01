@@ -151,7 +151,15 @@ describe Vendor::XCode::Project do
       end
 
       it "should remove the group" do
-        @project.find_group("UtilityApplication/Supporting Files").should be_nil
+        remove_group
+
+        @temp_project.find_group("UtilityApplication/Supporting Files").should be_nil
+      end
+
+      it "should remove the children from the group" do
+        remove_group
+
+        @temp_project.find_group("UtilityApplication").children.map(&:id).should_not include(@group.id)
       end
 
       it "should remove the files from the file system" do

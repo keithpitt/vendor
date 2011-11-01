@@ -98,26 +98,20 @@ module Vendor::XCode
 
         # Remove the children from the file system
         group.children.each do |child|
-
-          # Is it a group?
-          if child.group?
-
-            # Recursivley remove the child group
-            remove_group child.full_path
-
+          if child.group? # Is it a group?
+            remove_group child.full_path # Recursivley remove the child group
           elsif child.file? # Or a file
-
-            # Remove the file from the filesystem
-            FileUtils.rm File.expand_path(File.join(@project_folder, "..", child.full_path))
-
-            # Remove the file from the parent
-            child.parent.children.delete child.id
-
+            FileUtils.rm File.expand_path(File.join(@project_folder, "..", child.full_path)) # Remove the file from the filesystem
           else
             Vendor.ui.error "Couldn't remove object: #{child}"
           end
 
+          # Remove the file from the parent
+          child.parent.attributes['children'].delete child.id
         end
+
+        # Remove the group from the parent
+        group.parent.attributes['children'].delete group.id
 
       else
         false

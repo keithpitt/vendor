@@ -24,8 +24,13 @@ module Vendor
         def install(project)
           Vendor.ui.debug "Installing #{name} into #{project}"
 
+          destination = "Vendor/#{name}"
+
+          # Remove the group, and recreate
+          project.remove_group destination
+
+          # Install the files back into the project
           install_files.each do |file|
-            destination = "Vendor/#{name}"
             Vendor.ui.debug "Copying file #{file} to #{destination}"
 
             project.add_file :targets => targets, :path => destination, :file => file
