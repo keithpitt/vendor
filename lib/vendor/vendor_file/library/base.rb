@@ -8,6 +8,7 @@ module Vendor
 
         attr_accessor :name
         attr_accessor :targets
+        attr_accessor :require
 
         def initialize(attributes = {})
           attributes.each { |k, v| self.send("#{k}=", v) }
@@ -51,7 +52,9 @@ module Vendor
               elsif vendorspec && File.exist?(vendorspec)
                 puts "Pulling from #{vendorspec}"
               else
-                Dir[File.join(cache_path, "**/*.[hm]")]
+                extensions = Vendor::XCode::Proxy::SUPPORTED_FILE_TYPES.join(',')
+                file_path = [cache_path, self.require, "**/*.{#{extensions}"].compact
+                Dir[File.join(*file_path)]
               end
             else
               []

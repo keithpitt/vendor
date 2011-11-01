@@ -2,6 +2,8 @@ module Vendor::XCode::Proxy
 
   class PBXFileReference < Vendor::XCode::Proxy::Base
 
+    SUPPORTED_FILE_TYPES = %w(png jpg h m bundle framework a strings plist)
+
     reference :file_ref
 
     def name
@@ -26,8 +28,14 @@ module Vendor::XCode::Proxy
 
     def self.file_type_from_extension(extension)
       case extension
-        when ".h" then "sourcecode.c.h"
-        when ".m" then "sourcecode.c.objc"
+        when /.(png|jpg)/ then "image.#{$1}"
+        when ".h"         then "sourcecode.c.h"
+        when ".m"         then "sourcecode.c.objc"
+        when ".bundle"    then "wrapper.plug-in"
+        when ".framework" then "wrapper.framework"
+        when ".a"         then "archive.ar"
+        when ".strings"   then "text.plist.strings"
+        when ".plist"     then "text.plist.xml"
         else "unknown"
       end
     end

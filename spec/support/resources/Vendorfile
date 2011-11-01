@@ -6,7 +6,7 @@ lib "LibWithVersion", "4.1"
 lib "LibWithGreaterThanVersion", ">=1.0"
 lib "LibWithApproxVersionAndTarget", "~>1.0", :target => "something"
 
-lib "LibWithGit", :git => "https://github.com/keithpitt/vendor.git"
+lib "LibWithGit", :git => "https://github.com/keithpitt/vendor.git", :require => "Some/Folder"
 lib "LibWithGitAndBranch", :git => "https://github.com/keithpitt/vendor.git", :branch => "1.4"
 lib "LibWithGitAndTag", :git => "https://github.com/keithpitt/vendor.git", :tag => "v0.13.4"
 lib "LibWithGitAndRef", :git => "https://github.com/keithpitt/vendor.git", :ref => "some-ref"

@@ -111,7 +111,7 @@ module Vendor::XCode
 
             # Remove the file from the filesystem
             if File.exist?(file)
-              FileUtils.rm file
+              FileUtils.rm_rf file
             end
           else
             Vendor.ui.error "Couldn't remove object: #{child}"
@@ -144,7 +144,7 @@ module Vendor::XCode
 
       # Copy the file
       name = File.basename(options[:file])
-      FileUtils.cp options[:file], File.join(path, name)
+      FileUtils.cp_r options[:file], File.join(path, name)
 
       # Add the file to XCode
       group = create_group(options[:path])

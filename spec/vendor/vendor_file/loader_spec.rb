@@ -52,6 +52,7 @@ describe Vendor::VendorFile::Loader do
       @libs[4].name.should == "LibWithGit"
       @libs[4].uri.should == "https://github.com/keithpitt/vendor.git"
       @libs[4].tag.should == "master"
+      @libs[4].require.should == "Some/Folder"
       @libs[4].should be_kind_of(Vendor::VendorFile::Library::Git)
 
       @libs[5].name.should == "LibWithGitAndBranch"
