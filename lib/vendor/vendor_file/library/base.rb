@@ -52,9 +52,12 @@ module Vendor
               elsif vendorspec && File.exist?(vendorspec)
                 puts "Pulling from #{vendorspec}"
               else
-                extensions = Vendor::XCode::Proxy::SUPPORTED_FILE_TYPES.join(',')
-                file_path = [cache_path, self.require, "**/*.{#{extensions}"].compact
-                Dir[File.join(*file_path)]
+                parts = [cache_path, self.require, "**/*.*"].compact
+                files = Dir[File.join(*parts)]
+
+                # Remove files that are within folders with a ".", such as ".bundle"
+                # and ".frameworks"
+                files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
               end
             else
               []

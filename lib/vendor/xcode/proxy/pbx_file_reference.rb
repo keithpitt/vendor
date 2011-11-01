@@ -2,8 +2,6 @@ module Vendor::XCode::Proxy
 
   class PBXFileReference < Vendor::XCode::Proxy::Base
 
-    SUPPORTED_FILE_TYPES = %w(png jpg h m bundle framework a strings plist)
-
     reference :file_ref
 
     def name
