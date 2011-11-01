@@ -5,7 +5,7 @@ describe Vendor::Config do
   context "#directory" do
 
     it "should return the development directory" do
-      Vendor::Config.directory.should == File.expand_path(File.join(__FILE__, "..", "..", "..", "tmp", "config"))
+      Vendor::Config.directory.should == File.expand_path(File.join(Vendor.root, "..", "tmp", "config"))
     end
 
   end
