@@ -45,7 +45,10 @@ module Vendor
         end
 
         def files
-          return [] unless File.exist?(cache_path)
+          unless File.exist?(cache_path)
+            Vendor.ui.error "Could not find libray `#{name}` at path `#{cache_path}`"
+            return []
+          end
 
           # Try and find a vendorspec in the cached folder
           vendor_spec = Dir[File.join(cache_path, "*.vendorspec")].first

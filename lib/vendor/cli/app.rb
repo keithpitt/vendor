@@ -74,7 +74,12 @@ module Vendor
         loader.download
         loader.install project
 
-        project.save if project.dirty?
+        if project.dirty?
+          project.save
+          Vendor.ui.success "Finished installing into #{project.name}"
+        else
+          Vendor.ui.info "No changes were made to #{project.name}"
+        end
       end
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"
