@@ -101,7 +101,12 @@ module Vendor::XCode
           if child.group? # Is it a group?
             remove_group child.full_path # Recursivley remove the child group
           elsif child.file? # Or a file
-            FileUtils.rm File.expand_path(File.join(@project_folder, "..", child.full_path)) # Remove the file from the filesystem
+            file = File.expand_path(File.join(@project_folder, "..", child.full_path))
+
+            # Remove the file from the filesystem
+            if File.exist?(file)
+              FileUtils.rm
+            end
           else
             Vendor.ui.error "Couldn't remove object: #{child}"
           end

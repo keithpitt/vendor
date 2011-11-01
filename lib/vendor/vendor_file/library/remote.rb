@@ -7,8 +7,8 @@ module Vendor
         attr_accessor :version
         attr_accessor :sources
 
-        def download(path)
-          Vendor.ui.info "download #{name} version #{version} from #{sources} to #{path}"
+        def download
+          Vendor.ui.info "download #{name} version #{version} from #{sources} to #{cache_path}"
         end
 
       end

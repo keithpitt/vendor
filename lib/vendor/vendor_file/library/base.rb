@@ -53,6 +53,8 @@ module Vendor
               else
                 Dir[File.join(cache_path, "**/*.[hm]")]
               end
+            else
+              []
             end
           end
 
