@@ -18,6 +18,12 @@ module Vendor
           @targets = [ *value ]
         end
 
+        alias :target= :targets=
+
+        def cache_path
+          @cache_path ||= File.join(Vendor.library_path, self.class.name.split('::').last.downcase, name)
+        end
+
         def download
           # Do nothing by default, leave that up to the implementation
         end
@@ -70,14 +76,6 @@ module Vendor
           # and ".frameworks"
           install_files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
         end
-
-        alias :target= :targets=
-
-        private
-
-          def cache_path
-            @cache_path ||= File.join(Vendor.library_path, self.class.name.split('::').last.downcase, name)
-          end
 
       end
 

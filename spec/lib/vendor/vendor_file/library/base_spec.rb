@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Vendor::VendorFile::Library::Base do
 
-  let(:lib) { Vendor::VendorFile::Library::Base.new }
+  let(:lib) { Vendor::VendorFile::Library::Base.new(:name => "ExampleLib") }
 
   let(:temp_path) { TempProject.create(File.join(PROJECT_RESOURCE_PATH, "UtilityApplication")) }
   let(:project) { Vendor::XCode::Project.new(File.join(temp_path, "UtilityApplication.xcodeproj")) }
@@ -33,6 +33,14 @@ describe Vendor::VendorFile::Library::Base do
 
       it "should add the new files to the project"
 
+    end
+
+  end
+
+  describe "#cache_path" do
+
+    it "should return the location where the lib is to be stored" do
+      lib.cache_path.should == File.join(Vendor.library_path, "base", "ExampleLib")
     end
 
   end
