@@ -3,6 +3,7 @@ module Vendor::XCode::Proxy
   class Base
 
     attr_accessor :id
+    attr_accessor :parent
     attr_reader :attributes
 
     # I don't know what the ID's are made up of in XCode,
@@ -74,6 +75,16 @@ module Vendor::XCode::Proxy
       end
     end
 
+    def respond_to?(method)
+      name = self.class.attribute_name(method)
+
+      if @attributes.has_key?(name)
+        true
+      else
+        super
+      end
+    end
+
     def write_attribute(name, value)
       @attributes[name.to_s] = value
     end
@@ -86,7 +97,19 @@ module Vendor::XCode::Proxy
       @attributes.to_ascii_plist
     end
 
+    def group?
+      false
+    end
+
+    def file?
+      false
+    end
+
     private
+
+      def after_initialize
+        # Do nothing by default
+      end
 
       # I miss active support...
       def underscore(string)

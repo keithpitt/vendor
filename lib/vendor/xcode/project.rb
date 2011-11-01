@@ -43,6 +43,8 @@ module Vendor::XCode
         @objects_by_id[id] = klass.new(:project => self, :id => id, :attributes => attributes)
       end
 
+      @objects.each { |object| object.send(:after_initialize) }
+
       @root_object = @objects_by_id[parsed['rootObject']]
     end
 
@@ -54,7 +56,18 @@ module Vendor::XCode
       root_object.targets.find { |x| x.name == name }
     end
 
-    def find_and_make_group(path)
+    def find_group(path)
+      current = root_object.main_group
+
+      path.split("/").each do |name|
+        current = current.children.find { |x| x.name == name }
+        return nil unless current
+      end
+
+      current
+    end
+
+    def create_group(path)
       current = root_object.main_group
 
       path.split("/").each do |name|
@@ -77,6 +90,40 @@ module Vendor::XCode
       current
     end
 
+    def remove_group(path)
+      group = find_group(path)
+
+      # If we have the group
+      if group
+
+        # Remove the children from the file system
+        group.children.each do |child|
+
+          # Is it a group?
+          if child.group?
+
+            # Recursivley remove the child group
+            remove_group child.full_path
+
+          elsif child.file? # Or a file
+
+            # Remove the file from the filesystem
+            FileUtils.rm File.expand_path(File.join(@project_folder, "..", child.full_path))
+
+            # Remove the file from the parent
+            child.parent.children.delete child.id
+
+          else
+            Vendor.ui.error "Couldn't remove object: #{child}"
+          end
+
+        end
+
+      else
+        false
+      end
+    end
+
     def add_file(options)
       require_options options, :path, :file
 
@@ -92,7 +139,7 @@ module Vendor::XCode
       FileUtils.cp options[:file], File.join(path, name)
 
       # Add the file to XCode
-      group = find_and_make_group(options[:path])
+      group = create_group(options[:path])
       relative_path = File.join(options[:path], name)
       file_type = Vendor::XCode::Proxy::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
 

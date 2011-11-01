@@ -68,12 +68,32 @@ describe Vendor::XCode::Project do
 
   end
 
-  context '#find_and_make_group' do
+  context "#find_group" do
 
     context 'when finding an existing group' do
 
       it "should return the group" do
-        @project.find_and_make_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
+        @project.find_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
+      end
+
+    end
+
+    context "when looking for a group that doens't exist" do
+
+      it "should return nil" do
+        @project.find_group("Does/Not/Exist").should == nil
+      end
+
+    end
+
+  end
+
+  context '#create_group' do
+
+    context 'when finding an existing group' do
+
+      it "should return the group" do
+        @project.create_group("Specs/Supporting Files").should == @project.root_object.main_group.children.first.children.first
       end
 
     end
@@ -81,7 +101,7 @@ describe Vendor::XCode::Project do
     context 'when creating a group' do
 
       before :each do
-        @group = @project.find_and_make_group("Specs/Supporting Files/Something/Goes Inside/Here")
+        @group = @project.create_group("Specs/Supporting Files/Something/Goes Inside/Here")
 
         @supporting_files_group = @project.root_object.main_group.children.first.children.first
         @something_group = @supporting_files_group.children.last
@@ -115,12 +135,63 @@ describe Vendor::XCode::Project do
 
   end
 
+  context "#remove_group" do
+
+    before :each do
+      @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "UtilityApplication"))
+      @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "UtilityApplication.xcodeproj"))
+
+      @group = @temp_project.find_group("UtilityApplication/Supporting Files")
+    end
+
+    context "removing an existing group" do
+
+      it "should return true" do
+        remove_group.should be_true
+      end
+
+      it "should remove the group" do
+        @project.find_group("UtilityApplication/Supporting Files").should be_nil
+      end
+
+      it "should remove the files from the file system" do
+        file = File.join(@temp_path, "UtilityApplication", "main.m")
+        File.exist?(file).should be_true
+
+        remove_group
+        File.exist?(file).should be_false
+      end
+
+      it "should remove the files from the build targets"
+
+      private
+
+        def remove_group
+          @temp_project.remove_group("UtilityApplication/Supporting Files")
+        end
+
+    end
+
+    context "removing a group that doesn't exist" do
+
+      subject { @temp_project.remove_group("Doest/Not/Exist") }
+
+      it "should return false" do
+        subject.should be_false
+      end
+
+    end
+
+  end
+
+  context "#remove_file"
+
   context '#add_file' do
 
     let(:first_file) { File.join(SOURCE_RESOURCE_PATH, "SecondViewController.h") }
     let(:second_file) { File.join(SOURCE_RESOURCE_PATH, "SecondViewController.m") }
 
-    before :all do
+    before :each do
       @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "ProjectWithSpecs"))
       @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "ProjectWithSpecs.xcodeproj"))
 
@@ -159,7 +230,7 @@ describe Vendor::XCode::Project do
     end
 
     it 'should add it to the correct group' do
-      group = @temp_project.find_and_make_group("Controllers/SecondViewController")
+      group = @temp_project.create_group("Controllers/SecondViewController")
 
       group.children[0].should == @first_file_added
       group.children[1].should == @second_file_added

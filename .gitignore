@@ -10,3 +10,4 @@ contents.xcworkspacedata
 tmp
 log
 *.vendor
+DerivedData

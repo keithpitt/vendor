@@ -1,6 +1,6 @@
 module Vendor::XCode::Proxy
 
-  class PBXVariantGroup < Vendor::XCode::Proxy::Base
+  class PBXVariantGroup < Vendor::XCode::Proxy::PBXGroup
 
   end
 

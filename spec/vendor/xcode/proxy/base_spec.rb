@@ -27,6 +27,18 @@ describe Vendor::XCode::Proxy::Base do
 
   end
 
+  context "#respond_to?" do
+
+    it "should return true if it has the attribute" do
+      @pbx_project.respond_to?(:compatibility_version).should be_true
+    end
+
+    it "should return false if the method isn't really there" do
+      @pbx_project.respond_to?(:blah).should be_false
+    end
+
+  end
+
   context "#method_missing" do
 
     it "should allow you to access attributes using an underscore case" do
