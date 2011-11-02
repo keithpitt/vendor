@@ -172,4 +172,4 @@ inspiration and example code :D
 
 ## Copyright
 
-Copyright (c) 2011 Keith Pitt. See LICENSE for details.
+Copyright &copy; 2011 Keith Pitt. See LICENSE for details.
