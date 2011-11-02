@@ -7,6 +7,10 @@ describe Vendor::VendorFile::Library::Base do
   let(:temp_path) { TempProject.create(File.join(PROJECT_RESOURCE_PATH, "UtilityApplication")) }
   let(:project) { Vendor::XCode::Project.new(File.join(temp_path, "UtilityApplication.xcodeproj")) }
 
+  let(:lib_with_no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
+  let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Manifest") }
+  let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Vendorspec") }
+
   it "should have a name attribute" do
     lib.name = "lib"
 
@@ -21,17 +25,42 @@ describe Vendor::VendorFile::Library::Base do
 
   describe "#install" do
 
+    before :each do
+      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
+
+      lib_with_manifest.install project
+    end
+
     context "with an existing installation" do
 
-      it "should remove the existing group from XCode"
+      before :each do
+        # Install it again
+        lib_with_manifest.install project
+      end
 
-      it "should add the new files to the project"
+      it "should add the group to the project" do
+        group = project.find_group("Vendor/DKBenchmark-Manifest")
+        group.should_not be_nil
+      end
+
+      it "should add the files to the project" do
+        children = project.find_group("Vendor/DKBenchmark-Manifest").children
+        children.length.should == 2
+      end
 
     end
 
     context "with a fresh installation" do
 
-      it "should add the new files to the project"
+      it "should add the group to the project" do
+        group = project.find_group("Vendor/DKBenchmark-Manifest")
+        group.should_not be_nil
+      end
+
+      it "should add the files to the project" do
+        children = project.find_group("Vendor/DKBenchmark-Manifest").children
+        children.length.should == 2
+      end
 
     end
 
@@ -47,17 +76,13 @@ describe Vendor::VendorFile::Library::Base do
 
   describe "#files" do
 
-    let(:no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
-    let(:with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Manifest") }
-    let(:with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Vendorspec") }
-
     before :each do
       Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
     end
 
     context "with no manifest or vendorspec" do
 
-      let(:files) { no_manifest_or_vendorspec.files }
+      let(:files) { lib_with_no_manifest_or_vendorspec.files }
       let(:names) { files.map { |file| File.basename(file) } }
 
       it "should return the correct files" do
@@ -89,7 +114,7 @@ describe Vendor::VendorFile::Library::Base do
 
     context "with a vendorspec" do
 
-      let(:files) { with_vendorspec.files }
+      let(:files) { lib_with_vendorspec.files }
       let(:names) { files.map { |file| File.basename(file) } }
 
       it "should return the correct files" do
@@ -117,7 +142,7 @@ describe Vendor::VendorFile::Library::Base do
 
     context "with a manifest" do
 
-      let(:files) { with_manifest.files }
+      let(:files) { lib_with_manifest.files }
       let(:names) { files.map { |file| File.basename(file) } }
 
       it "should return the correct files" do

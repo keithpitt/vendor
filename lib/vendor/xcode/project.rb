@@ -81,6 +81,9 @@ module Vendor::XCode
                                                           :id => Vendor::XCode::Proxy::Base.generate_id,
                                                   :attributes => { 'path' => name, 'sourceTree' => '<group>', 'children' => [] })
 
+          # Set the parent
+          group.parent = current
+
           @objects_by_id[group.id] = group
 
           # This is hacky
@@ -182,6 +185,9 @@ module Vendor::XCode
       file = Vendor::XCode::Proxy::PBXFileReference.new(:project => self,
                                                              :id => Vendor::XCode::Proxy::Base.generate_id,
                                                      :attributes => attributes)
+
+      # Set the parent
+      file.parent = group
 
       # Add the file id to the groups children
       group.attributes['children'] << file.id

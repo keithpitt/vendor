@@ -11,7 +11,7 @@ module Vendor
         attr_accessor :require
 
         def initialize(attributes = {})
-          @source_tree = :relative
+          @source_tree = :group
           attributes.each { |k, v| self.send("#{k}=", v) }
         end
 

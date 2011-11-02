@@ -139,6 +139,10 @@ describe Vendor::XCode::Project do
         @here_group.isa.should == 'PBXGroup'
       end
 
+      it "should set the parent" do
+        @here_group.parent.should == @inside_group
+      end
+
     end
 
   end
@@ -266,6 +270,10 @@ describe Vendor::XCode::Project do
 
         group.children[0].should == @first_file_added
         group.children[1].should == @second_file_added
+      end
+
+      it "should set the parent" do
+        @first_file_added.parent.should == @temp_project.find_group("Controllers/SecondViewController")
       end
 
       it 'should still save' do
