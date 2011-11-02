@@ -125,7 +125,7 @@ running:
 $ vendor library publish my_library.vendor
 ```
 
-## Why not CocoaPods?
+## What about CocoaPods?
 
 During the early days of Vendor development, another dependency/package
 manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
