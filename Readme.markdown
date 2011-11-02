@@ -112,11 +112,11 @@ $ vendor library publish
 
 During the early days of Vendor development, another dependency/package
 manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
-project, but *I* like my all the source files in my project to be in
+project, but _I_ like my all the source files in my project to be in
 one place. I didn't like the idea of compiling all my dependencies into
-a static lib. I also don't like the approach of *requiring* all libs to
-be commited to the main repo. I think it puts alot of pressure on the
-maintainer to make sure that he reviews all the libs and that they're
+a static lib. I also don't like the approach of _requiring_ all libs to
+be commited to the main CocoaPods repo (just like [homebrew](https://github.com/mxcl/homebrew)).
+I think it puts alot of pressure on the maintainer to make sure that he reviews all the libs and that they're
 not doing anything smelly.
 
 In saying that, trying to solve the problem of iOS dependency
@@ -130,10 +130,9 @@ doesn't have a compiled vendorspec - which I think is one of the
 strengths of Vendor.
 
 I also like the idea of a central site where people can upload their own
-libraries - just like Rubygems. There isn't really much of an ecosystem
+libraries - just like Rubygems. There isn't much of an ecosystem
 around iOS development, just lots of isolated Github repos. I hope
 Vendor can fix this.
-
 
 ## History
 
