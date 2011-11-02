@@ -102,7 +102,7 @@ files         [ "DKBenchmark.h", "DKBenchmark.m" ]
 ```
 
 Change what you need to match your project, and to push the library to
-[http://vendorage.com](http://vendorage.com), just run the following:
+[http://vendorforge.org](http://vendorforge.org), just run the following:
 
 ```bash
 $ vendor library publish
