@@ -1,5 +1,7 @@
 # Vendor – an iOS library management system
 
+[![Build Status](https://secure.travis-ci.org/keithpitt/vendor.png)](http://travis-ci.org/keithpitt/vendor)
+
 Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after [Bundler](https://github.com/carlhuda/bundler). Vendor streamlines the installation and update process for dependent libraries.  It also tracks versions and manages dependencies between libraries.
 
 ## Installation
