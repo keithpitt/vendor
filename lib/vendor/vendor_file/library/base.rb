@@ -58,7 +58,11 @@ module Vendor
           # Try and find a manifest (a built vendor file)
           manifest = File.join(cache_path, "vendor.json")
 
-          # Calculate the files we need to add
+          # Calculate the files we need to add. There are 3 different types
+          # of installation:
+          # 1) Installation from a manifest (a built lib)
+          # 2) Loading the .vendorspec and seeing what files needed to be added
+          # 3) Try to be smart and try and find files to install
           install_files = if manifest && File.exist?(manifest)
 
             json = JSON.parse(File.read(manifest))

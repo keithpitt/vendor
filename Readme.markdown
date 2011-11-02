@@ -23,10 +23,25 @@ $ sudo gem install vendor
 Specify your dependencies in a Vendors file in your project's root.
 
 ```ruby
-source "https://vendorage.com"
+source "https://vendorforge.com"
 
+# Downloads the latest version of DKBenchmark from
+# http://vendorforge.com
 lib "DKBenchmark"
+
+# Downloads version 0.5 of DKPredicateBuilder from
+# http://vendorforge.com
 lib "DKPredicateBuilder", '0.5'
+
+# Include all the source files found in ~/Development/DKRest/Classes
+# This is usefull when developing your own libraries
+lib "DKRest", :path => "~/Development/DKRest", :require => "Classes"
+
+# Checks out the git repo and includes all the files found in the
+# AFNetworking folder in the repo. The require option is handy for
+# repo's that haven't created vendor libraries and pushed them to
+# Vendorforge
+lib "DKRest", :git => "git://github.com/gowalla/AFNetworking.git", :require => "AFNetworking"
 
 target "Integration Tests" do
   lib "cedar", '0.2'
@@ -93,6 +108,33 @@ Change what you need to match your project, and to push the library to
 $ vendor library publish
 ```
 
+## Why not CocoaPods?
+
+During the early days of Vendor development, another dependency/package
+manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
+project, but *I* like my all the source files in my project to be in
+one place. I didn't like the idea of compiling all my dependencies into
+a static lib. I also don't like the approach of *requiring* all libs to
+be commited to the main repo. I think it puts alot of pressure on the
+maintainer to make sure that he reviews all the libs and that they're
+not doing anything smelly.
+
+In saying that, trying to solve the problem of iOS dependency
+management, is tough, and a big shout out to anyone that tries to solve
+the problem. I should also mention another library that I admire that is
+also trying to solve this problem: [Kit](https://github.com/nkpart/kit)
+
+I wrote Vendor the way I think dependency management should be handled,
+and in a way that I like. Vendor can work with any lib, even if it
+doesn't have a compiled vendorspec - which I think is one of the
+strengths of Vendor.
+
+I also like the idea of a central site where people can upload their own
+libraries - just like Rubygems. There isn't really much of an ecosystem
+around iOS development, just lots of isolated Github repos. I hope
+Vendor can fix this.
+
+
 ## History
 
 Vendor was inspired by a blog post entitled [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/). I had started working on Vendor after they started doing it themselves. Their repo can be found here [https://github.com/bazaarlabs/vendor](https://github.com/bazaarlabs/vendor). I took many of the ideas (and parts of this Readme) from their code.
@@ -108,6 +150,16 @@ So I've probably made mistake or two. But thats OK, because at least I have *som
 * [Keith Pitt](http://www.keithpitt.com)
 * [Tim Lee](http://twitter.com/#!/timothy1ee)
 * [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb)
+
+## Special Thanks
+
+Thanks to the following libraries. They provided me with a great deal of
+inspiration and example code :D
+
+* [CocoaPods](https://github.com/alloy/cocoapods)
+* [Kit](https://github.com/nkpart/kit)
+* [Vendor](https://github.com/bazaarlabs/vendor)
+* [Bundler](https://github.com/carlhuda/bundler)
 
 ## Note on Patches/Pull Requests
 
