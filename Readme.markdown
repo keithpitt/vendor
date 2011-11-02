@@ -122,7 +122,7 @@ Now that you have a packaged library, you can push it to [http://vendorforge.org
 running:
 
 ```bash
-$ vendor library publish my_library.vendor
+$ vendor library push my_library.vendor
 ```
 
 ## What about CocoaPods?

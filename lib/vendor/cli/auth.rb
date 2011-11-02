@@ -4,6 +4,8 @@ module Vendor
 
     module Auth
 
+      require 'highline/import'
+
       extend self
 
       def api_key
@@ -16,10 +18,9 @@ module Vendor
 
       def fetch_api_key
         Vendor.ui.warn "Please enter your vendorforge.org login and password"
-        printf "Login: "
-        username = STDIN.gets.chomp.strip
-        printf "Password: "
-        password = STDIN.gets.chomp.strip
+
+        username = ask("Login: ")
+        password = ask("Password: ") { |q| q.echo = false }
 
         Vendor::Config.set(:"credentials.vendorforge_api_key", Vendor::API.api_key(username, password))
       end

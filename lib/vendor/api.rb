@@ -3,9 +3,15 @@ require 'rest_client'
 module Vendor
   module API
 
+    require 'json'
+
     extend self
 
     class Error < StandardError; end
+
+    def api_uri
+      ENV["API_URI"] || 'http://vendorforge.org'
+    end
 
     def api_key(username, password)
       perform do
@@ -14,7 +20,7 @@ module Vendor
       end
     end
 
-    def publish(options)
+    def push(options)
       perform do
         response = resource["vendors.json"].post :version => { :package => File.new(options[:file]) }, :api_key => options[:api_key]
         body = JSON.parse(response.body)
@@ -42,7 +48,7 @@ module Vendor
       end
 
       def resource(user = nil, pass = nil)
-        RestClient::Resource.new(ENV["API_URI"] || 'http://vendorforge.org', :user => user, :password => pass)
+        RestClient::Resource.new(api_uri, :user => user, :password => pass)
       end
 
   end

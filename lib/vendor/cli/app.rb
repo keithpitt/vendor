@@ -6,7 +6,7 @@ module Vendor
 
       class Library < Thor
 
-        desc "init", "Generate a simple vendorspec, placed in the current directory"
+        desc "library init", "Generate a simple vendorspec, placed in the current directory"
         def init
           # Use the current folder name as the name of the vendorspec
           name = File.basename(Dir.pwd)
@@ -35,12 +35,12 @@ module Vendor
           end
         end
 
-        desc "library publish VENDOR_FILE", "Publish a vendor package to vendorforge.org"
-        def publish(file)
+        desc "library push VENDOR_FILE", "Push a vendor package to vendorforge.org"
+        def push(file)
           begin
             Vendor::CLI::Auth.with_api_key do |api_key|
-              url = Vendor::API.publish :file => File.expand_path(file), :api_key => api_key
-              Vendor.ui.success "Successfully published to #{url}"
+              url = Vendor::API.push :file => File.expand_path(file), :api_key => api_key
+              Vendor.ui.success "Successfully pushed to #{Vendor::API.api_uri}#{url}"
             end
           rescue Vendor::API::Error => e
             Vendor.ui.error "Error: #{e.message}"
