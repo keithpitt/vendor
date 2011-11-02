@@ -149,7 +149,7 @@ strengths of Vendor.
 
 I also like the idea of a central site where people can upload their own
 libraries - just like Rubygems. There isn't much of an ecosystem
-around iOS development, just lots of isolated Github repos. I hope
+around open source iOS/OSX development, just lots of isolated Github repos and blog posts. I hope
 Vendor can fix this.
 
 ## History
