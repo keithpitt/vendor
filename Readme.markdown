@@ -129,11 +129,11 @@ $ vendor library publish my_library.vendor
 
 During the early days of Vendor development, another dependency/package
 manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
-project, but _I_ prefer all the source files for my
-dependencies to be stored in the project itself - not hidden in a static
+project, but there were a few things that I didn't quite like.
+I prefer all the source files for my dependencies to be stored in the project itself - not hidden in a static
 library. I tend to tweak and read through those libraries, so having
-the source readily available is handy. I also don't like the approach of _requiring_ all the libraries to
-be commited to the centralized git repo (similar to [homebrew](https://github.com/mxcl/homebrew)).
+the source readily available is handy. I also don't like the approach of requiring all the libraries to
+be commited to a centralized git repo (similar to [homebrew](https://github.com/mxcl/homebrew)).
 I think it puts alot of pressure on the maintainer to make sure that he reviews all the libs and that they're
 not doing anything smelly. It also fattens the git repo :D
 
