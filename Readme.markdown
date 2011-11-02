@@ -103,11 +103,18 @@ github        "https://github.com/keithpitt/DKBenchmark"
 files         [ "DKBenchmark.h", "DKBenchmark.m" ]
 ```
 
-Change what you need to match your project, and to push the library to
-[http://vendorforge.org](http://vendorforge.org), just run the following:
+Change what you need to match your project, then build a packaged
+vendor library by running:
 
 ```bash
-$ vendor library publish
+$ vendor library build my_library.vendorspec
+```
+
+Now that you have a packaged library, you can push it to [http://vendorforge.org](http://vendorforge.org) by
+running:
+
+```bash
+$ vendor library publish my_library.vendor
 ```
 
 ## Why not CocoaPods?
