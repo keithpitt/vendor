@@ -7,6 +7,7 @@ module Vendor
       require 'tmpdir'
       require 'find'
       require 'zip/zipfilesystem'
+      require 'json'
 
       attr_reader :name
       attr_reader :version
@@ -46,14 +47,21 @@ module Vendor
         def copy_files(data_dir)
           data_files = []
 
-          @vendor_spec[:files].each do |file|
+          # Remove files that are within folders with a ".", such as ".bundle"
+          # and ".frameworks"
+          copy_files = @vendor_spec[:files].reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+
+          copy_files.each do |file|
             dir = File.dirname(file)
             path = File.join(@folder, file)
             copy_to_dir = File.expand_path(File.join(data_dir, dir))
             copy_to_file = File.join(copy_to_dir, File.basename(file))
 
+            Vendor.ui.debug "Creating dir #{copy_to_dir}"
             FileUtils.mkdir_p copy_to_dir
-            FileUtils.cp path, copy_to_file
+
+            Vendor.ui.debug "Copying #{path} to #{copy_to_file}"
+            FileUtils.cp_r path, copy_to_file
 
             data_files << copy_to_file
           end

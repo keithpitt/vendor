@@ -6,11 +6,29 @@ module Vendor
 
       class Library < Thor
 
+        desc "init", "Generate a simple vendorspec, placed in the current directory"
+        def init
+          # Use the current folder name as the name of the vendorspec
+          name = File.basename(Dir.pwd)
+
+          # Figure out who should be the author
+          username = `git config --get github.user` ||
+                     `git config --get github.user` ||
+                     `whoami`
+          email    = `git config --get user.email` ||
+                     "#{username}@example.com"
+
+          Vendor::Template.copy "vendorspec", :name => "#{name.downcase}.vendorspec",
+                                              :locals => { :name => name,
+                                                           :username => username.chomp,
+                                                           :email => email.chomp }
+        end
+
         desc "library build VENDORSPEC_FILE", "Build a vendor package from a vendorspec file"
         def build(file)
           builder = Vendor::VendorSpec::Builder.new(File.expand_path(file))
           if builder.build
-            Vendor.ui.success "Successfully built Vendor".green
+            Vendor.ui.success "Successfully built library"
             Vendor.ui.info "Name: #{builder.name}"
             Vendor.ui.info "Version: #{builder.version}"
             Vendor.ui.info "File: #{builder.filename}"

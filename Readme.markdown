@@ -84,7 +84,7 @@ However, if the vendor library requires frameworks or has dependencies on other 
 To create a vendorspec, simply run:
 
 ```bash
-$ vendor library create
+$ vendor library init
 ```
 
 This command will create a blank `.vendorspec` file that looks something like this:

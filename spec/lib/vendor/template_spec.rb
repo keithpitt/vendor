@@ -2,22 +2,33 @@ require 'spec_helper'
 
 describe Vendor::Template do
 
-  context "#directory" do
+  let(:template) { File.join(Vendor.root, "vendor", "templates", "Vendorfile") }
+  let(:target) { File.join(File.expand_path(Dir.pwd), "Vendorfile") }
+  let(:contents) { File.read(template) }
 
-    let(:template) { File.join(Vendor.root, "vendor", "templates", "Vendorfile") }
-    let(:target) { File.join(File.expand_path(Dir.pwd), "Vendorfile") }
+  context "#copy" do
 
-    it "should copy a file to the current directory" do
-      FileUtils.should_receive(:copy).with(template, target)
+    it "should write a file to the current directory" do
+      file = mock('file')
+      File.should_receive(:open).with(target, "w").and_yield(file)
+      file.should_receive(:write).with(contents)
 
       Vendor::Template.copy "Vendorfile"
     end
 
     it "should not copy if the file already exists" do
       File.should_receive(:exist?).with(target).and_return(true)
-      FileUtils.should_not_receive(:copy).with(template, target)
+      File.should_not_receive(:open)
 
       Vendor::Template.copy "Vendorfile"
+    end
+
+  end
+
+  context "#parse" do
+
+    it "should parse ERB" do
+      Vendor::Template.parse("This is <%= foo %>", :foo => "awesome!").should == "This is awesome!"
     end
 
   end

@@ -1,0 +1,15 @@
+# This is a generated version of the vendorspec. Please change the
+# values to suit your library. Refer to the documentation for a list of
+# all possible attributes.
+
+name          "<%= name %>"
+version       "0.1"
+
+authors       "<%= username %>"
+email         "<%= email %>"
+homepage      "HOMEPAGE GOES HERE"
+description   "DESCRIPTION GOES HERE"
+
+github        "GITHUB LINK GOES HERE"
+
+files         `git ls-files`.split("\n")
