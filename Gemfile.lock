@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vendor (0.0.2)
+    vendor (0.0.3)
       json
       rake
       rest-client
