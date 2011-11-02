@@ -129,12 +129,13 @@ $ vendor library publish my_library.vendor
 
 During the early days of Vendor development, another dependency/package
 manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
-project, but _I_ like my all the source files in my project to be in
-one place. I didn't like the idea of compiling all my dependencies into
-a static lib. I also don't like the approach of _requiring_ all libs to
-be commited to the main CocoaPods repo (just like [homebrew](https://github.com/mxcl/homebrew)).
+project, but _I_ prefer all the source files for my
+dependencies to be stored in the project itself - not hidden in a static
+library. I tend to tweak and read through those libraries, so having
+the source readily available is handy. I also don't like the approach of _requiring_ all the libraries to
+be commited to the centralized git repo (similar to [homebrew](https://github.com/mxcl/homebrew)).
 I think it puts alot of pressure on the maintainer to make sure that he reviews all the libs and that they're
-not doing anything smelly.
+not doing anything smelly. It also fattens the git repo :D
 
 In saying that, trying to solve the problem of iOS dependency
 management, is tough, and a big shout out to anyone that tries to solve
