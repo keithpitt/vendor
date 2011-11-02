@@ -4,10 +4,6 @@ module Vendor::XCode::Proxy
 
     reference :file_ref
 
-    def name
-      read_attribute :path
-    end
-
     def file?
       true
     end

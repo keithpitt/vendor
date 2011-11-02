@@ -11,6 +11,7 @@ module Vendor
         attr_accessor :require
 
         def initialize(attributes = {})
+          @source_tree = :relative
           attributes.each { |k, v| self.send("#{k}=", v) }
         end
 
@@ -29,7 +30,7 @@ module Vendor
         end
 
         def install(project)
-          Vendor.ui.debug "Installing #{name} into #{project}"
+          Vendor.ui.debug "Installing #{name} into #{project} (source_tree = #{@source_tree})"
 
           destination = "Vendor/#{name}"
 
@@ -40,7 +41,8 @@ module Vendor
           files.each do |file|
             Vendor.ui.debug "Copying file #{file} to #{destination}"
 
-            project.add_file :targets => targets, :path => destination, :file => file
+            project.add_file :targets => targets, :path => destination,
+                             :file => file, :source_tree => @source_tree
           end
         end
 

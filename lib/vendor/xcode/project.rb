@@ -63,7 +63,7 @@ module Vendor::XCode
       current = root_object.main_group
 
       path.split("/").each do |name|
-        current = current.children.find { |x| x.name == name }
+        current = current.children.find { |x| (x.respond_to?(:name) ? x.name : x.path) == name }
         return nil unless current
       end
 
@@ -74,7 +74,7 @@ module Vendor::XCode
       current = root_object.main_group
 
       path.split("/").each do |name|
-        group = current.children.find { |x| x.name == name }
+        group = current.children.find { |x| (x.respond_to?(:name) ? x.name : x.path) == name }
 
         unless group
           group = Vendor::XCode::Proxy::PBXGroup.new(:project => self,
@@ -133,33 +133,63 @@ module Vendor::XCode
     end
 
     def add_file(options)
-      require_options options, :path, :file
+      require_options options, :path, :file, :source_tree
 
       # Ensure file exists
       raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
 
-      # Ensure the path exists
-      path = File.join(@project_folder, "..", options[:path])
-      FileUtils.mkdir_p path
+      # Create the group
+      group = create_group(options[:path])
 
-      # Copy the file
+      # File type
+      type = Vendor::XCode::Proxy::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
+
+      # The file name
       name = File.basename(options[:file])
-      FileUtils.cp_r options[:file], File.join(path, name)
+
+      attributes = {
+        'lastKnownFileType' => type,
+        'sourceTree' => "<#{options[:source_tree].to_s}>"
+      }
+
+      # Handle the different source tree types
+      if options[:source_tree] == :group
+
+        # Ensure the path exists on the filesystem
+        path = File.join(@project_folder, "..", options[:path])
+        FileUtils.mkdir_p path
+
+        # Copy the file
+        FileUtils.cp_r options[:file], File.join(path, name)
+
+        # Set the path of the file
+        attributes['path'] = name
+
+      elsif options[:source_tree] == :absolute
+
+        # Set the path and the name of the file
+        attributes['name'] = name
+        attributes['path'] = options[:file]
+
+      else
+
+        # Could not handle that option
+        raise StandardError.new("Invalid :source_tree option `#{options[:source_tree].to_s}`")
+
+      end
 
       # Add the file to XCode
-      group = create_group(options[:path])
-      relative_path = File.join(options[:path], name)
-      file_type = Vendor::XCode::Proxy::PBXFileReference.file_type_from_extension(File.extname(options[:file]))
-
       file = Vendor::XCode::Proxy::PBXFileReference.new(:project => self,
                                                              :id => Vendor::XCode::Proxy::Base.generate_id,
-                                                     :attributes => { 'path' => name, 'lastKnownFileType' => file_type, 'sourceTree' => '<group>' })
+                                                     :attributes => attributes)
 
+      # Add the file id to the groups children
       group.attributes['children'] << file.id
 
       # Mark as dirty
       @dirty = true
 
+      # Add the file to the internal index
       @objects_by_id[file.id] = file
     end
 

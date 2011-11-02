@@ -6,6 +6,11 @@ module Vendor
 
         attr_accessor :path
 
+        def initialize(*args)
+          super(*args)
+          @source_tree = :absolute
+        end
+
         def cache_path
           File.expand_path(path)
         end

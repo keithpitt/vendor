@@ -218,55 +218,117 @@ describe Vendor::XCode::Project do
       @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "ProjectWithSpecs.xcodeproj"))
 
       @target = @temp_project.find_target("Specs")
-
-      @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file, :path => "Controllers/SecondViewController"
-      @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file, :path => "Controllers/SecondViewController"
     end
 
-    it "should mark the project as dirty" do
-      @temp_project.dirty.should be_true
+    context "with a source tree of :group" do
+
+      before :each do
+        @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file,
+                                                   :path => "Controllers/SecondViewController", :source_tree => :group
+        @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file,
+                                                    :path => "Controllers/SecondViewController", :source_tree => :group
+      end
+
+      it "should mark the project as dirty" do
+        @temp_project.dirty.should be_true
+      end
+
+      it 'should add the file to the filesystem' do
+        new_first_path = File.join(@temp_path, "Controllers", "SecondViewController", "SecondViewController.h")
+        new_second_path = File.join(@temp_path, "Controllers", "SecondViewController", "SecondViewController.m")
+
+        File.exists?(new_first_path).should be_true
+        File.exists?(new_second_path).should be_true
+      end
+
+      it 'should add it as the correct file type' do
+        @first_file_added.last_known_file_type.should == "sourcecode.c.h"
+        @second_file_added.last_known_file_type.should == "sourcecode.c.objc"
+      end
+
+      it 'should add the files with the correct path' do
+        @first_file_added.path.should == "SecondViewController.h"
+        @second_file_added.path.should == "SecondViewController.m"
+      end
+
+      it 'should have the correct ISA' do
+        @first_file_added.isa.should == "PBXFileReference"
+        @second_file_added.isa.should == "PBXFileReference"
+      end
+
+      it 'should have an ID' do
+        @first_file_added.id.should_not be_nil
+        @second_file_added.id.should_not be_nil
+      end
+
+      it 'should add it to the correct group' do
+        group = @temp_project.create_group("Controllers/SecondViewController")
+
+        group.children[0].should == @first_file_added
+        group.children[1].should == @second_file_added
+      end
+
+      it 'should still save' do
+        @temp_project.save
+      end
+
+      it 'should add it to the build targets specified'
+
     end
 
-    it 'should add the file to the filesystem' do
-      new_first_path = File.join(@temp_path, "Controllers", "SecondViewController", "SecondViewController.h")
-      new_second_path = File.join(@temp_path, "Controllers", "SecondViewController", "SecondViewController.m")
+    context "with a source tree of :absoulte" do
 
-      File.exists?(new_first_path).should be_true
-      File.exists?(new_second_path).should be_true
+      before :each do
+        @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file,
+                                                   :path => "Controllers/SecondViewController", :source_tree => :absolute
+        @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file,
+                                                    :path => "Controllers/SecondViewController", :source_tree => :absolute
+      end
+
+      it "should mark the project as dirty" do
+        @temp_project.dirty.should be_true
+      end
+
+      it 'should add it as the correct file type' do
+        @first_file_added.last_known_file_type.should == "sourcecode.c.h"
+        @second_file_added.last_known_file_type.should == "sourcecode.c.objc"
+      end
+
+
+      it 'should add the files with the correct path' do
+        @first_file_added.path.should == first_file
+        @second_file_added.path.should == second_file
+      end
+
+      it 'should add the files with the correct names' do
+        @first_file_added.name.should == "SecondViewController.h"
+        @second_file_added.name.should == "SecondViewController.m"
+      end
+
+      it 'should have the correct ISA' do
+        @first_file_added.isa.should == "PBXFileReference"
+        @second_file_added.isa.should == "PBXFileReference"
+      end
+
+      it 'should have an ID' do
+        @first_file_added.id.should_not be_nil
+        @second_file_added.id.should_not be_nil
+      end
+
+      it 'should add it to the correct group' do
+        group = @temp_project.create_group("Controllers/SecondViewController")
+
+        group.children[0].should == @first_file_added
+        group.children[1].should == @second_file_added
+      end
+
+      it 'should still save' do
+        @temp_project.save
+      end
+
+      it 'should add it to the build targets specified'
+
     end
-
-    it 'should add it as the correct file type' do
-      @first_file_added.last_known_file_type.should == "sourcecode.c.h"
-      @second_file_added.last_known_file_type.should == "sourcecode.c.objc"
-    end
-
-    it 'should add the files with the correct path' do
-      @first_file_added.path.should == "SecondViewController.h"
-      @second_file_added.path.should == "SecondViewController.m"
-    end
-
-    it 'should have the correct ISA' do
-      @first_file_added.isa.should == "PBXFileReference"
-      @second_file_added.isa.should == "PBXFileReference"
-    end
-
-    it 'should have an ID' do
-      @first_file_added.id.should_not be_nil
-      @second_file_added.id.should_not be_nil
-    end
-
-    it 'should add it to the correct group' do
-      group = @temp_project.create_group("Controllers/SecondViewController")
-
-      group.children[0].should == @first_file_added
-      group.children[1].should == @second_file_added
-    end
-
-    it 'should still save' do
-      @temp_project.save
-    end
-
-    it 'should add it to the build targets specified'
 
     context 'should raise an error if' do
 
@@ -284,8 +346,22 @@ describe Vendor::XCode::Project do
 
       it "the file doesn't exist" do
         expect do
-          @temp_project.add_file :targets => "Ruut", :file => "foo", :path => "Controllers/SecondViewController"
+          @temp_project.add_file :targets => "Ruut", :file => "foo",
+                                 :path => "Controllers/SecondViewController", :source_tree => :group
         end.to raise_exception(StandardError, "Could not find file `foo`")
+      end
+
+      it "you don't pass a source tree option" do
+        expect do
+          @temp_project.add_file :targets => "Specs", :path => "ASD", :file => "foo"
+        end.to raise_exception(StandardError, "Missing :source_tree option")
+      end
+
+      it "the source tree option is invalid" do
+        expect do
+          @temp_project.add_file :targets => "Specs", :path => "ASD",
+                                 :file => first_file, :source_tree => :foo
+        end.to raise_exception(StandardError, "Invalid :source_tree option `foo`")
       end
 
     end
@@ -299,7 +375,7 @@ describe Vendor::XCode::Project do
     end
 
     it "should raise an error if there is an invalid format" do
-      @project.should_receive(:to_ascii_plist).and_return { "asd; { fasdfas" }
+      @project.should_receive(:to_ascii_plist).and_return { "asd; { f5him" }
 
       @project.valid?.should be_false
     end
