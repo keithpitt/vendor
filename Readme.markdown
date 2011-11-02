@@ -45,9 +45,17 @@ lib "DKRest", :path => "~/Development/DKRest", :require => "Classes"
 # Vendorforge
 lib "DKRest", :git => "git://github.com/gowalla/AFNetworking.git", :require => "AFNetworking"
 
+# The Vendorfile allows you to specify targets to add your libraries to.
+# By default, each library will be added to all targets, but if you have
+# library that you only wanted to use in the "Integration Tests" target,
+# you could do the following
 target "Integration Tests" do
   lib "cedar", '0.2'
 end
+
+# These lines are an alternative syntax to the target specification above
+lib "OCMock", :targets => [ "Integration Tests", "Specs" ]
+lib "Kiwi", :target => "Specs"
 ```
 
 You can do this by either creating a `Vendorfile` manually, or by running:
