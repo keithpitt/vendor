@@ -15,7 +15,7 @@ module Vendor
       yield(self) if block_given?
     end
 
-    def dependency(name, version)
+    def dependency(name, version = nil)
       @dependencies ||= []
       @dependencies << [ name, version ]
     end
