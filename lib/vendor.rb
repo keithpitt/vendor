@@ -16,6 +16,7 @@ module Vendor
   autoload :VendorSpec, 'vendor/vendor_spec'
   autoload :XCode,      'vendor/xcode'
   autoload :CLI,        'vendor/cli'
+  autoload :Version,    'vendor/version'
 
   class << self
 

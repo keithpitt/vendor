@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "vendor/version"
 
 Gem::Specification.new do |s|
 
   s.name        = "vendor"
-  s.version     = Vendor::VERSION
+  s.version     = File.read("VERSION")
   s.authors     = ["keithpitt"]
   s.email       = ["me@keithpitt.com"]
   s.homepage    = "http://www.getvendoring.com"
