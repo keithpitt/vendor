@@ -18,7 +18,7 @@ module Vendor
           email    = `git config --get user.email` ||
                      "#{username}@example.com"
 
-          Vendor::Template.copy "vendorspec", :name => "#{name.downcase}.vendorspec",
+          Vendor::Template.copy "vendorspec", :name => "#{name}.vendorspec",
                                               :locals => { :name => name,
                                                            :username => username.chomp,
                                                            :email => email.chomp }

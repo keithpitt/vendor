@@ -1,15 +1,21 @@
 # This is a generated version of the vendorspec. Please change the
-# values to suit your library. Refer to the documentation for a list of
-# all possible attributes.
+# values to suit your library.
 
-name          "<%= name %>"
-version       "0.1"
+Vendor::Spec.new do |s|
 
-authors       "<%= username %>"
-email         "<%= email %>"
-homepage      "HOMEPAGE GOES HERE"
-description   "DESCRIPTION GOES HERE"
+  s.name        = "<%= name %>"
+  s.version     = "0.1"
 
-github        "GITHUB LINK GOES HERE"
+  s.authors     = "<%= username %>"
+  s.email       = "<%= email %>"
+  s.description = "DESCRIPTION GOES HERE"
 
-files         `git ls-files`.split("\n")
+  # s.homepage    = "HOMEPAGE URL GOES HERE"
+  # s.source      = "SOURCE URL GOES HERE"
+  # s.docs        = "DOCS URL GOES HERE"
+
+  s.files       = `git ls-files`.split("\n")
+
+  # s.dependency  "JSONKit", "0.5"
+
+end

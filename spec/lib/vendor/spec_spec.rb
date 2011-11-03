@@ -1,54 +1,43 @@
 require 'spec_helper'
 
-describe Vendor::VendorSpec::DSL do
+describe Vendor::Spec do
 
-  let! (:dsl) { Vendor::VendorSpec::DSL.new }
-
-  context '#vendor_spec' do
-
-    it 'should load all the properties into the vendor spec' do
-      dsl.foo "foo"
-      dsl.cheese "is good"
-
-      dsl.vendor_spec.should == { :foo => "foo", :cheese => "is good" }
-    end
-
-  end
+  let! (:spec) { Vendor::Spec.new }
 
   context '#validate' do
 
     before :each do
-      dsl.name = "Vendor"
-      dsl.files = "Something"
-      dsl.email = "foo@bar.com"
-      dsl.version = "0.1"
+      spec.name = "Vendor"
+      spec.files = "Something"
+      spec.email = "foo@bar.com"
+      spec.version = "0.1"
     end
 
     it 'should thorw an error if no name is defined' do
       expect do
-        dsl.name = nil
-        dsl.validate!
+        spec.name = nil
+        spec.validate!
       end.should raise_error("Specification is missing the `name` option")
     end
 
     it 'should thorw an error if no email is defined' do
       expect do
-        dsl.email = nil
-        dsl.validate!
+        spec.email = nil
+        spec.validate!
       end.should raise_error("Specification is missing the `email` option")
     end
 
     it 'should thorw an error if no version is defined' do
       expect do
-        dsl.version = nil
-        dsl.validate!
+        spec.version = nil
+        spec.validate!
       end.should raise_error("Specification is missing the `version` option")
     end
 
     it 'should thorw an error if no files are defined' do
       expect do
-        dsl.files = nil
-        dsl.validate!
+        spec.files = nil
+        spec.validate!
       end.should raise_error("Specification is missing the `files` option")
     end
 
@@ -57,9 +46,8 @@ describe Vendor::VendorSpec::DSL do
   context '#to_json' do
 
     it 'should return the vendor spec as a JSON string' do
-      dsl.foo "foo"
-
-      dsl.to_json.should == dsl.vendor_spec.to_json
+      spec.name = "foo"
+      spec.to_json.should == { :name => "foo" }.to_json
     end
 
   end

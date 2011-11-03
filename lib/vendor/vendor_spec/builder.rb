@@ -15,14 +15,11 @@ module Vendor
       attr_reader :vendor_spec
 
       def initialize(vendor_spec)
-        loader = Vendor::VendorSpec::Loader.new
-        loader.load vendor_spec
-
         @folder = File.expand_path(File.join(vendor_spec, '..'))
-        @vendor_spec = loader.dsl.vendor_spec
+        @vendor_spec = Vendor::Spec.load vendor_spec
 
-        @name = safe_filename(@vendor_spec[:name])
-        @version = safe_filename(@vendor_spec[:version])
+        @name = safe_filename(@vendor_spec.name)
+        @version = safe_filename(@vendor_spec.version)
         @filename = "#{@name}-#{@version}.vendor"
       end
 
@@ -49,7 +46,7 @@ module Vendor
 
           # Remove files that are within folders with a ".", such as ".bundle"
           # and ".frameworks"
-          copy_files = @vendor_spec[:files].reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+          copy_files = @vendor_spec.files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
 
           copy_files.each do |file|
             dir = File.dirname(file)

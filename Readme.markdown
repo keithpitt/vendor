@@ -98,17 +98,26 @@ $ vendor library init
 This command will create a blank `.vendorspec` file that looks something like this:
 
 ```ruby
-name          "DKBenchmark"
-version       "0.1"
+Vendor::Spec.new do |s|
 
-authors       "keithpitt"
-email         "me@keithpitt.com"
-homepage      "http://www.keithpitt.com"
-description   "Easy benchmarking in Objective-C using blocks"
+  s.name        = "DKBenchmark"
+  s.version     = "0.1"
 
-github        "https://github.com/keithpitt/DKBenchmark"
+  s.authors     = "keithpitt"
+  s.email       = "me@keithpitt.com"
+  s.description = "Easy benchmarking in Objective-C using blocks"
 
-files         [ "DKBenchmark.h", "DKBenchmark.m" ]
+  s.homepage    = "http://www.keithpitt.com"
+  s.source      = "https://github.com/keithpitt/DKBenchmark"
+  s.docs        = "https://github.com/keithpitt/DKBenchmark/wiki"
+
+  s.files       = [ "DKBenchmark.h", "DKBenchmark.m" ]
+
+  s.dependency  "JSONKit", "0.5"
+  s.dependency  "ASIHTTPRequest", "~> 4.2"
+  s.dependency  "AFINetworking", "<= 2.5.a"
+
+end
 ```
 
 Change what you need to match your project, then build a packaged

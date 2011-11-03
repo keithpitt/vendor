@@ -70,9 +70,8 @@ module Vendor
 
           elsif vendor_spec && File.exist?(vendor_spec)
 
-            loader = Vendor::VendorSpec::Loader.new
-            loader.load vendor_spec
-            loader.dsl.files.map { |file| File.join(cache_path, file) }
+            spec = Vendor::Spec.load(vendor_spec)
+            spec.files.map { |file| File.join(cache_path, file) }
 
           else
 

@@ -9,7 +9,7 @@ describe Vendor::VendorSpec::Builder do
       let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")) }
 
       it "should load in the vendor spec" do
-        builder.vendor_spec[:name].should == "DKBenchmark"
+        builder.vendor_spec.name.should == "DKBenchmark"
       end
 
       it "should load the name of the vendor" do
@@ -31,7 +31,7 @@ describe Vendor::VendorSpec::Builder do
       let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmarkUnsafe", "DKBenchmark.vendorspec")) }
 
       it "should load in the vendor spec" do
-        builder.vendor_spec[:name].should == "DKBen!/asdf535chmark"
+        builder.vendor_spec.name.should == "DKBen!/asdf535chmark"
       end
 
       it "should load the name of the vendor" do
