@@ -20,20 +20,35 @@ module Vendor
       end
     end
 
+    def meta(name)
+      perform do
+        begin
+          response = resource["vendors/#{slugerize(name)}.json"].get
+          json = JSON.parse(response.body)
+        rescue RestClient::Exception => e
+          raise (e.http_code == 404) ? Error.new("Could not find a valid vendor '#{name}'") : e
+        end
+      end
+    end
+
     def push(options)
       perform do
         response = resource["vendors.json"].post :version => { :package => File.new(options[:file]) }, :api_key => options[:api_key]
-        body = JSON.parse(response.body)
+        json = JSON.parse(response.body)
 
-        if body["status"] == "ok"
-          body["url"]
+        if json["status"] == "ok"
+          json["url"]
         else
-          raise Error.new(body["message"])
+          raise Error.new(json["message"])
         end
       end
     end
 
     private
+
+      def slugerize(string)
+        string.gsub(/[^a-zA-Z0-9\-\_\s]/, ' ').gsub(/\s+/, '-')
+      end
 
       def perform(&block)
         begin
