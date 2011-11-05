@@ -44,7 +44,7 @@ module Vendor
         # the sources correctly. So instead of using the name, use a hash of
         # the URI
         def cache_path
-          @cache_path ||= File.join(Vendor.library_path, "git", Digest::MD5.hexdigest(uri))
+          File.join(Vendor.library_path, "git", Digest::MD5.hexdigest(uri))
         end
 
         private
