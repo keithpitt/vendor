@@ -184,19 +184,19 @@ So I've probably made mistake or two. But thats OK, because at least I have *som
 ## Contributers
 
 * [Keith Pitt](http://www.keithpitt.com)
-* [Tim Lee](http://twitter.com/#!/timothy1ee)
-* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb)
 
 ## Special Thanks
 
-Thanks to the following libraries. They provided me with a great deal of
-inspiration and example code :D
+Thanks to the following libraries and people, without their
+contributions to open source, Vendor would have never been...
 
 * [Rubygems](http://rubyforge.org/projects/rubygems/)
 * [Bundler](https://github.com/carlhuda/bundler)
 * [CocoaPods](https://github.com/alloy/cocoapods)
 * [Kit](https://github.com/nkpart/kit)
 * [Vendor](https://github.com/bazaarlabs/vendor)
+* [Jari Bakken](https://github.com/jarib/plist/blob/master/lib/plist/ascii.rb)
+* [Tim Lee](http://twitter.com/#!/timothy1ee)
 
 ## Note on Patches/Pull Requests
 
