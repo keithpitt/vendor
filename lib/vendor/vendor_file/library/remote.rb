@@ -17,7 +17,7 @@ module Vendor
           end
 
           # If we haven't already downloaded the vendor
-          unless Dir.exist?(cache_path)
+          unless File.exist?(cache_path)
             # Download it
             file = Vendor::API.download(name, version)
 

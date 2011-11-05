@@ -24,8 +24,14 @@ describe Vendor::VendorFile::Library::Remote do
     end
 
     it "should download the lib if its not cached locally" do
-      Dir.should_receive(:exist?).with(lib.cache_path).and_return(false)
       Vendor::API.should_receive(:download).with(lib.name, lib.version).and_return(File.open(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor")))
+
+      lib.download
+    end
+
+    it "should not download the lib if it already exists" do
+      File.should_receive(:exist?).with(lib.cache_path).and_return(true)
+      Vendor::API.should_not_receive(:download).with(lib.name, lib.version)
 
       lib.download
     end
