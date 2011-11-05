@@ -178,10 +178,6 @@ After reading [this blog post](http://www.germanforblack.com/articles/false-fear
 
 So I've probably made mistake or two. But thats OK, because at least I have *something* working. If you see something you think could be done better, feel free to fork and submit a pull request :)
 
-## Contributers
-
-* [Keith Pitt](http://www.keithpitt.com)
-
 ## Special Thanks
 
 Thanks to the following libraries and people, without their
