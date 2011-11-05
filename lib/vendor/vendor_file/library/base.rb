@@ -30,9 +30,9 @@ module Vendor
         end
 
         def install(project)
-          Vendor.ui.debug "Installing #{name} into #{project} (source_tree = #{@source_tree})"
-
           destination = "Vendor/#{name}"
+
+          Vendor.ui.debug "Installing #{name} into #{project} (location = #{destination}, source_tree = #{@source_tree})"
 
           # Remove the group, and recreate
           project.remove_group destination

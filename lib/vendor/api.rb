@@ -16,16 +16,22 @@ module Vendor
 
     def api_key(username, password)
       perform do
-        response = resource(username, password)["users/#{username}/api_key.json"].get
+        url = resource(username, password)["users/#{username}/api_key.json"]
+        Vendor.ui.debug "GET #{url}"
+
+        response = url.get
         JSON.parse(response.body)["api_key"]
       end
     end
 
     def meta(name)
-      perform :on_404 => "Could not find a valid vendor '#{name}'" do
-        @meta ||= {}
-        response = @meta[name] ||= resource["vendors/#{slugerize(name)}.json"].get
+      @meta ||= {}
 
+      perform :on_404 => "Could not find a valid vendor '#{name}'" do
+        url = resource["vendors/#{slugerize(name)}.json"]
+        Vendor.ui.debug "GET #{url}"
+
+        response = @meta[name] ||= url.get
         JSON.parse(response.body)
       end
     end
@@ -39,7 +45,10 @@ module Vendor
           raise Error.new("Could not find a valid version for '#{name}' that matches '#{version}'")
         end
 
-        binary = resource["vendors/#{slugerize(name)}/versions/#{version}/download"].get
+        url = resource["vendors/#{slugerize(name)}/versions/#{version}/download"]
+        Vendor.ui.debug "GET #{url}"
+
+        binary = url.get
 
         filename = "#{name}-#{version}.vendor"
         tmpfile = File.join(Dir.mktmpdir(filename), filename)
@@ -54,7 +63,10 @@ module Vendor
 
     def push(options)
       perform do
-        response = resource["vendors.json"].post :version => { :package => File.new(options[:file]) }, :api_key => options[:api_key]
+        url = resource["vendors.json"]
+        Vendor.ui.debug "POST #{url}"
+
+        response = url.post :version => { :package => File.new(options[:file]) }, :api_key => options[:api_key]
         json = JSON.parse(response.body)
 
         if json["status"] == "ok"
