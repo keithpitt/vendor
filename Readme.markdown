@@ -1,6 +1,4 @@
-# Vendor – an iOS library management system
-
-[![Build Status](https://secure.travis-ci.org/keithpitt/vendor.png)](http://travis-ci.org/keithpitt/vendor)
+# Vendor – an iOS library management system [![Build Status](https://secure.travis-ci.org/keithpitt/vendor.png)](http://travis-ci.org/keithpitt/vendor)
 
 __Note: This software is currently in super alpha. I've been testing it
 with my own projects, and its seemed to work so far. If you have any
