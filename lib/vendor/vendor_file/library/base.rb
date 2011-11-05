@@ -82,7 +82,9 @@ module Vendor
 
           # Remove files that are within folders with a ".", such as ".bundle"
           # and ".frameworks"
-          install_files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+          install_files.reject do |file|
+            file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
+          end
         end
 
       end

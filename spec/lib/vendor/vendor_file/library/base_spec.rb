@@ -8,8 +8,8 @@ describe Vendor::VendorFile::Library::Base do
   let(:project) { Vendor::XCode::Project.new(File.join(temp_path, "UtilityApplication.xcodeproj")) }
 
   let(:lib_with_no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
-  let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Manifest") }
-  let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-Vendorspec") }
+  let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Manifest") }
+  let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Vendorspec") }
 
   it "should have a name attribute" do
     lib.name = "lib"
@@ -39,12 +39,12 @@ describe Vendor::VendorFile::Library::Base do
       end
 
       it "should add the group to the project" do
-        group = project.find_group("Vendor/DKBenchmark-Manifest")
+        group = project.find_group("Vendor/DKBenchmark-0.1-Manifest")
         group.should_not be_nil
       end
 
       it "should add the files to the project" do
-        children = project.find_group("Vendor/DKBenchmark-Manifest").children
+        children = project.find_group("Vendor/DKBenchmark-0.1-Manifest").children
         children.length.should == 2
       end
 
@@ -53,12 +53,12 @@ describe Vendor::VendorFile::Library::Base do
     context "with a fresh installation" do
 
       it "should add the group to the project" do
-        group = project.find_group("Vendor/DKBenchmark-Manifest")
+        group = project.find_group("Vendor/DKBenchmark-0.1-Manifest")
         group.should_not be_nil
       end
 
       it "should add the files to the project" do
-        children = project.find_group("Vendor/DKBenchmark-Manifest").children
+        children = project.find_group("Vendor/DKBenchmark-0.1-Manifest").children
         children.length.should == 2
       end
 
@@ -124,7 +124,7 @@ describe Vendor::VendorFile::Library::Base do
       end
 
       it "should return files in the correct location" do
-        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-Vendorspec/")
+        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-0.1-Vendorspec/")
         regex_path = /^#{path}.+$/
 
         files.each do |file|
@@ -152,7 +152,7 @@ describe Vendor::VendorFile::Library::Base do
       end
 
       it "should return files in the correct location" do
-        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-Manifest/data/")
+        path = File.join(CACHED_VENDOR_RESOURCE_PATH, "base/DKBenchmark-0.1-Manifest/data/")
         regex_path = /^#{path}.+$/
 
         files.each do |file|
