@@ -23,7 +23,9 @@ module Vendor
 
     def meta(name)
       perform :on_404 => "Could not find a valid vendor '#{name}'" do
-        response = resource["vendors/#{slugerize(name)}.json"].get
+        @meta ||= {}
+        response = @meta[name] ||= resource["vendors/#{slugerize(name)}.json"].get
+
         JSON.parse(response.body)
       end
     end
