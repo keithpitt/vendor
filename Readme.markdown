@@ -2,6 +2,16 @@
 
 [![Build Status](https://secure.travis-ci.org/keithpitt/vendor.png)](http://travis-ci.org/keithpitt/vendor)
 
+___Note: This software is currently in super alpha. I've been testing it
+with my own projects, and its seemed to work so far. If you have any
+problems, feel free to create an issue. If your having a problem with
+installing the vendor libraries into XCode, could you also provide me
+with your .xcodeproj file, you don't need to give me the source files
+just the project file is all I need.__
+
+__There is still a bit to do, have a look at the [TODO](https://github.com/keithpitt/vendor/blob/master/TODO.md) list to see
+whats left to do.__
+
 Vendor makes the process of using and managing libraries in iOS easy. Vendor is modeled after [Bundler](https://github.com/carlhuda/bundler). Vendor streamlines the installation and update process for dependent libraries.  It also tracks versions and manages dependencies between libraries.
 
 ## Installation
