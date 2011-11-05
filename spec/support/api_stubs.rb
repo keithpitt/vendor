@@ -48,6 +48,9 @@ FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DoesNotExist.json",
 FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark/versions/0.1/download",
                      :body => File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
 
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark/versions/0.2/download",
+                     :body => File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
+
 FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError.json",
                      :body => VENDOR_JSON[:LibWithError].to_json
 
