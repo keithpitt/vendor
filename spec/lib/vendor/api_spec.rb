@@ -53,4 +53,27 @@ describe Vendor::API do
 
   end
 
+  context "#download" do
+
+    it "should return a file with the downloaded contents" do
+      file = Vendor::API.download("DKBenchmark", "0.1")
+
+      file.should be_kind_of(File)
+      File.read(file.path).should == File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
+    end
+
+    it "should raise an error if the server returns a non 200" do
+      expect do
+        Vendor::API.download("LibWithError", "0.1")
+      end.should raise_error(Vendor::API::Error, "Could not complete request. Server returned a status code of 500")
+    end
+
+    it "should raise an error if the vendor cannot be found" do
+      expect do
+        Vendor::API.download("DKBenchmark", "0.does.not.exist")
+      end.should raise_error(Vendor::API::Error, "Could not find a valid version for 'DKBenchmark' that matches '0.does.not.exist'")
+    end
+
+  end
+
 end

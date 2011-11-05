@@ -18,6 +18,12 @@ VENDOR_JSON[:DKBenchmark] = { :name => "DKBenchmark",
 
 VENDOR_JSON[:DKBenchmarkCrazyName] = VENDOR_JSON[:DKBenchmark].merge(:name => "DKBenchmark!! With Some Crazy #Number Name!")
 
+VENDOR_JSON[:LibWithError] = { :name => "LibWithError",
+                               :description => "This is fine",
+                               :release => "0.1",
+                               :versions => [ [ "0.1", { :dependencies => [ ] } ] ]
+                            }
+
 FakeWeb.register_uri :get, "http://keithpitt:password@vendorforge.org/users/keithpitt/api_key.json",
                      :body => { :api_key => "secret" }.to_json
 
@@ -38,5 +44,14 @@ FakeWeb.register_uri :get, "http://vendorforge.org/vendors/WithAnError.json",
 
 FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DoesNotExist.json",
                      :status => 404
+
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark/versions/0.1/download",
+                     :body => File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
+
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError.json",
+                     :body => VENDOR_JSON[:LibWithError].to_json
+
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError/versions/0.1/download",
+                     :status => 500
 
 FakeWeb.allow_net_connect = false
