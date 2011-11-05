@@ -15,6 +15,8 @@ module Vendor
       end
 
       def source(source)
+        Vendor.ui.warn "Having multiple vendor sources is currently not supported. It will be in a future release."
+
         @sources << Vendor::VendorFile::Source.new(source)
       end
 

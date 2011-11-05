@@ -32,8 +32,6 @@ $ sudo gem install vendor
 Specify your dependencies in a Vendors file in your project's root.
 
 ```ruby
-source "https://vendorforge.com"
-
 # Downloads the latest version of DKBenchmark from
 # http://vendorforge.com
 lib "DKBenchmark"

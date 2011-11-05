@@ -1,3 +1,5 @@
-source :vendorforge
+# This is an example Vendorfile for you to start editing and add your
+# own dependencies. Check out http://github.com/keithpitt/vendor for
+# more information on how to use this file.
 
 lib "DKBenchmark", "0.2"
