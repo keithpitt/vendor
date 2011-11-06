@@ -221,7 +221,29 @@ describe Vendor::XCode::Project do
 
   end
 
-  context "#remove_file"
+  context "#add_framework" do
+
+    before :each do
+      @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "MultipleTargets"))
+      @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "MultipleTargets.xcodeproj"))
+    end
+
+    it "should add the framework to the right targets" do
+      @temp_project.should_receive(:add_file).with({ :targets => @temp_project.find_target("Integration"),
+                                                     :file => "System/Library/Frameworks/KeithPitt.framework",
+                                                     :path => "Frameworks",
+                                                     :source_tree => :sdkroot })
+
+      @temp_project.add_framework "KeithPitt.framework", :targets => "Integration"
+    end
+
+    it "shouldn't add the framework if it already exists" do
+      @temp_project.should_not_receive(:add_file)
+
+      @temp_project.add_framework "Foundation.framework", :targets => "Integration"
+    end
+
+  end
 
   context '#add_file' do
 
@@ -306,6 +328,56 @@ describe Vendor::XCode::Project do
           @temp_project.add_file :targets => [ "Blah" ], :file => first_file,
                                  :path => "Controllers/SecondViewController", :source_tree => :group
         end.should raise_error(StandardError, "Could not find target 'Blah' in project 'ProjectWithSpecs'")
+      end
+
+    end
+
+    context "with a source tree of :sdkroot" do
+
+      before :each do
+        @first_file_added = @temp_project.add_file :targets => [ @target ], :file => "System/Library/Frameworks/Foundation.framework",
+                                                   :path => "Frameworks", :source_tree => :sdkroot
+        @second_file_added = @temp_project.add_file :targets => [ @target ], :file => "System/Library/Frameworks/CoreGraphics.framework",
+                                                    :path => "Frameworks", :source_tree => :sdkroot
+      end
+
+      it "should mark the project as dirty" do
+        @temp_project.dirty.should be_true
+      end
+
+      it 'should add it as the correct file type' do
+        @first_file_added.last_known_file_type.should == "wrapper.framework"
+        @second_file_added.last_known_file_type.should == "wrapper.framework"
+      end
+
+      it 'should add the files with the correct path' do
+        @first_file_added.path.should == "System/Library/Frameworks/Foundation.framework"
+        @second_file_added.path.should == "System/Library/Frameworks/CoreGraphics.framework"
+      end
+
+      it 'should have an ID' do
+        @first_file_added.id.should_not be_nil
+        @second_file_added.id.should_not be_nil
+      end
+
+      it 'should add it to the correct group' do
+        group = @temp_project.create_group("Frameworks")
+
+        group.children[-2].should == @first_file_added
+        group.children[-1].should == @second_file_added
+      end
+
+      it 'should still save' do
+        @temp_project.save
+      end
+
+      it 'should add it to the build targets specified' do
+        build_phase = @target.build_phases[1]
+
+        build_phase.files[-2].should be_kind_of(Vendor::XCode::Proxy::PBXBuildFile)
+        build_phase.files[-2].file_ref.should == @first_file_added
+        build_phase.files[-1].should be_kind_of(Vendor::XCode::Proxy::PBXBuildFile)
+        build_phase.files[-1].file_ref.should == @second_file_added
       end
 
     end

@@ -159,8 +159,28 @@ module Vendor::XCode
     def add_framework(framework, options = {})
       # Find targets
       targets = targets_from_options(options)
-
       Vendor.ui.debug %{Adding #{framework} to targets "#{targets.map(&:name)}"}
+
+      targets.each do |t|
+        # Does the framework already exist?
+        build_phase = build_phase_for_file("wrapper.framework", t)
+
+        if build_phase
+          # Does a framework already exist?
+          existing_framework = build_phase.files.map(&:file_ref).find do |file|
+            # Some files have names, some done. Framework references
+            # have names...
+            if file.respond_to?(:name)
+              file.name == framework
+            end
+          end
+
+          # If an existing framework was found, don't add it again
+          unless existing_framework
+            add_file :targets => t, :file => "System/Library/Frameworks/#{framework}", :path => "Frameworks", :source_tree => :sdkroot
+          end
+        end
+      end
     end
 
     def add_build_setting(name, value, options = {})
@@ -173,8 +193,12 @@ module Vendor::XCode
     def add_file(options)
       require_options options, :path, :file, :source_tree
 
-      # Ensure file exists
-      raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
+      # Ensure file exists if we'nre not using the sdk root source tree.
+      # The SDKROOT source tree has a virtual file on the system, so
+      # File.exist checks will always return false.
+      unless options[:source_tree] == :sdkroot
+        raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
+      end
 
       # Find targets
       targets = targets_from_options(options)
@@ -211,6 +235,12 @@ module Vendor::XCode
         # Set the path and the name of the file
         attributes['name'] = name
         attributes['path'] = options[:file]
+
+      elsif options[:source_tree] == :sdkroot
+
+        # Set the path and the name of the framework
+        attributes['path'] = options[:file]
+        attributes['sourceTree'] = "SDKROOT"
 
       else
 
@@ -262,7 +292,7 @@ module Vendor::XCode
 
     def add_file_to_target(file, target)
 
-      build_phase = build_phase_for_file(file, target)
+      build_phase = build_phase_for_file(file.last_known_file_type, target)
 
       if build_phase
 
@@ -327,11 +357,13 @@ module Vendor::XCode
 
     private
 
-      def build_phase_for_file(file, target)
+      def build_phase_for_file(file_type, target)
         # Which build phase does this file belong?
-        klass = case file.last_known_file_type
+        klass = case file_type
           when "sourcecode.c.objc"
             Vendor::XCode::Proxy::PBXSourcesBuildPhase
+          when "wrapper.framework"
+            Vendor::XCode::Proxy::PBXFrameworksBuildPhase
         end
 
         if klass
@@ -343,7 +375,7 @@ module Vendor::XCode
           end
           build_phase
         else
-          Vendor.ui.debug "'#{file.path}' was not added to a build phase because I'm not sure what sort of file it is."
+          Vendor.ui.debug "Could not find a build phase to add '#{file_type}' files"
           false
         end
       end
