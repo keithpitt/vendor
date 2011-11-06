@@ -17,3 +17,5 @@
 * Build https://github.com/keithpitt/Kiwi
 * Build https://github.com/keithpitt/expecta
 * Build https://github.com/keithpitt/cedar
+* Go over https://twitter.com/github_objc and add libs from that
+* Markdown support on descriptions
