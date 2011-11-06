@@ -3,19 +3,18 @@
 
 Vendor::Spec.new do |s|
 
-  s.name        = "<%= name %>"
-  s.version     = "0.1"
+  s.name         "<%= name %>"
+  s.version      "0.1"
 
-  s.authors     = "<%= username %>"
-  s.email       = "<%= email %>"
-  s.description = "DESCRIPTION GOES HERE"
+  s.authors      "<%= username %>"
+  s.email        "<%= email %>"
+  s.description  "DESCRIPTION GOES HERE"
 
-  # s.homepage    = "HOMEPAGE URL GOES HERE"
-  # s.source      = "SOURCE URL GOES HERE"
-  # s.docs        = "DOCS URL GOES HERE"
+  # s.homepage     "HOMEPAGE URL GOES HERE"
+  # s.source       "SOURCE URL GOES HERE"
 
-  s.files       = `git ls-files`.split("\n")
+  s.files        `git ls-files`.split("\n")
 
-  # s.dependency  "JSONKit", "0.5"
+  # s.dependency   "JSONKit", "0.5"
 
 end

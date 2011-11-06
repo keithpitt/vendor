@@ -103,22 +103,29 @@ This command will create a blank `.vendorspec` file that looks something like th
 ```ruby
 Vendor::Spec.new do |s|
 
-  s.name        = "DKBenchmark"
-  s.version     = "0.1"
+  s.name           "DKBenchmark"
+  s.version        "0.1"
 
-  s.authors     = "keithpitt"
-  s.email       = "me@keithpitt.com"
-  s.description = "Easy benchmarking in Objective-C using blocks"
+  s.authors        "keithpitt"
+  s.email          "me@keithpitt.com"
+  s.description    "Easy benchmarking in Objective-C using blocks"
 
-  s.homepage    = "http://www.keithpitt.com"
-  s.source      = "https://github.com/keithpitt/DKBenchmark"
-  s.docs        = "https://github.com/keithpitt/DKBenchmark/wiki"
+  s.homepage       "http://www.keithpitt.com"
+  s.source         "https://github.com/keithpitt/DKBenchmark"
+  s.docs           "https://github.com/keithpitt/DKBenchmark/wiki"
 
-  s.files       = [ "DKBenchmark.h", "DKBenchmark.m" ]
+  s.files          [ "DKBenchmark.h", "DKBenchmark.m" ]
 
-  s.dependency  "JSONKit", "0.5"
-  s.dependency  "ASIHTTPRequest", "~> 4.2"
-  s.dependency  "AFINetworking", "<= 2.5.a"
+  s.build_setting  :other_linker_flags, [ "-ObjC", "+lsdd" ]
+  s.build_setting  "CLANG_WARN_OBJCPP_ARC_ABI", false
+  s.build_setting  "GCC_PRECOMPILE_PREFIX_HEADER", "YES"
+
+  s.framework      "CoreGraphics.framework"
+  s.framework      "UIKit.framework"
+
+  s.dependency     "JSONKit", "0.5"
+  s.dependency     "ASIHTTPRequest", "~> 4.2"
+  s.dependency     "AFINetworking", "<= 2.5.a"
 
 end
 ```

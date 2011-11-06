@@ -50,7 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		53F42B5914667527006B8F7C /* MutipleTargets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MutipleTargets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F42B5914667527006B8F7C /* MultipleTargets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleTargets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53F42B5D14667527006B8F7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		53F42B5F14667527006B8F7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		53F42B6114667527006B8F7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,7 +136,7 @@
 		53F42B5A14667527006B8F7C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				53F42B5914667527006B8F7C /* MutipleTargets.app */,
+				53F42B5914667527006B8F7C /* MultipleTargets.app */,
 				53F42B9114667530006B8F7C /* MutipleTargets-iPad.app */,
 				53F42BAC14667536006B8F7C /* MutipleTargets copy.app */,
 				53F42BC01466753B006B8F7C /* Specs copy.app */,
@@ -207,7 +207,7 @@
 			);
 			name = MultipleTargets;
 			productName = MutipleTargets;
-			productReference = 53F42B5914667527006B8F7C /* MutipleTargets.app */;
+			productReference = 53F42B5914667527006B8F7C /* MultipleTargets.app */;
 			productType = "com.apple.product-type.application";
 		};
 		53F42B8014667530006B8F7C /* MultipleTargets-iPad */ = {
@@ -471,9 +471,14 @@
 		53F42B7E14667527006B8F7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
 				INFOPLIST_FILE = "MutipleTargets/MutipleTargets-Info.plist";
+				OTHER_LDFLAGS = (
+					"+ldcc",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -482,9 +487,14 @@
 		53F42B7F14667527006B8F7C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
 				INFOPLIST_FILE = "MutipleTargets/MutipleTargets-Info.plist";
+				OTHER_LDFLAGS = (
+					"+ldcc",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

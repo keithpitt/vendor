@@ -43,11 +43,59 @@ describe Vendor::Spec do
 
   end
 
+  context "#framework" do
+
+    it "should add the framework to the frameworks property" do
+      spec.framework "Foundation.framework"
+
+      spec.frameworks.should == [ "Foundation.framework" ]
+    end
+
+  end
+
+  context "#build_setting" do
+
+    it "should set a build setting" do
+      spec.build_setting "SOMETHING", "else"
+
+      spec.build_settings.should == [ [ "SOMETHING", "else" ] ]
+    end
+
+    it "should allow you to remap names with a symbol" do
+      spec.build_setting :other_linker_flags, "-ObjC"
+
+      spec.build_settings.should == [ [ "OTHER_LDFLAGS", "-ObjC" ] ]
+    end
+
+    it "should raise an error if a mapping for the symbol doesn't exist" do
+      expect do
+        spec.build_setting :blah, "-ObjC"
+      end.should raise_error(StandardError)
+    end
+
+    it "should turn the value to YES if you pass true" do
+      spec.build_setting :other_linker_flags, true
+      spec.build_setting :other_linker_flags, false
+
+      spec.build_settings.should == [ [ "OTHER_LDFLAGS", "YES" ], [ "OTHER_LDFLAGS", "NO" ] ]
+    end
+
+  end
+
   context '#to_json' do
 
     it 'should return the vendor spec as a JSON string' do
       spec.name = "foo"
-      spec.to_json.should == { :name => "foo" }.to_json
+      spec.framework "Foundation.framework"
+      spec.build_setting :other_linker_flags, true
+      spec.dependency "JSONKit", "0.5"
+
+      json = JSON.parse(spec.to_json)
+
+      json["name"].should == "foo"
+      json["dependencies"].should == [ [ "JSONKit", "0.5" ] ]
+      json["frameworks"].should == [ "Foundation.framework" ]
+      json["build_settings"].should == [ [ "OTHER_LDFLAGS", "YES" ] ]
     end
 
   end
