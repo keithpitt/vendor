@@ -5,6 +5,7 @@
 * [✔] Calculate dependencies
 * [✔] Assert if there are any version conflicts
 * [✔] Install libs from vendorforge.org
+* [✔] Installing into targets
 * Compiler flags defined in vendorspec
 * Adding frameworks from the vendorspec
 * Multiple download sources. Vendorfile API exists, but it needs to be
