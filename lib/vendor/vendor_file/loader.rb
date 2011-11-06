@@ -13,31 +13,23 @@ module Vendor
         @libraries = []
       end
 
-      def load(filename)
-        @dsl.instance_eval(File.read(filename), filename)
+      def libraries=(value)
+        @graph = Vendor::VendorFile::DependencyGraph.new(value)
+        @libraries = value
       end
 
-      def dependencies
-        @dsl.libraries.map do |lib|
-          all_dependencies lib
-        end.flatten
+      def load(filename)
+        @dsl.instance_eval(File.read(filename), filename)
+        self.libraries = @dsl.libraries
       end
 
       def install(project)
-        @dsl.libraries.each do |lib|
-          lib.install project
+        unless @graph.version_conflicts?
+          @graph.libraries_to_install.each do |lib|
+            lib[0].install project, :targets => lib[1]
+          end
         end
       end
-
-      def dependency_graph
-        @dsl.libraries.map { |lib| _dependencies(lib) }
-      end
-
-      private
-
-        def _dependencies(library)
-          [ library.name, library.version, library.dependencies.map { |l| _dependencies(l) } ]
-        end
 
     end
 

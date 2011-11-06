@@ -12,16 +12,6 @@ describe Vendor::VendorFile::Loader do
 
   end
 
-  context "#dependency_graph" do
-
-    before :all do
-      loader.dsl.libraries << Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "~> 0.1")
-    end
-
-    it "should have a matrix of dependencies"
-
-  end
-
   context "#load" do
 
     before :all do

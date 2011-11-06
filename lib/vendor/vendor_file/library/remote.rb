@@ -39,12 +39,25 @@ module Vendor
             return meta['release']
           end
 
+          # Try and find a version that matches the lib
+          found = version_matches_any?(meta['versions'].map { |v| v[0] })
+
+          # Did we actually find something?
+          unless found
+            Vendor.ui.error "Could not find a valid version '#{equality} #{version}' in '#{versions}'"
+            exit 1
+          else
+            found
+          end
+        end
+
+        def version_matches_any?(other_versions)
           # If we have an equality matcher, we need sort through
           # the versions, and try and find the best match
           wants = Vendor::Version.new(version)
 
           # Sort them from the latest versions first
-          versions = meta['versions'].map{|v| Vendor::Version.create(v[0]) }.sort.reverse
+          versions = other_versions.map{|v| Vendor::Version.create(v) }.sort.reverse
 
           # We don't want to include pre-releases if the wants version
           # isn't a pre-release itself. If we're after "2.5.alpha", then
@@ -67,23 +80,19 @@ module Vendor
           # [ 0, 1, 5, 2 ].slice(0, 2) #=. [ 0, 1 ]
           #
           # No we just test to see if they are the same! I think this works...
-          found = if equality == "~>"
+          if equality == "~>"
             segments = wants.segments
             versions.find do |has|
               segments == has.segments.slice(0, segments.length)
             end
-          else
+          elsif equality
             versions.find do |has|
               wants.send(:"#{equality}", has)
             end
-          end
-
-          # Did we actually find something?
-          unless found
-            Vendor.ui.error "Could not find a valid version '#{equality} #{version}' in '#{versions}'"
-            exit 1
           else
-            found
+            versions.find do |has|
+              wants == has
+            end
           end
         end
 
@@ -104,6 +113,15 @@ module Vendor
 
         def ==(other)
           other.name == @name && other.version == @version && other.equality == @equality
+        end
+
+        def <=>(other)
+          v = other.respond_to?(:version) ? other.version : other
+          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
+        end
+
+        def description
+          [ @name, @equality, @version ].compact.join(" ")
         end
 
         private
