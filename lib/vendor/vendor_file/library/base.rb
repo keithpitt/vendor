@@ -38,7 +38,7 @@ module Vendor
 
           # Combine the local targets, with those targets specified in the options. Also
           # for sanity reasons, flatten and uniqify them.
-          install_targets = [ *@targets, options[:targets] ].compact.flatten.uniq
+          install_targets = [ @targets, options[:targets] ].compact.flatten.uniq
 
           # The destination in the XCode project
           destination = "Vendor/#{name}"
