@@ -40,7 +40,7 @@ describe Vendor::VendorFile::DependencyGraph do
         graph.version_conflicts?
 
         libraries_to_install = graph.libraries_to_install
-        libraries_to_install.first[0].should == dkrest
+        libraries_to_install.first[0].name.should == "DKRest"
         libraries_to_install.first[1].should == [ :all ]
       end
 
