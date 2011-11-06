@@ -35,6 +35,15 @@ describe Vendor::VendorFile::DependencyGraph do
         graph.version_conflicts?.should be_false
       end
 
+      it "should poplate the list libraries_to_install property" do
+        graph.libraries_to_install.should be_nil
+        graph.version_conflicts?
+
+        libraries_to_install = graph.libraries_to_install
+        libraries_to_install.first[0].should == dkrest
+        libraries_to_install.first[1].should == [ :all ]
+      end
+
     end
 
     context "#dependency_graph" do

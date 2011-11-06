@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		53F42B5E14667527006B8F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5D14667527006B8F7C /* UIKit.framework */; };
+		53F42B6014667527006B8F7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5F14667527006B8F7C /* Foundation.framework */; };
+		53F42B6214667527006B8F7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B6114667527006B8F7C /* CoreGraphics.framework */; };
+		53F42B6814667527006B8F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B6614667527006B8F7C /* InfoPlist.strings */; };
+		53F42B6A14667527006B8F7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6914667527006B8F7C /* main.m */; };
+		53F42B6E14667527006B8F7C /* MTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6D14667527006B8F7C /* MTAppDelegate.m */; };
+		53F42B7114667527006B8F7C /* MTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7014667527006B8F7C /* MTMasterViewController.m */; };
+		53F42B7414667527006B8F7C /* MTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7314667527006B8F7C /* MTDetailViewController.m */; };
+		53F42B7714667527006B8F7C /* MTMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7514667527006B8F7C /* MTMasterViewController.xib */; };
+		53F42B7A14667527006B8F7C /* MTDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7814667527006B8F7C /* MTDetailViewController.xib */; };
+		53F42B8214667530006B8F7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6914667527006B8F7C /* main.m */; };
+		53F42B8314667530006B8F7C /* MTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6D14667527006B8F7C /* MTAppDelegate.m */; };
+		53F42B8414667530006B8F7C /* MTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7014667527006B8F7C /* MTMasterViewController.m */; };
+		53F42B8514667530006B8F7C /* MTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7314667527006B8F7C /* MTDetailViewController.m */; };
+		53F42B8714667530006B8F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5D14667527006B8F7C /* UIKit.framework */; };
+		53F42B8814667530006B8F7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5F14667527006B8F7C /* Foundation.framework */; };
+		53F42B8914667530006B8F7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B6114667527006B8F7C /* CoreGraphics.framework */; };
+		53F42B8B14667530006B8F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B6614667527006B8F7C /* InfoPlist.strings */; };
+		53F42B9914667532006B8F7C /* MTMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B9514667532006B8F7C /* MTMasterViewController.xib */; };
+		53F42B9A14667532006B8F7C /* MTDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B9714667532006B8F7C /* MTDetailViewController.xib */; };
+		53F42B9D14667536006B8F7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6914667527006B8F7C /* main.m */; };
+		53F42B9E14667536006B8F7C /* MTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6D14667527006B8F7C /* MTAppDelegate.m */; };
+		53F42B9F14667536006B8F7C /* MTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7014667527006B8F7C /* MTMasterViewController.m */; };
+		53F42BA014667536006B8F7C /* MTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7314667527006B8F7C /* MTDetailViewController.m */; };
+		53F42BA214667536006B8F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5D14667527006B8F7C /* UIKit.framework */; };
+		53F42BA314667536006B8F7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5F14667527006B8F7C /* Foundation.framework */; };
+		53F42BA414667536006B8F7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B6114667527006B8F7C /* CoreGraphics.framework */; };
+		53F42BA614667536006B8F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B6614667527006B8F7C /* InfoPlist.strings */; };
+		53F42BA714667536006B8F7C /* MTMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7514667527006B8F7C /* MTMasterViewController.xib */; };
+		53F42BA814667536006B8F7C /* MTDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7814667527006B8F7C /* MTDetailViewController.xib */; };
+		53F42BB11466753B006B8F7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6914667527006B8F7C /* main.m */; };
+		53F42BB21466753B006B8F7C /* MTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B6D14667527006B8F7C /* MTAppDelegate.m */; };
+		53F42BB31466753B006B8F7C /* MTMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7014667527006B8F7C /* MTMasterViewController.m */; };
+		53F42BB41466753B006B8F7C /* MTDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53F42B7314667527006B8F7C /* MTDetailViewController.m */; };
+		53F42BB61466753B006B8F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5D14667527006B8F7C /* UIKit.framework */; };
+		53F42BB71466753B006B8F7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5F14667527006B8F7C /* Foundation.framework */; };
+		53F42BB81466753B006B8F7C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B6114667527006B8F7C /* CoreGraphics.framework */; };
+		53F42BBA1466753B006B8F7C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B6614667527006B8F7C /* InfoPlist.strings */; };
+		53F42BBB1466753B006B8F7C /* MTMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7514667527006B8F7C /* MTMasterViewController.xib */; };
+		53F42BBC1466753B006B8F7C /* MTDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53F42B7814667527006B8F7C /* MTDetailViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		53F42B5914667527006B8F7C /* MutipleTargets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MutipleTargets.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F42B5D14667527006B8F7C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		53F42B5F14667527006B8F7C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		53F42B6114667527006B8F7C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		53F42B6514667527006B8F7C /* MutipleTargets-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MutipleTargets-Info.plist"; sourceTree = "<group>"; };
+		53F42B6714667527006B8F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		53F42B6914667527006B8F7C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		53F42B6B14667527006B8F7C /* MutipleTargets-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MutipleTargets-Prefix.pch"; sourceTree = "<group>"; };
+		53F42B6C14667527006B8F7C /* MTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTAppDelegate.h; sourceTree = "<group>"; };
+		53F42B6D14667527006B8F7C /* MTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTAppDelegate.m; sourceTree = "<group>"; };
+		53F42B6F14667527006B8F7C /* MTMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTMasterViewController.h; sourceTree = "<group>"; };
+		53F42B7014667527006B8F7C /* MTMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTMasterViewController.m; sourceTree = "<group>"; };
+		53F42B7214667527006B8F7C /* MTDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MTDetailViewController.h; sourceTree = "<group>"; };
+		53F42B7314667527006B8F7C /* MTDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MTDetailViewController.m; sourceTree = "<group>"; };
+		53F42B7614667527006B8F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MTMasterViewController.xib; sourceTree = "<group>"; };
+		53F42B7914667527006B8F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MTDetailViewController.xib; sourceTree = "<group>"; };
+		53F42B9114667530006B8F7C /* MutipleTargets-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MutipleTargets-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F42B9414667531006B8F7C /* MutipleTargets copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MutipleTargets copy-Info.plist"; path = "/Users/keith/Desktop/MutipleTargets/MutipleTargets copy-Info.plist"; sourceTree = "<absolute>"; };
+		53F42B9614667532006B8F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Resources-iPad/MutipleTargets/en.lproj/MTMasterViewController.xib"; sourceTree = "<group>"; };
+		53F42B9814667532006B8F7C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "Resources-iPad/MutipleTargets/en.lproj/MTDetailViewController.xib"; sourceTree = "<group>"; };
+		53F42BAC14667536006B8F7C /* MutipleTargets copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MutipleTargets copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F42BAE14667536006B8F7C /* MutipleTargets copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "MutipleTargets copy2-Info.plist"; path = "/Users/keith/Desktop/MutipleTargets/MutipleTargets copy2-Info.plist"; sourceTree = "<absolute>"; };
+		53F42BC01466753B006B8F7C /* Specs copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Specs copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53F42BC21466753C006B8F7C /* Specs copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Specs copy-Info.plist"; path = "/Users/keith/Desktop/MutipleTargets/Specs copy-Info.plist"; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		53F42B5614667527006B8F7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B5E14667527006B8F7C /* UIKit.framework in Frameworks */,
+				53F42B6014667527006B8F7C /* Foundation.framework in Frameworks */,
+				53F42B6214667527006B8F7C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42B8614667530006B8F7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B8714667530006B8F7C /* UIKit.framework in Frameworks */,
+				53F42B8814667530006B8F7C /* Foundation.framework in Frameworks */,
+				53F42B8914667530006B8F7C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42BA114667536006B8F7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42BA214667536006B8F7C /* UIKit.framework in Frameworks */,
+				53F42BA314667536006B8F7C /* Foundation.framework in Frameworks */,
+				53F42BA414667536006B8F7C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42BB51466753B006B8F7C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42BB61466753B006B8F7C /* UIKit.framework in Frameworks */,
+				53F42BB71466753B006B8F7C /* Foundation.framework in Frameworks */,
+				53F42BB81466753B006B8F7C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		53F42B4E14667526006B8F7C = {
+			isa = PBXGroup;
+			children = (
+				53F42B9314667530006B8F7C /* Resources-iPad */,
+				53F42B6314667527006B8F7C /* MutipleTargets */,
+				53F42B5C14667527006B8F7C /* Frameworks */,
+				53F42B5A14667527006B8F7C /* Products */,
+				53F42B9414667531006B8F7C /* MutipleTargets copy-Info.plist */,
+				53F42BAE14667536006B8F7C /* MutipleTargets copy2-Info.plist */,
+				53F42BC21466753C006B8F7C /* Specs copy-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		53F42B5A14667527006B8F7C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				53F42B5914667527006B8F7C /* MutipleTargets.app */,
+				53F42B9114667530006B8F7C /* MutipleTargets-iPad.app */,
+				53F42BAC14667536006B8F7C /* MutipleTargets copy.app */,
+				53F42BC01466753B006B8F7C /* Specs copy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		53F42B5C14667527006B8F7C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53F42B5D14667527006B8F7C /* UIKit.framework */,
+				53F42B5F14667527006B8F7C /* Foundation.framework */,
+				53F42B6114667527006B8F7C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53F42B6314667527006B8F7C /* MutipleTargets */ = {
+			isa = PBXGroup;
+			children = (
+				53F42B6C14667527006B8F7C /* MTAppDelegate.h */,
+				53F42B6D14667527006B8F7C /* MTAppDelegate.m */,
+				53F42B6F14667527006B8F7C /* MTMasterViewController.h */,
+				53F42B7014667527006B8F7C /* MTMasterViewController.m */,
+				53F42B7214667527006B8F7C /* MTDetailViewController.h */,
+				53F42B7314667527006B8F7C /* MTDetailViewController.m */,
+				53F42B7514667527006B8F7C /* MTMasterViewController.xib */,
+				53F42B7814667527006B8F7C /* MTDetailViewController.xib */,
+				53F42B6414667527006B8F7C /* Supporting Files */,
+			);
+			path = MutipleTargets;
+			sourceTree = "<group>";
+		};
+		53F42B6414667527006B8F7C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				53F42B6514667527006B8F7C /* MutipleTargets-Info.plist */,
+				53F42B6614667527006B8F7C /* InfoPlist.strings */,
+				53F42B6914667527006B8F7C /* main.m */,
+				53F42B6B14667527006B8F7C /* MutipleTargets-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		53F42B9314667530006B8F7C /* Resources-iPad */ = {
+			isa = PBXGroup;
+			children = (
+				53F42B9514667532006B8F7C /* MTMasterViewController.xib */,
+				53F42B9714667532006B8F7C /* MTDetailViewController.xib */,
+			);
+			name = "Resources-iPad";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		53F42B5814667527006B8F7C /* MultipleTargets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53F42B7D14667527006B8F7C /* Build configuration list for PBXNativeTarget "MultipleTargets" */;
+			buildPhases = (
+				53F42B5514667527006B8F7C /* Sources */,
+				53F42B5614667527006B8F7C /* Frameworks */,
+				53F42B5714667527006B8F7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MultipleTargets;
+			productName = MutipleTargets;
+			productReference = 53F42B5914667527006B8F7C /* MutipleTargets.app */;
+			productType = "com.apple.product-type.application";
+		};
+		53F42B8014667530006B8F7C /* MultipleTargets-iPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53F42B8E14667530006B8F7C /* Build configuration list for PBXNativeTarget "MultipleTargets-iPad" */;
+			buildPhases = (
+				53F42B8114667530006B8F7C /* Sources */,
+				53F42B8614667530006B8F7C /* Frameworks */,
+				53F42B8A14667530006B8F7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MultipleTargets-iPad";
+			productName = MutipleTargets;
+			productReference = 53F42B9114667530006B8F7C /* MutipleTargets-iPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		53F42B9B14667536006B8F7C /* Specs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53F42BA914667536006B8F7C /* Build configuration list for PBXNativeTarget "Specs" */;
+			buildPhases = (
+				53F42B9C14667536006B8F7C /* Sources */,
+				53F42BA114667536006B8F7C /* Frameworks */,
+				53F42BA514667536006B8F7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Specs;
+			productName = MutipleTargets;
+			productReference = 53F42BAC14667536006B8F7C /* MutipleTargets copy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		53F42BAF1466753B006B8F7C /* Integration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53F42BBD1466753B006B8F7C /* Build configuration list for PBXNativeTarget "Integration" */;
+			buildPhases = (
+				53F42BB01466753B006B8F7C /* Sources */,
+				53F42BB51466753B006B8F7C /* Frameworks */,
+				53F42BB91466753B006B8F7C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Integration;
+			productName = MutipleTargets;
+			productReference = 53F42BC01466753B006B8F7C /* Specs copy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		53F42B5014667526006B8F7C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 53F42B5314667526006B8F7C /* Build configuration list for PBXProject "MultipleTargets" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 53F42B4E14667526006B8F7C;
+			productRefGroup = 53F42B5A14667527006B8F7C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				53F42B5814667527006B8F7C /* MultipleTargets */,
+				53F42B8014667530006B8F7C /* MultipleTargets-iPad */,
+				53F42B9B14667536006B8F7C /* Specs */,
+				53F42BAF1466753B006B8F7C /* Integration */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		53F42B5714667527006B8F7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B6814667527006B8F7C /* InfoPlist.strings in Resources */,
+				53F42B7714667527006B8F7C /* MTMasterViewController.xib in Resources */,
+				53F42B7A14667527006B8F7C /* MTDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42B8A14667530006B8F7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B8B14667530006B8F7C /* InfoPlist.strings in Resources */,
+				53F42B9914667532006B8F7C /* MTMasterViewController.xib in Resources */,
+				53F42B9A14667532006B8F7C /* MTDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42BA514667536006B8F7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42BA614667536006B8F7C /* InfoPlist.strings in Resources */,
+				53F42BA714667536006B8F7C /* MTMasterViewController.xib in Resources */,
+				53F42BA814667536006B8F7C /* MTDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42BB91466753B006B8F7C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42BBA1466753B006B8F7C /* InfoPlist.strings in Resources */,
+				53F42BBB1466753B006B8F7C /* MTMasterViewController.xib in Resources */,
+				53F42BBC1466753B006B8F7C /* MTDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		53F42B5514667527006B8F7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B6A14667527006B8F7C /* main.m in Sources */,
+				53F42B6E14667527006B8F7C /* MTAppDelegate.m in Sources */,
+				53F42B7114667527006B8F7C /* MTMasterViewController.m in Sources */,
+				53F42B7414667527006B8F7C /* MTDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42B8114667530006B8F7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B8214667530006B8F7C /* main.m in Sources */,
+				53F42B8314667530006B8F7C /* MTAppDelegate.m in Sources */,
+				53F42B8414667530006B8F7C /* MTMasterViewController.m in Sources */,
+				53F42B8514667530006B8F7C /* MTDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42B9C14667536006B8F7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42B9D14667536006B8F7C /* main.m in Sources */,
+				53F42B9E14667536006B8F7C /* MTAppDelegate.m in Sources */,
+				53F42B9F14667536006B8F7C /* MTMasterViewController.m in Sources */,
+				53F42BA014667536006B8F7C /* MTDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53F42BB01466753B006B8F7C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53F42BB11466753B006B8F7C /* main.m in Sources */,
+				53F42BB21466753B006B8F7C /* MTAppDelegate.m in Sources */,
+				53F42BB31466753B006B8F7C /* MTMasterViewController.m in Sources */,
+				53F42BB41466753B006B8F7C /* MTDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		53F42B6614667527006B8F7C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53F42B6714667527006B8F7C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		53F42B7514667527006B8F7C /* MTMasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53F42B7614667527006B8F7C /* en */,
+			);
+			name = MTMasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		53F42B7814667527006B8F7C /* MTDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53F42B7914667527006B8F7C /* en */,
+			);
+			name = MTDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+		53F42B9514667532006B8F7C /* MTMasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53F42B9614667532006B8F7C /* en */,
+			);
+			name = MTMasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		53F42B9714667532006B8F7C /* MTDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53F42B9814667532006B8F7C /* en */,
+			);
+			name = MTDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		53F42B7B14667527006B8F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		53F42B7C14667527006B8F7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53F42B7E14667527006B8F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets/MutipleTargets-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		53F42B7F14667527006B8F7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets/MutipleTargets-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		53F42B8F14667530006B8F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "MutipleTargets-iPad";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		53F42B9014667530006B8F7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "MutipleTargets-iPad";
+				TARGETED_DEVICE_FAMILY = 2;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		53F42BAA14667536006B8F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets copy2-Info.plist";
+				PRODUCT_NAME = "MutipleTargets copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		53F42BAB14667536006B8F7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "MutipleTargets copy2-Info.plist";
+				PRODUCT_NAME = "MutipleTargets copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		53F42BBE1466753B006B8F7C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "Specs copy-Info.plist";
+				PRODUCT_NAME = "Specs copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		53F42BBF1466753B006B8F7C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MutipleTargets/MutipleTargets-Prefix.pch";
+				INFOPLIST_FILE = "Specs copy-Info.plist";
+				PRODUCT_NAME = "Specs copy";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		53F42B5314667526006B8F7C /* Build configuration list for PBXProject "MultipleTargets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F42B7B14667527006B8F7C /* Debug */,
+				53F42B7C14667527006B8F7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53F42B7D14667527006B8F7C /* Build configuration list for PBXNativeTarget "MultipleTargets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F42B7E14667527006B8F7C /* Debug */,
+				53F42B7F14667527006B8F7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53F42B8E14667530006B8F7C /* Build configuration list for PBXNativeTarget "MultipleTargets-iPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F42B8F14667530006B8F7C /* Debug */,
+				53F42B9014667530006B8F7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53F42BA914667536006B8F7C /* Build configuration list for PBXNativeTarget "Specs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F42BAA14667536006B8F7C /* Debug */,
+				53F42BAB14667536006B8F7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53F42BBD1466753B006B8F7C /* Build configuration list for PBXNativeTarget "Integration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F42BBE1466753B006B8F7C /* Debug */,
+				53F42BBF1466753B006B8F7C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 53F42B5014667526006B8F7C /* Project object */;
+}

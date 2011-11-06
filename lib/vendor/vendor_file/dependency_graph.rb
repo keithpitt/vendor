@@ -46,8 +46,10 @@ module Vendor
         @libraries_to_install = []
 
         map.each do |name, libs|
-          # Remove duplicate targets
-          targets = libs.map(&:targets).uniq
+          # Only populate the "targets" element if there is a specific
+          # target to add to.
+          found_targets = libs.find_all { |l| l.targets if l.targets }.map &:targets
+          targets = found_targets.empty? ? nil : found_targets.flatten.compact.uniq
 
           # Check for conflicts
           versions = libs.sort.reverse

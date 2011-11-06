@@ -50,6 +50,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		539578DE1466817100B05499 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				53A22333145F884F00A3EEAA /* MainStoryboard.storyboard */,
+				53A22336145F884F00A3EEAA /* UAMainViewController.h */,
+				53A22337145F884F00A3EEAA /* UAMainViewController.m */,
+				53A22339145F884F00A3EEAA /* UAFlipsideViewController.h */,
+				53A2233A145F884F00A3EEAA /* UAFlipsideViewController.m */,
+				53A22330145F884F00A3EEAA /* UAAppDelegate.h */,
+				53A22331145F884F00A3EEAA /* UAAppDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		53A22312145F884F00A3EEAA = {
 			isa = PBXGroup;
 			children = (
@@ -80,13 +94,7 @@
 		53A22327145F884F00A3EEAA /* UtilityApplication */ = {
 			isa = PBXGroup;
 			children = (
-				53A22330145F884F00A3EEAA /* UAAppDelegate.h */,
-				53A22331145F884F00A3EEAA /* UAAppDelegate.m */,
-				53A22333145F884F00A3EEAA /* MainStoryboard.storyboard */,
-				53A22336145F884F00A3EEAA /* UAMainViewController.h */,
-				53A22337145F884F00A3EEAA /* UAMainViewController.m */,
-				53A22339145F884F00A3EEAA /* UAFlipsideViewController.h */,
-				53A2233A145F884F00A3EEAA /* UAFlipsideViewController.m */,
+				539578DE1466817100B05499 /* Classes */,
 				53A22328145F884F00A3EEAA /* Supporting Files */,
 			);
 			path = UtilityApplication;
@@ -281,6 +289,7 @@
 				53A22340145F884F00A3EEAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -188,7 +188,18 @@ describe Vendor::XCode::Project do
         File.exist?(file).should be_false
       end
 
-      it "should remove the files from the build targets"
+      it "should remove the files from all the targets" do
+        ids = @temp_project.find_group("UtilityApplication/Classes").children.map(&:id)
+        @temp_project.remove_group("UtilityApplication/Classes")
+
+        @temp_project.root_object.targets.each do |target|
+          ids.each do |id|
+            target.build_phases.each do |phase|
+              phase.files.map(&:file_ref).map(&:id).should_not include(id)
+            end
+          end
+        end
+      end
 
       private
 
@@ -280,7 +291,22 @@ describe Vendor::XCode::Project do
         @temp_project.save
       end
 
-      it 'should add it to the build targets specified'
+      it 'should add it to the build targets specified' do
+        build_phase = @target.build_phases.first
+
+        build_phase.files[-2].file_ref.should_not == @first_file_added
+
+        build_phase.files[-1].isa.should == "PBXBuildFile"
+        build_phase.files[-1].should be_kind_of(Vendor::XCode::Proxy::PBXBuildFile)
+        build_phase.files[-1].file_ref.should == @second_file_added
+      end
+
+      it "should throw an error if you try and add to a target that doesn't exist" do
+        expect do
+          @temp_project.add_file :targets => [ "Blah" ], :file => first_file,
+                                 :path => "Controllers/SecondViewController", :source_tree => :group
+        end.should raise_error(StandardError, "Could not find target 'Blah' in project 'ProjectWithSpecs'")
+      end
 
     end
 
@@ -334,7 +360,14 @@ describe Vendor::XCode::Project do
         @temp_project.save
       end
 
-      it 'should add it to the build targets specified'
+      it 'should add it to the build targets specified' do
+        build_phase = @target.build_phases.first
+
+        build_phase.files[-2].file_ref.should_not == @first_file_added
+
+        build_phase.files[-1].should be_kind_of(Vendor::XCode::Proxy::PBXBuildFile)
+        build_phase.files[-1].file_ref.should == @second_file_added
+      end
 
     end
 

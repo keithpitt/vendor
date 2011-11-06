@@ -19,7 +19,9 @@ module Vendor
         end
 
         def targets=(value)
-          @targets = [ *value ]
+          if value
+            @targets = [ *value ]
+          end
         end
 
         alias :target= :targets=
@@ -38,7 +40,9 @@ module Vendor
 
           # Combine the local targets, with those targets specified in the options. Also
           # for sanity reasons, flatten and uniqify them.
-          install_targets = [ @targets, options[:targets] ].compact.flatten.uniq
+          if @targets || options[:targets]
+            install_targets = [ @targets, options[:targets] ].compact.flatten.uniq
+          end
 
           # The destination in the XCode project
           destination = "Vendor/#{name}"

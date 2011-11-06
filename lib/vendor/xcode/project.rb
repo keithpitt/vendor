@@ -55,8 +55,13 @@ module Vendor::XCode
       @objects_by_id[id]
     end
 
-    def find_target(name)
-      root_object.targets.find { |x| x.name == name }
+    def find_target(t)
+      # Are we already a target?
+      if t.kind_of?(Vendor::XCode::Proxy::Base)
+        t
+      else
+        root_object.targets.find { |x| x.name == t }
+      end
     end
 
     def find_group(path)
@@ -105,6 +110,8 @@ module Vendor::XCode
       # If we have the group
       if group
 
+        ids_to_remove = []
+
         # Remove the children from the file system
         group.children.each do |child|
           if child.group? # Is it a group?
@@ -120,12 +127,26 @@ module Vendor::XCode
             Vendor.ui.error "Couldn't remove object: #{child}"
           end
 
+          # Remove from the targets (if we can)
+          root_object.targets.each { |t| remove_file_from_target(child, t) }
+
           # Remove the file from the parent
           child.parent.attributes['children'].delete child.id
+
+          # Add the id to the list of stuff to remove. If we do this
+          # during the loop, bad things happen - not sure why.
+          ids_to_remove << child.id
         end
 
         # Remove the group from the parent
         group.parent.attributes['children'].delete group.id
+
+        # Add to the list of stuff to remove
+        ids_to_remove << group.id
+
+        ids_to_remove.each do |id|
+          @objects_by_id.delete id
+        end
 
         # Mark as dirty
         @dirty = true
@@ -140,6 +161,20 @@ module Vendor::XCode
 
       # Ensure file exists
       raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
+
+      targets = if options[:targets]
+                  [ *options[:targets] ].map do |t|
+                    if t == :all
+                      root_object.targets
+                    else
+                      target = find_target(t)
+                      raise StandardError.new("Could not find target '#{t}' in project '#{name}'") unless target
+                      target
+                    end
+                  end.flatten.uniq
+                else
+                  root_object.targets
+                end
 
       # Create the group
       group = create_group(options[:path])
@@ -192,11 +227,60 @@ module Vendor::XCode
       # Add the file id to the groups children
       group.attributes['children'] << file.id
 
+      # Add the file to targets
+      targets.each do |t|
+        add_file_to_target file, t
+      end
+
       # Mark as dirty
       @dirty = true
 
       # Add the file to the internal index
       @objects_by_id[file.id] = file
+    end
+
+    def remove_file_from_target(file, target)
+
+      # Search through all the build phases for references to the file
+      build_files = []
+      target.build_phases.each do |phase|
+        build_files << phase.files.find_all do |build_file|
+          build_file.attributes['fileRef'] == file.id
+        end
+      end
+
+      # Remove the build files from the references
+      build_files.flatten.each do |build_file|
+        build_file.parent.attributes['files'].delete build_file.id
+        @objects_by_id.delete build_file.id
+      end
+
+    end
+
+    def add_file_to_target(file, target)
+
+      build_phase = build_phase_for_file(file, target)
+
+      if build_phase
+
+        Vendor.ui.debug "Adding #{file.attributes} to #{target.name} (build_phase = #{build_phase.class.name})"
+
+        # Add the file to XCode
+        build_file = Vendor::XCode::Proxy::PBXBuildFile.new(:project => self,
+                                                                 :id => Vendor::XCode::Proxy::Base.generate_id,
+                                                         :attributes => { 'fileRef' => file.id })
+
+        # Set the parent
+        build_file.parent = build_phase
+
+        # Add the file to the internal index
+        @objects_by_id[build_file.id] = build_file
+
+        # Add the file to the build phase
+        build_phase.attributes['files'] << build_file.id
+
+      end
+
     end
 
     def to_ascii_plist
@@ -239,6 +323,27 @@ module Vendor::XCode
     end
 
     private
+
+      def build_phase_for_file(file, target)
+        # Which build phase does this file belong?
+        klass = case file.last_known_file_type
+          when "sourcecode.c.objc"
+            Vendor::XCode::Proxy::PBXSourcesBuildPhase
+        end
+
+        if klass
+          # Find the build phase
+          build_phase = target.build_phases.find { |phase| phase.kind_of?(klass) }
+          unless build_phase
+            Vendor.ui.error "Could not find '#{klass.name}' build phase for target '#{target.name}'"
+            exit 1
+          end
+          build_phase
+        else
+          Vendor.ui.debug "'#{file.path}' was not added to a build phase because I'm not sure what sort of file it is."
+          false
+        end
+      end
 
       def require_options(options, *keys)
         keys.each { |k| raise StandardError.new("Missing :#{k} option") unless options[k] }
