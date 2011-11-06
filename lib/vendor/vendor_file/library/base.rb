@@ -64,7 +64,7 @@ module Vendor
 
           # Create remote objects to represent the dependencies
           (dependencies || []).map do |d|
-            Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1], :parent => self)
+            Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1], :parent => self, :targets => @targets)
           end
         end
 

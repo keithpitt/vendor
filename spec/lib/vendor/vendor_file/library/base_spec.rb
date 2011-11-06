@@ -7,9 +7,9 @@ describe Vendor::VendorFile::Library::Base do
   let(:temp_path) { TempProject.create(File.join(PROJECT_RESOURCE_PATH, "UtilityApplication")) }
   let(:project) { Vendor::XCode::Project.new(File.join(temp_path, "UtilityApplication.xcodeproj")) }
 
-  let(:lib_with_no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl") }
-  let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Manifest") }
-  let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Vendorspec") }
+  let(:lib_with_no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl", :target => "Tests") }
+  let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Manifest", :target => "Tests") }
+  let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Vendorspec", :target => "Tests") }
 
   it "should have a name attribute" do
     lib.name = "lib"
@@ -96,16 +96,18 @@ describe Vendor::VendorFile::Library::Base do
         dependencies[0].name.should == "JSONKit"
         dependencies[0].version.should == "0.5"
         dependencies[0].parent.should == lib_with_vendorspec
+        dependencies[0].targets.should == [ "Tests" ]
 
         dependencies[1].name.should == "ASIHTTPRequest"
         dependencies[1].equality.should == "~>"
         dependencies[1].version.should == "4.2"
-        dependencies[1].parent.should == lib_with_vendorspec
+        dependencies[1].targets.should == [ "Tests" ]
 
         dependencies[2].name.should == "AFINetworking"
         dependencies[2].equality.should == "<="
         dependencies[2].version.should == "2.5.a"
         dependencies[2].parent.should == lib_with_vendorspec
+        dependencies[2].targets.should == [ "Tests" ]
       end
 
     end
@@ -118,16 +120,20 @@ describe Vendor::VendorFile::Library::Base do
         dependencies[0].name.should == "JSONKit"
         dependencies[0].version.should == "0.3"
         dependencies[0].parent.should == lib_with_manifest
+        dependencies[0].targets.should == [ "Tests" ]
 
         dependencies[1].name.should == "ASIHTTPRequest"
         dependencies[1].equality.should == "~>"
         dependencies[1].version.should == "4.3"
         dependencies[1].parent.should == lib_with_manifest
+        dependencies[1].targets.should == [ "Tests" ]
 
         dependencies[2].name.should == "AFINetworking"
         dependencies[2].equality.should == "<="
         dependencies[2].version.should == "2.5.b"
         dependencies[2].parent.should == lib_with_manifest
+        dependencies[2].targets.should == [ "Tests" ]
+
       end
 
     end
