@@ -28,11 +28,14 @@ module Vendor
       @meta ||= {}
 
       perform :on_404 => "Could not find a valid vendor '#{name}'" do
-        url = resource["vendors/#{slugerize(name)}.json"]
-        Vendor.ui.debug "GET #{url}"
+        unless @meta[name]
+          url = resource["vendors/#{slugerize(name)}.json"]
+          Vendor.ui.debug "GET #{url}"
 
-        response = @meta[name] ||= url.get
-        JSON.parse(response.body)
+          @meta[name] = JSON.parse(url.get.body)
+        end
+
+        @meta[name]
       end
     end
 
@@ -47,6 +50,7 @@ module Vendor
 
         url = resource["vendors/#{slugerize(name)}/versions/#{version}/download"]
         Vendor.ui.debug "GET #{url}"
+        Vendor.ui.info "Downloading #{name} #{version}"
 
         binary = url.get
 
