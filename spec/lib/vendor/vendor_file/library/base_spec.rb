@@ -95,14 +95,17 @@ describe Vendor::VendorFile::Library::Base do
       it "should return the correct dependencies" do
         dependencies[0].name.should == "JSONKit"
         dependencies[0].version.should == "0.5"
+        dependencies[0].parent.should == lib_with_vendorspec
 
         dependencies[1].name.should == "ASIHTTPRequest"
         dependencies[1].equality.should == "~>"
         dependencies[1].version.should == "4.2"
+        dependencies[1].parent.should == lib_with_vendorspec
 
         dependencies[2].name.should == "AFINetworking"
         dependencies[2].equality.should == "<="
         dependencies[2].version.should == "2.5.a"
+        dependencies[2].parent.should == lib_with_vendorspec
       end
 
     end
@@ -114,14 +117,17 @@ describe Vendor::VendorFile::Library::Base do
       it "should return the correct dependencies" do
         dependencies[0].name.should == "JSONKit"
         dependencies[0].version.should == "0.3"
+        dependencies[0].parent.should == lib_with_manifest
 
         dependencies[1].name.should == "ASIHTTPRequest"
         dependencies[1].equality.should == "~>"
         dependencies[1].version.should == "4.3"
+        dependencies[1].parent.should == lib_with_manifest
 
         dependencies[2].name.should == "AFINetworking"
         dependencies[2].equality.should == "<="
         dependencies[2].version.should == "2.5.b"
+        dependencies[2].parent.should == lib_with_manifest
       end
 
     end

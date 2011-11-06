@@ -6,6 +6,8 @@ module Vendor
 
       class Base
 
+        attr_accessor :parent
+
         attr_accessor :name
         attr_accessor :targets
         attr_accessor :require
@@ -62,7 +64,7 @@ module Vendor
 
           # Create remote objects to represent the dependencies
           (dependencies || []).map do |d|
-            Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1])
+            Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1], :parent => self)
           end
         end
 
