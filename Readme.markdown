@@ -78,9 +78,9 @@ Installing a vendor library gets the latest version of the code, and adds them d
 
 As part of the installation process the required frameworks are added aswell as any compiler/linker flags. The installed version of the library is captured in the Vendors.lock file.
 
-### Step 3: Restart XCode
+### Step 3: There is no spoon
 
-XCode sometimes goes bonkers if you try and make a modification to it while its running. It's easier just to either `vendor install` while its not running, or restart right after installing libraries.
+Or step 3 for that matter!
 
 ## Creating Libraries
 
