@@ -156,25 +156,28 @@ module Vendor::XCode
       end
     end
 
+    def add_framework(framework, options = {})
+      # Find targets
+      targets = targets_from_options(options)
+
+      Vendor.ui.debug %{Adding #{framework} to targets "#{targets.map(&:name)}"}
+    end
+
+    def add_build_setting(name, value, options = {})
+      # Find targets
+      targets = targets_from_options(options)
+
+      Vendor.ui.debug %{Adding #{name}=#{value} to targets "#{targets.map(&:name)}"}
+    end
+
     def add_file(options)
       require_options options, :path, :file, :source_tree
 
       # Ensure file exists
       raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
 
-      targets = if options[:targets]
-                  [ *options[:targets] ].map do |t|
-                    if t == :all
-                      root_object.targets
-                    else
-                      target = find_target(t)
-                      raise StandardError.new("Could not find target '#{t}' in project '#{name}'") unless target
-                      target
-                    end
-                  end.flatten.uniq
-                else
-                  root_object.targets
-                end
+      # Find targets
+      targets = targets_from_options(options)
 
       # Create the group
       group = create_group(options[:path])
@@ -347,6 +350,22 @@ module Vendor::XCode
 
       def require_options(options, *keys)
         keys.each { |k| raise StandardError.new("Missing :#{k} option") unless options[k] }
+      end
+
+      def targets_from_options(options)
+        if options[:targets]
+          [ *options[:targets] ].map do |t|
+            if t == :all
+              root_object.targets
+            else
+              target = find_target(t)
+              raise StandardError.new("Could not find target '#{t}' in project '#{name}'") unless target
+              target
+            end
+          end.flatten.uniq
+        else
+          root_object.targets
+        end
       end
 
   end

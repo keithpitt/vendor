@@ -58,8 +58,14 @@ module Vendor
           end
 
           # Add frameworks
+          frameworks.each do |framework|
+            project.add_framework framework, :targets => install_targets
+          end
 
           # Add compiler flags
+          build_settings.each do |build_setting|
+            project.add_build_setting build_setting[0], build_setting[1], :targets => install_targets
+          end
         end
 
         def dependencies
