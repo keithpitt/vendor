@@ -105,6 +105,24 @@ describe Vendor::VendorFile::Library::Remote do
 
   end
 
+  context "#==" do
+
+    it "should return true if the libs match" do
+      x = Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "1.0", :equality => "~>")
+      y = Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "1.0", :equality => "~>")
+
+      x.should == y
+    end
+
+    it "should return false if the libs don't match" do
+      x = Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "1.0", :equality => "~>")
+      y = Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "1.1", :equality => "~>")
+
+      x.should_not == y
+    end
+
+  end
+
   context "#version=" do
 
     it "should have a version attribute" do

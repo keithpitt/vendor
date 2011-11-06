@@ -102,6 +102,10 @@ module Vendor
           File.join(Vendor.library_path, "remote", name, matched_version.to_s)
         end
 
+        def ==(other)
+          other.name == @name && other.version == @version && other.equality == @equality
+        end
+
         private
 
           def meta
