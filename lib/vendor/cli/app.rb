@@ -89,7 +89,6 @@ module Vendor
 
         loader = Vendor::VendorFile::Loader.new
         loader.load vendorfile
-        loader.download
         loader.install project
 
         if project.dirty?

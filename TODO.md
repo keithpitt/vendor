@@ -9,3 +9,4 @@
 * Multiple download sources. Vendorfile API exists, but it needs to be
   implemented into Vendor::API class
 * [✔] Version deletion
+* [✔] Installing a paticular version from http://vendorforge.org

@@ -41,7 +41,7 @@ module Vendor
         info = meta(name)
 
         # Does the version exist?
-        unless info['versions'].find { |v| v[0] == version }
+        unless info['versions'].find { |v| Vendor::Version.create(v[0]) == Vendor::Version.create(version) }
           raise Error.new("Could not find a valid version for '#{name}' that matches '#{version}'")
         end
 

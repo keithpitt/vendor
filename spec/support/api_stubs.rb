@@ -57,4 +57,11 @@ FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError.json",
 FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError/versions/0.1/download",
                      :status => 500
 
+###
+# DEPENDENCY CALLS
+###
+
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKRest.json",
+                     :body => %{{"name":"DKRest","description":"Classes that make it easy to work with REST Services","release":"0.1","versions":[["0.1",{"dependencies":[["DKAPIRequest","0.1"],["DKCoreData","0.1"],["DKFile","0.1"],["DKPredicateBuilder","0.1"],["DKSupport","0.1"]]}]]}}
+
 FakeWeb.allow_net_connect = false

@@ -74,6 +74,60 @@ describe Vendor::VendorFile::Library::Base do
 
   end
 
+  describe "#dependencies" do
+
+    before :each do
+      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
+    end
+
+    context "with no manifest or vendorspec" do
+
+      it "should return no dependencies" do
+        lib_with_no_manifest_or_vendorspec.dependencies.should be_empty
+      end
+
+    end
+
+    context "with a vendorspec" do
+
+      let(:dependencies) { lib_with_vendorspec.dependencies }
+
+      it "should return the correct dependencies" do
+        dependencies[0].name.should == "JSONKit"
+        dependencies[0].version.should == "0.5"
+
+        dependencies[1].name.should == "ASIHTTPRequest"
+        dependencies[1].equality.should == "~>"
+        dependencies[1].version.should == "4.2"
+
+        dependencies[2].name.should == "AFINetworking"
+        dependencies[2].equality.should == "<="
+        dependencies[2].version.should == "2.5.a"
+      end
+
+    end
+
+    context "with a manifest" do
+
+      let(:dependencies) { lib_with_manifest.dependencies }
+
+      it "should return the correct dependencies" do
+        dependencies[0].name.should == "JSONKit"
+        dependencies[0].version.should == "0.3"
+
+        dependencies[1].name.should == "ASIHTTPRequest"
+        dependencies[1].equality.should == "~>"
+        dependencies[1].version.should == "4.3"
+
+        dependencies[2].name.should == "AFINetworking"
+        dependencies[2].equality.should == "<="
+        dependencies[2].version.should == "2.5.b"
+      end
+
+    end
+
+  end
+
   describe "#files" do
 
     before :each do

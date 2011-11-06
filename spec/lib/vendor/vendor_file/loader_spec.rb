@@ -12,6 +12,16 @@ describe Vendor::VendorFile::Loader do
 
   end
 
+  context "#dependency_graph" do
+
+    before :all do
+      loader.dsl.libraries << Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "~> 0.1")
+    end
+
+    it "should have a matrix of dependencies"
+
+  end
+
   context "#load" do
 
     before :all do
@@ -39,11 +49,13 @@ describe Vendor::VendorFile::Loader do
       @libs[1].should be_kind_of(Vendor::VendorFile::Library::Remote)
 
       @libs[2].name.should == "LibWithGreaterThanVersion"
-      @libs[2].version.should == ">=1.0"
+      @libs[2].version.should == "1.0"
+      @libs[2].equality.should == ">="
       @libs[2].should be_kind_of(Vendor::VendorFile::Library::Remote)
 
       @libs[3].name.should == "LibWithApproxVersionAndTarget"
-      @libs[3].version.should == "~>1.0"
+      @libs[3].version.should == "1.0"
+      @libs[3].equality.should == "~>"
       @libs[3].targets.should == [ "something" ]
       @libs[3].should be_kind_of(Vendor::VendorFile::Library::Remote)
     end

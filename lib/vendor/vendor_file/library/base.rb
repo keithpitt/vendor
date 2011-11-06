@@ -22,7 +22,7 @@ module Vendor
         alias :target= :targets=
 
         def cache_path
-          @cache_path ||= File.join(Vendor.library_path, self.class.name.split('::').last.downcase, name)
+          File.join(Vendor.library_path, self.class.name.split('::').last.downcase, name)
         end
 
         def download
@@ -30,8 +30,11 @@ module Vendor
         end
 
         def install(project)
-          destination = "Vendor/#{name}"
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
 
+          # The destination in the XCode project
+          destination = "Vendor/#{name}"
           Vendor.ui.debug "Installing #{name} into #{project} (location = #{destination}, source_tree = #{@source_tree})"
 
           # Remove the group, and recreate
@@ -46,39 +49,44 @@ module Vendor
           end
         end
 
-        def files
-          unless File.exist?(cache_path)
-            Vendor.ui.error "Could not find libray `#{name}` at path `#{cache_path}`"
-            return []
+        def dependencies
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
+
+          # Find the dependencies
+          dependencies = if manifest
+            manifest['dependencies']
+          elsif vendor_spec
+            vendor_spec.dependencies
           end
 
-          # Try and find a vendorspec in the cached folder
-          vendor_spec = Dir[File.join(cache_path, "*.vendorspec")].first
+          # Create remote objects to represent the dependencies
+          (dependencies || []).map do |d|
+            Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1])
+          end
+        end
 
-          # Try and find a manifest (a built vendor file)
-          manifest = File.join(cache_path, "vendor.json")
+        def files
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
 
           # Calculate the files we need to add. There are 3 different types
           # of installation:
           # 1) Installation from a manifest (a built lib)
           # 2) Loading the .vendorspec and seeing what files needed to be added
           # 3) Try to be smart and try and find files to install
-          install_files = if manifest && File.exist?(manifest)
-
-            json = JSON.parse(File.read(manifest))
-            json['files'].map { |file| File.join(cache_path, "data", file) }
-
-          elsif vendor_spec && File.exist?(vendor_spec)
-
-            spec = Vendor::Spec.load(vendor_spec)
-            spec.files.map { |file| File.join(cache_path, file) }
-
-          else
-
-            location = [ cache_path, self.require, "**/*.*" ].compact
-            Dir[ File.join *location ]
-
-          end
+          install_files = if manifest
+                            manifest['files'].map do |file|
+                              File.join(cache_path, "data", file)
+                            end
+                          elsif vendor_spec
+                            vendor_spec.files.map do |file|
+                              File.join(cache_path, file)
+                            end
+                          else
+                            location = [ cache_path, self.require, "**/*.*" ].compact
+                            Dir[ File.join *location ]
+                          end
 
           # Remove files that are within folders with a ".", such as ".bundle"
           # and ".frameworks"
@@ -86,6 +94,40 @@ module Vendor
             file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
           end
         end
+
+        private
+
+          def cache_exists?
+            File.exist?(cache_path)
+          end
+
+          def vendor_spec
+            # Cache the vendor spec
+            return @vendor_spec if @vendor_spec
+
+            # Try and find a vendorspec in the cached folder
+            file = Dir[File.join(cache_path, "*.vendorspec")].first
+
+            if file && File.exist?(file)
+              @vendor_spec = Vendor::Spec.load(file)
+            else
+              false
+            end
+          end
+
+          def manifest
+            # Cache the manifest
+            return @manifest if @manifest
+
+            # Try and find a manifest (a built vendor file)
+            file = File.join(cache_path, "vendor.json")
+
+            if File.exist?(file)
+              @manifest = JSON.parse(File.read(file))
+            else
+              false
+            end
+          end
 
       end
 
