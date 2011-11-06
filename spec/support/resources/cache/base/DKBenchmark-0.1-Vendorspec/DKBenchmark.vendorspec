@@ -17,4 +17,8 @@ Vendor::Spec.new do |s|
   s.dependency  "ASIHTTPRequest", "~> 4.2"
   s.dependency  "AFINetworking", "<= 2.5.a"
 
+  s.framework   "Foundation.framework"
+
+  s.build_setting   :other_linker_flags, "-ObjC"
+
 end

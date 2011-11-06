@@ -56,6 +56,10 @@ module Vendor
             project.add_file :targets => install_targets, :path => destination,
                              :file => file, :source_tree => @source_tree
           end
+
+          # Add frameworks
+
+          # Add compiler flags
         end
 
         def dependencies
@@ -72,6 +76,34 @@ module Vendor
           # Create remote objects to represent the dependencies
           (dependencies || []).map do |d|
             Vendor::VendorFile::Library::Remote.new(:name => d[0], :version => d[1], :parent => self, :targets => @targets)
+          end
+        end
+
+        def frameworks
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
+
+          # Find the frameworks
+          if manifest
+            manifest['frameworks']
+          elsif vendor_spec
+            vendor_spec.frameworks
+          else
+            []
+          end
+        end
+
+        def build_settings
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
+
+          # Find the build settings
+          if manifest
+            manifest['build_settings']
+          elsif vendor_spec
+            vendor_spec.build_settings
+          else
+            []
           end
         end
 

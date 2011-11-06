@@ -145,6 +145,70 @@ describe Vendor::VendorFile::Library::Base do
 
   end
 
+  describe "#frameworks" do
+
+    before :each do
+      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
+    end
+
+    context "with no manifest or vendorspec" do
+
+      it "should have no frameworks" do
+        lib_with_no_manifest_or_vendorspec.frameworks.should be_empty
+      end
+
+    end
+
+    context "with a vendorspec" do
+
+      it "should have frameworks" do
+        lib_with_vendorspec.frameworks.should == [ "Foundation.framework" ]
+      end
+
+    end
+
+    context "with a manifest" do
+
+      it "should have frameworks" do
+        lib_with_manifest.frameworks.should == [ "CoreData.framework" ]
+      end
+
+    end
+
+  end
+
+  describe "#build_settings" do
+
+    before :each do
+      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
+    end
+
+    context "with no manifest or vendorspec" do
+
+      it "should have no build_settings" do
+        lib_with_no_manifest_or_vendorspec.build_settings.should be_empty
+      end
+
+    end
+
+    context "with a vendorspec" do
+
+      it "should have build_settings" do
+        lib_with_vendorspec.build_settings.should == [ [ "OTHER_LDFLAGS", "-ObjC" ] ]
+      end
+
+    end
+
+    context "with a manifest" do
+
+      it "should have build_settings" do
+        lib_with_manifest.build_settings.should == [ [ "CLANG_WARN_OBJCPP_ARC_ABI", "NO" ] ]
+      end
+
+    end
+
+  end
+
   describe "#files" do
 
     before :each do

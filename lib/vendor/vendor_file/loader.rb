@@ -26,7 +26,8 @@ module Vendor
       def install(project)
         unless @graph.version_conflicts?
           @graph.libraries_to_install.each do |lib|
-            lib[0].install project, :targets => lib[1]
+            library, targets = lib
+            library.install project, :targets => targets
           end
         end
       end
