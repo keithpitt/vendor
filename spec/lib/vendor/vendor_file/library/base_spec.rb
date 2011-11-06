@@ -23,17 +23,26 @@ describe Vendor::VendorFile::Library::Base do
     lib.targets.should == [ "Specs" ]
   end
 
+  context "#initialize" do
+
+    it "should have a default target of :all" do
+      lib.targets.should == [ :all ]
+    end
+
+  end
+
   describe "#install" do
 
     before :each do
       Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
 
-      lib_with_manifest.install project
     end
 
     context "with an existing installation" do
 
       before :each do
+        lib_with_manifest.install project
+
         # Install it again
         lib_with_manifest.install project
       end
@@ -52,6 +61,11 @@ describe Vendor::VendorFile::Library::Base do
 
     context "with a fresh installation" do
 
+      before :each do
+        # Install it again
+        lib_with_manifest.install project
+      end
+
       it "should add the group to the project" do
         group = project.find_group("Vendor/DKBenchmark-0.1-Manifest")
         group.should_not be_nil
@@ -61,6 +75,12 @@ describe Vendor::VendorFile::Library::Base do
         children = project.find_group("Vendor/DKBenchmark-0.1-Manifest").children
         children.length.should == 2
       end
+
+    end
+
+    context "to multiple targets" do
+
+      it "should install the lib to multiple targets"
 
     end
 
