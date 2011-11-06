@@ -2,8 +2,8 @@
 
 * Vendor.lock creation
 * Installing from Vendor.lock
-* Calculate dependencies
-* Assert if there are any version conflicts
+* [✔] Calculate dependencies
+* [✔] Assert if there are any version conflicts
 * [✔] Install libs from vendorforge.org
 * Compiler flags defined in vendorspec
 * Adding frameworks from the vendorspec
@@ -18,4 +18,4 @@
 * Build https://github.com/keithpitt/expecta
 * Build https://github.com/keithpitt/cedar
 * Go over https://twitter.com/github_objc and add libs from that
-* Markdown support on descriptions
+* [✔] Markdown support on descriptions
