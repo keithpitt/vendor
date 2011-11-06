@@ -45,7 +45,9 @@ module Vendor
 
         @libraries_to_install = []
 
-        map.each do |name, libs|
+        map.keys.sort.each do |name|
+          libs = map[name]
+
           # Only populate the "targets" element if there is a specific
           # target to add to.
           found_targets = libs.find_all { |l| l.targets if l.targets }.map &:targets

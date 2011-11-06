@@ -40,7 +40,8 @@ describe Vendor::VendorFile::DependencyGraph do
         graph.version_conflicts?
 
         libraries_to_install = graph.libraries_to_install
-        libraries_to_install.first[0].name.should == "DKRest"
+        libraries_to_install.first[0].name.should == "ASIHTTPRequest"
+        libraries_to_install.first[0].version.should == "0.5"
         libraries_to_install.first[1].should == [ :all ]
       end
 
