@@ -46,8 +46,13 @@ module Vendor
           # Sort them from the latest versions first
           versions = meta['versions'].map{|v| Vendor::Version.create(v[0]) }.sort.reverse
 
-          # We don't want to include pre-releases
-          versions = versions.reject { |v| v.prerelease? }
+          # We don't want to include pre-releases if the wants version
+          # isn't a pre-release itself. If we're after "2.5.alpha", then
+          # we should be able to include that, however if we're asking for
+          # "2.5", then pre-releases shouldn't be included.
+          unless wants.prerelease?
+            versions = versions.reject { |v| v.prerelease? }
+          end
 
           # If this a spermy search, we have a slightly different search mechanism. We use the
           # version segemets to determine if the version is valid. For example, lets say we're

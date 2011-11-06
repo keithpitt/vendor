@@ -96,6 +96,11 @@ describe Vendor::VendorFile::Library::Remote do
         lib.matched_version.to_s.should == "0.1.1"
       end
 
+      it "should return pre-releases if specified specifically" do
+        lib.version = "~> 0.1.2.alpha"
+        lib.matched_version.to_s.should == "0.1.2.alpha"
+      end
+
     end
 
   end
