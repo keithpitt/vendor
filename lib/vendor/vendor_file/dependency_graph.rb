@@ -48,6 +48,15 @@ module Vendor
         map.keys.sort.each do |name|
           libs = map[name]
 
+          # If the first lib doesn't have a matched version, then it's one
+          # of those repos that don't have versions just a bunch of files to
+          # install. Just skip those versions add them.
+          if libs.first.matched_version.nil? && libs.length == 1
+            l = libs.first
+            @libraries_to_install << [ l, l.targets ]
+            next
+          end
+
           # Only populate the "targets" element if there is a specific
           # target to add to.
           found_targets = libs.find_all { |l| l.targets if l.targets }.map &:targets
@@ -57,7 +66,7 @@ module Vendor
           versions = libs.sort.reverse
           version_to_install = versions.first
 
-          if versions.length > 0
+          if versions.length > 1
 
             vvs = versions.map(&:version)
 
@@ -101,6 +110,7 @@ module Vendor
                 Vendor.ui.error "  #{v.description} is required in the Vendorfile"
               end
             end
+
             exit
           else
             @libraries_to_install << [ version_to_install, targets ]

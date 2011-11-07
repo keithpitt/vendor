@@ -11,6 +11,7 @@ module Vendor
         attr_accessor :name
         attr_accessor :targets
         attr_accessor :require
+        attr_accessor :version
 
         def initialize(attributes = {})
           @source_tree = :group
@@ -144,6 +145,23 @@ module Vendor
           install_files.reject do |file|
             file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
           end
+        end
+
+        # What is the matching version? Well, its the actual version of the library to include.
+        # For remote libraries, the matched_version may be something different because of the equality
+        # matchers. You define a library like "DKBenchmark", "~> 0.5". The matched version might be
+        # 0.5.1.5, but with Git and Local repos, the matched_version is always the version your asking for.
+        def matched_version
+          version
+        end
+
+        def <=>(other)
+          v = other.respond_to?(:version) ? other.version : other
+          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
+        end
+
+        def description
+          [ @name, @version ].compact.join(" ")
         end
 
         private

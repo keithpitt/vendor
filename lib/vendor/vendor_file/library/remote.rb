@@ -6,7 +6,6 @@ module Vendor
 
         require 'zip/zip'
 
-        attr_accessor :version
         attr_accessor :equality
         attr_accessor :sources
 
@@ -115,11 +114,6 @@ module Vendor
 
         def ==(other)
           other.name == @name && other.version == @version && other.equality == @equality
-        end
-
-        def <=>(other)
-          v = other.respond_to?(:version) ? other.version : other
-          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
         end
 
         def description
