@@ -152,12 +152,41 @@ module Vendor
         # matchers. You define a library like "DKBenchmark", "~> 0.5". The matched version might be
         # 0.5.1.5, but with Git and Local repos, the matched_version is always the version your asking for.
         def matched_version
-          version
+          if manifest
+            manifest['version']
+          elsif vendor_spec
+            vendor_spec.version
+          else
+            version
+          end
+        end
+
+        def version_matches_any?(other_versions)
+          # If we have an equality matcher, we need sort through
+          # the versions, and try and find the best match
+          wants = Vendor::Version.new(version)
+
+          # Sort them from the latest versions first
+          versions = other_versions.map{|v| Vendor::Version.create(v) }.sort.reverse
+
+          # We don't want to include pre-releases if the wants version
+          # isn't a pre-release itself. If we're after "2.5.alpha", then
+          # we should be able to include that, however if we're asking for
+          # "2.5", then pre-releases shouldn't be included.
+          unless wants.prerelease?
+            versions = versions.reject { |v| v.prerelease? }
+          end
+
+          versions.find { |has| wants == has }
         end
 
         def <=>(other)
           v = other.respond_to?(:version) ? other.version : other
-          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
+          Vendor::Version.create(matched_version) <=> Vendor::Version.create(v)
+        end
+
+        def ==(other)
+          other.name == @name && other.version == @version
         end
 
         def description

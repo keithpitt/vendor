@@ -64,4 +64,7 @@ FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError/versions
 FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKRest.json",
                      :body => %{{"name":"DKRest","description":"Classes that make it easy to work with REST Services","release":"0.1","versions":[["0.1",{"dependencies":[["DKAPIRequest","0.1"],["DKCoreData","0.1"],["DKFile","0.1"],["DKPredicateBuilder","0.1"],["DKSupport","0.1"]]}]]}}
 
+FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKCoreData.json",
+                     :body => %{{"name":"DKCoreData","description":"A set of classes that make it easy to work with the Core Data framework on iOS and OSX","release":"0.1","versions":[["1.5.2",{"dependencies":[["DKFile","0.1"],["DKPredicateBuilder","0.1"],["DKSupport","0.1"]]}]]}}
+
 FakeWeb.allow_net_connect = false

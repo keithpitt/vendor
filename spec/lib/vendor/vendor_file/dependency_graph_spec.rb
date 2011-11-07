@@ -7,7 +7,8 @@ describe Vendor::VendorFile::DependencyGraph do
   let(:asihttprequest)    { Vendor::VendorFile::Library::Remote.new(:name => "ASIHTTPRequest", :version => "0.5") }
   let(:dksupport)         { Vendor::VendorFile::Library::Local.new(:name => "DKSupport", :version => "0.2") }
   let(:dkapirequest)      { Vendor::VendorFile::Library::Remote.new(:name => "DKAPIRequest", :version => "0.3") }
-  let(:dkcoredata)        { Vendor::VendorFile::Library::Git.new(:name => "DKCoreData", :version => "1.5.2") }
+  let(:dkcoredata)        { Vendor::VendorFile::Library::Remote.new(:name => "DKCoreData", :version => "~> 1.5") }
+  let(:dkcoredata_local)  { Vendor::VendorFile::Library::Local.new(:name => "DKCoreData", :version => "1.5.3") }
   let(:dkrest)            { Vendor::VendorFile::Library::Remote.new(:name => "DKRest", :version => "~> 0.1") }
   let(:versionless_git)   { Vendor::VendorFile::Library::Git.new(:name => "VersionlessGit") }
   let(:versionless_local) { Vendor::VendorFile::Library::Local.new(:name => "VersionlessLocal") }
@@ -23,6 +24,7 @@ describe Vendor::VendorFile::DependencyGraph do
     dkapirequest.stub!(:dependencies).and_return([ asihttprequest, dkbenchmark2 ])
     dkcoredata.stub!(:dependencies).and_return([ dksupport, dkbenchmark3 ])
     dkrest.stub!(:dependencies).and_return([ dksupport, dkapirequest, dkcoredata ])
+    dkcoredata_local.stub!(:dependencies).and_return([ ])
     versionless_git.stub!(:dependencies).and_return([ ])
     versionless_local.stub!(:dependencies).and_return([ ])
     dkbenchmark1.stub!(:dependencies).and_return([ ])
@@ -33,7 +35,7 @@ describe Vendor::VendorFile::DependencyGraph do
   context 'with a valid graph' do
 
     before :each do
-      graph.libraries = [ dkrest, versionless_local, versionless_git ]
+      graph.libraries = [ dkrest, versionless_local, versionless_git, dkcoredata_local ]
     end
 
     context "#version_conflicts?" do
@@ -76,12 +78,13 @@ describe Vendor::VendorFile::DependencyGraph do
                 ["DKBenchmark <= 0.1", []]
               ]]
             ]],
-            ["DKCoreData 1.5.2", [
+            ["DKCoreData ~> 1.5", [
               ["DKBenchmark <= 0.0.1", []]
             ]]
           ]],
           ["VersionlessLocal", []],
-          ["VersionlessGit", []]
+          ["VersionlessGit", []],
+          ["DKCoreData 1.5.3", []],
         ]
       end
 
@@ -92,7 +95,7 @@ describe Vendor::VendorFile::DependencyGraph do
       it "should return each version present in the map" do
         @map["ASIHTTPRequest"].map(&:version).should == [ "0.5" ]
         @map["DKAPIRequest"].map(&:version).should == [ "0.3" ]
-        @map["DKCoreData"].map(&:version).should == [ "1.5.2" ]
+        @map["DKCoreData"].map(&:version).should == [ "1.5", "1.5.3" ]
         @map["DKRest"].map(&:version).should == [ "0.1" ]
         @map["DKSupport"].map(&:version).should == [ "0.2" ]
       end

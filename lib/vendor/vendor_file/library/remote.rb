@@ -39,11 +39,12 @@ module Vendor
           end
 
           # Try and find a version that matches the lib
-          found = version_matches_any?(meta['versions'].map { |v| v[0] })
+          other_versions = meta['versions'].map { |v| v[0] }
+          found = version_matches_any?(other_versions)
 
           # Did we actually find something?
           unless found
-            Vendor.ui.error "Could not find a valid version '#{equality} #{version}' in '#{versions}'"
+            Vendor.ui.error "Could not find a valid version '#{equality} #{version}' in '#{other_versions}'"
             exit 1
           else
             found
@@ -118,6 +119,11 @@ module Vendor
 
         def description
           [ @name, @equality, @version ].compact.join(" ")
+        end
+
+        def <=>(other)
+          v = other.respond_to?(:version) ? other.version : other
+          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
         end
 
         private

@@ -46,29 +46,21 @@ module Vendor
         @libraries_to_install = []
 
         map.keys.sort.each do |name|
-          libs = map[name]
 
-          # If the first lib doesn't have a matched version, then it's one
-          # of those repos that don't have versions just a bunch of files to
-          # install. Just skip those versions add them.
-          if libs.first.matched_version.nil? && libs.length == 1
-            l = libs.first
-            @libraries_to_install << [ l, l.targets ]
-            next
-          end
+          libs = map[name]
 
           # Only populate the "targets" element if there is a specific
           # target to add to.
           found_targets = libs.find_all { |l| l.targets if l.targets }.map &:targets
           targets = found_targets.empty? ? nil : found_targets.flatten.compact.uniq
 
-          # Check for conflicts
-          versions = libs.sort.reverse
-          version_to_install = versions.first
+          version_to_install = libs.first
 
-          if versions.length > 1
+          # Check for conflicts and try to resolve
+          if libs.length > 1
 
-            vvs = versions.map(&:version)
+            # Sort the versions, starting with the latest version first
+            versions = libs.sort.reverse
 
             # This code is a little yucky, but what it does, is it tries
             # to find the best version match for every other version in
@@ -77,6 +69,7 @@ module Vendor
             # the higest versiont that each likes. Once we know that, we
             # uniqify the results. If we have more than 1, that means we
             # have a conflict.
+            vvs = versions.map(&:version)
             matched_versions = libs.map do |l|
               l.version_matches_any?(vvs)
             end.inject([]) do |uniqs, obj|
