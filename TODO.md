@@ -22,3 +22,4 @@
 * [✔] Markdown support on descriptions
 * Fix using local, git, and libraries with no manifest/vendorspec with
   the dependency graph
+* Build DDProgressView
