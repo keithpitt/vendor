@@ -10,6 +10,7 @@ describe Vendor::VendorFile::Library::Base do
   let(:lib_with_no_manifest_or_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "BingMapsIOS", :require => "MapControl", :target => "MultipleTargets") }
   let(:lib_with_manifest) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Manifest", :targets => [ "MultipleTargets", "Specs" ]) }
   let(:lib_with_vendorspec) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Vendorspec", :target => "MultipleTargets") }
+  let(:lib_with_nothing) { Vendor::VendorFile::Library::Base.new(:name => "DKBenchmark-0.1-Nothing", :target => "MultipleTargets") }
 
   it "should have a name attribute" do
     lib.name = "lib"
@@ -143,6 +144,14 @@ describe Vendor::VendorFile::Library::Base do
 
     end
 
+    context "with no dependencies" do
+
+      it "should return an empty array" do
+        lib_with_nothing.dependencies.should == []
+      end
+
+    end
+
   end
 
   describe "#frameworks" do
@@ -175,6 +184,14 @@ describe Vendor::VendorFile::Library::Base do
 
     end
 
+    context "with no frameworks" do
+
+      it "should return an empty array" do
+        lib_with_nothing.frameworks.should == []
+      end
+
+    end
+
   end
 
   describe "#build_settings" do
@@ -203,6 +220,14 @@ describe Vendor::VendorFile::Library::Base do
 
       it "should have build_settings" do
         lib_with_manifest.build_settings.should == [ [ "CLANG_WARN_OBJCPP_ARC_ABI", "NO" ] ]
+      end
+
+    end
+
+    context "with no build settings" do
+
+      it "should return an empty array" do
+        lib_with_nothing.build_settings.should == []
       end
 
     end

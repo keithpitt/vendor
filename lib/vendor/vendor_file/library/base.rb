@@ -95,13 +95,13 @@ module Vendor
           download unless cache_exists?
 
           # Find the frameworks
-          if manifest
+          frameworks = if manifest
             manifest['frameworks']
           elsif vendor_spec
             vendor_spec.frameworks
-          else
-            []
           end
+
+          frameworks || []
         end
 
         def build_settings
@@ -109,13 +109,13 @@ module Vendor
           download unless cache_exists?
 
           # Find the build settings
-          if manifest
+          build_settings = if manifest
             manifest['build_settings']
           elsif vendor_spec
             vendor_spec.build_settings
-          else
-            []
           end
+
+          build_settings || []
         end
 
         def files

@@ -429,7 +429,6 @@ module Vendor::XCode
           end
           build_phase
         else
-          Vendor.ui.debug "Could not find a build phase to add '#{file_type}' files"
           false
         end
       end
