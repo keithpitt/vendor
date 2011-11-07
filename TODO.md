@@ -21,6 +21,6 @@
 * Build https://github.com/keithpitt/cedar
 * Go over https://twitter.com/github_objc and add libs from that
 * [✔] Markdown support on descriptions
-* Fix using local, git, and libraries with no manifest/vendorspec with
+* [✔] Fix using local, git, and libraries with no manifest/vendorspec with
   the dependency graph
 * Build DDProgressView
