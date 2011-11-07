@@ -255,6 +255,62 @@ describe Vendor::XCode::Project do
 
   end
 
+  context "#add_build_setting" do
+
+    before :each do
+      @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "MultipleTargets"))
+      @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "MultipleTargets.xcodeproj"))
+      @target = @temp_project.find_target("Specs")
+    end
+
+    it "should add build settings if they are not there" do
+      @temp_project.add_build_setting "SOMETHING", "YES", :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings.keys.should include("SOMETHING")
+        config.build_settings["SOMETHING"].should == "YES"
+      end
+    end
+
+    it "should create an array of options if the setting is known to be a selection" do
+      @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "OTHER_LDFLAGS", "-Something", :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["OTHER_LDFLAGS"].should == [ "-ObjC", "-Something" ]
+      end
+    end
+
+    it "should not duplicate build settings" do
+      @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["OTHER_LDFLAGS"].should == "-ObjC"
+      end
+    end
+
+    it "shouldn't change a build setting if it already exists" do
+      @temp_project.add_build_setting "SOMETHING", "YES", :targets => "Specs", :changer => "SomeLib"
+
+      Vendor.ui.should_receive(:warn).with("  Build setting \"SOMETHING\" wanted to change to \"NO\", but it was already \"YES\" in \"Specs/Debug\"").ordered
+      Vendor.ui.should_receive(:warn).with("  Build setting \"SOMETHING\" wanted to change to \"NO\", but it was already \"YES\" in \"Specs/Release\"").ordered
+      @temp_project.add_build_setting "SOMETHING", "NO", :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings.keys.should include("SOMETHING")
+        config.build_settings["SOMETHING"].should == "YES"
+      end
+    end
+
+    it "should mark the project as dirty" do
+      @temp_project.add_build_setting "SOMETHING", "YES", :targets => "Specs", :changer => "SomeLib"
+
+      @temp_project.dirty?.should be_true
+    end
+
+  end
+
   context '#add_file' do
 
     let(:first_file) { File.join(SOURCE_RESOURCE_PATH, "SecondViewController.h") }

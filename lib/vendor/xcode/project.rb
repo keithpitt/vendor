@@ -4,6 +4,11 @@ module Vendor::XCode
 
   class Project
 
+    # Build settings and the format that they should be stored in
+    BUILD_SETTING_TYPES = {
+      "OTHER_LDFLAGS" => :array
+    }
+
     require 'fileutils'
 
     attr_reader :name
@@ -184,10 +189,59 @@ module Vendor::XCode
     end
 
     def add_build_setting(name, value, options = {})
-      # Find targets
-      targets = targets_from_options(options)
 
-      Vendor.ui.debug %{Adding #{name}=#{value} to targets "#{targets.map(&:name)}"}
+      targets_from_options(options).each do |target|
+
+        target.build_configuration_list.build_configurations.each do |config|
+
+          build_settings = config.build_settings
+
+          debug_key = "#{target.name}/#{config.name}".inspect
+
+          # If the build setting already has the key
+          if build_settings.has_key?(name)
+
+            # Is this setting known to have multiple values?
+            if (setting_type = BUILD_SETTING_TYPES[name])
+
+              # If its an array
+              if setting_type == :array
+                # Is it already an array, if so, check to see if
+                # it already exists, and if it doesn't add it.
+                if build_settings[name].kind_of?(Array)
+                  unless build_settings[name].include?
+                    Vendor.ui.debug("  Added build setting (#{name.inspect} = #{value.inspect}) to #{debug_key}")
+
+                    build_settings[name] << value
+                  end
+                else
+                  Vendor.ui.debug("  Added build setting (#{name.inspect} = #{value.inspect}) to #{debug_key}")
+
+                  # Don't add it if the single build value is already there
+                  unless build_settings[name].strip == value.strip
+                    build_settings[name] = [ build_settings[name], value ]
+                  end
+                end
+              end
+
+            else
+              # If its an unknown type, then we should just throw a warning
+              # because we should'nt just change stuff willy, nilly.
+              Vendor.ui.warn("  Build setting #{name.inspect} wanted to change to #{value.inspect}, but it was already #{build_settings[name].inspect} in #{debug_key}")
+            end
+
+          else
+            Vendor.ui.debug("  Added build setting (#{name.inspect} = #{value.inspect}) to #{debug_key}")
+
+            build_settings[name] = value
+          end
+
+        end
+
+      end
+
+      @dirty = true
+
     end
 
     def add_file(options)
