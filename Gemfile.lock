@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    vendor (0.0.4)
+    vendor (0.1)
       highline
       json
       rake
