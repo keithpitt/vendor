@@ -1,3 +1,9 @@
+## 0.1.1 (November 8, 2011)
+
+Bug Fixes:
+
+  - Make a backup of the Xcode project before saving
+
 ## 0.1 (November 8, 2011)
 
 Features:
