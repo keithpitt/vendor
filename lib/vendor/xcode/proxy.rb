@@ -17,6 +17,7 @@ module Vendor
       autoload :PBXTargetDependency,       "vendor/xcode/proxy/pbx_target_dependency"
       autoload :PBXVariantGroup,           "vendor/xcode/proxy/pbx_variant_group"
       autoload :PBXShellScriptBuildPhase,  "vendor/xcode/proxy/pbx_shell_script_build_phase"
+      autoload :PBXReferenceProxy,         "vendor/xcode/proxy/pbx_reference_proxy"
       autoload :XCBuildConfiguration,      "vendor/xcode/proxy/xc_build_configuration"
       autoload :XCConfigurationList,       "vendor/xcode/proxy/xc_configuration_list"
       autoload :XCVersionGroup,            "vendor/xcode/proxy/xc_version_group"

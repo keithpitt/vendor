@@ -42,6 +42,16 @@ describe Vendor::XCode::Project do
 
     end
 
+    context "RestKitProject.xcodeproj" do
+
+      it "should parse and load all the objects" do
+        project = Vendor::XCode::Project.new(File.join(PROJECT_RESOURCE_PATH, "RestKitProject/RestKitProject.xcodeproj"))
+
+        project.objects.length.should == 69
+      end
+
+    end
+
   end
 
   context "#name" do
