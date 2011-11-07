@@ -27,6 +27,10 @@ module Vendor
       File.join File.expand_path("../", __FILE__)
     end
 
+    def version
+      @version ||= File.read(File.join(Vendor.root, "..", "VERSION")).chomp
+    end
+
     def ui
       @ui ||= UI.new
     end

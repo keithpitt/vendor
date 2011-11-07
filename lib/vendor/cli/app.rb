@@ -124,7 +124,7 @@ module Vendor
 
       desc "version", "Output the current version of vendor", :hide => true
       def version
-        Vendor.ui.info Vendor::VERSION
+        Vendor.ui.info Vendor.version
       end
 
       # Exit with 1 if thor encounters an error (such as command missing)

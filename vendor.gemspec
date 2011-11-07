@@ -4,7 +4,7 @@ $:.push File.expand_path("../lib", __FILE__)
 Gem::Specification.new do |s|
 
   s.name        = "vendor"
-  s.version     = File.read("VERSION")
+  s.version     = File.read("VERSION").chomp
   s.authors     = ["keithpitt"]
   s.email       = ["me@keithpitt.com"]
   s.homepage    = "http://www.getvendoring.com"
