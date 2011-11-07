@@ -12,8 +12,18 @@ module Vendor
         end
 
         def cache_path
-          File.expand_path(path) if path
+          expanded_path if path
         end
+
+        def display_name
+          [ name, "(#{expanded_path})" ].join(' ')
+        end
+
+        private
+
+          def expanded_path
+            File.expand_path(path)
+          end
 
       end
 

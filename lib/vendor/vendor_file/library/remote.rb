@@ -103,8 +103,6 @@ module Vendor
         def download
           # If we haven't already downloaded the vendor
           unless File.exist?(cache_path)
-            Vendor.ui.info %{Downloading #{name}}
-
             # Download it
             file = Vendor::API.download(name, matched_version)
 
@@ -119,6 +117,10 @@ module Vendor
 
         def ==(other)
           other.name == @name && other.version == @version && other.equality == @equality
+        end
+
+        def display_name
+          [ name, matched_version ].compact.join(" ")
         end
 
         def description

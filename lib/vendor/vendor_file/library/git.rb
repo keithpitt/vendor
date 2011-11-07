@@ -47,6 +47,10 @@ module Vendor
           File.join(Vendor.library_path, "git", Digest::MD5.hexdigest(uri)) if uri
         end
 
+        def display_name
+          [ name, "(#{uri}##{tag})" ].join(' ')
+        end
+
         private
 
           def git(command)

@@ -42,7 +42,7 @@ module Vendor
           # If the cache doesn't exist, download it
           download unless cache_exists?
 
-          Vendor.ui.info %{Installing #{name}}
+          Vendor.ui.info %{Installing #{display_name}}
 
           # Combine the local targets, with those targets specified in the options. Also
           # for sanity reasons, flatten and uniqify them.
@@ -183,6 +183,10 @@ module Vendor
 
         def ==(other)
           other.name == name && other.version == version
+        end
+
+        def display_name
+          description
         end
 
         def description

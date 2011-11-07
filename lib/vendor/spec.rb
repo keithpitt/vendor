@@ -30,7 +30,14 @@ module Vendor
     end
 
     def self.load(file)
-      eval File.read(file), nil, file
+      # Before evaling we need to chdir into the location of the vendorspec. This is
+      # so if the vendorfile does any system calls, they're expecting to be in the right
+      # right location.
+      before = Dir.pwd
+      Dir.chdir File.dirname(file)
+      spec = eval File.read(file), nil, file
+      Dir.chdir before
+      spec
     end
 
     def initialize(&block)

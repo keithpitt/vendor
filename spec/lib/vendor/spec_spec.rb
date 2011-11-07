@@ -4,6 +4,24 @@ describe Vendor::Spec do
 
   let! (:spec) { Vendor::Spec.new }
 
+  context "#load" do
+
+    let(:spec_file) { File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec") }
+
+    it "should return the loaded spec" do
+      Vendor::Spec.load(spec_file).should be_kind_of(Vendor::Spec)
+    end
+
+    it "should switch back in and out of the current directory using Dir.chdir while evaling the spec" do
+      current_dir = Dir.pwd
+      Dir.should_receive(:chdir).with(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark")).ordered
+      Dir.should_receive(:chdir).with(current_dir).ordered
+
+      Vendor::Spec.load(spec_file).should be_kind_of(Vendor::Spec)
+    end
+
+  end
+
   context '#validate' do
 
     before :each do
