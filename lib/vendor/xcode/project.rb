@@ -16,6 +16,7 @@ module Vendor::XCode
     attr_reader :archive_version
     attr_reader :objects
     attr_reader :root_object
+    attr_reader :project_folder
 
     attr_accessor :dirty
 
@@ -381,12 +382,32 @@ module Vendor::XCode
     end
 
     def save
+      backup
       open(@pbxproject, 'w+') do |f|
         f << to_ascii_plist
       end if valid?
 
       # Not dirty anymore
       @dirty = false
+    end
+
+    def backup
+      dir = File.dirname(@project_folder)
+      backup_name = "#{@name}.vendorbackup"
+      backups = Dir[File.join(dir, "#{backup_name}*")].sort
+
+      unless backups.empty?
+        if backups.last.match(/([\d]+)$/)
+          backup_name += ".#{$1.to_i + 1}"
+        else
+          backup_name += ".1"
+        end
+      end
+
+      backup_to = File.join(dir, backup_name)
+
+      Vendor.ui.warn "Backup created #{backup_to}"
+      FileUtils.cp_r @project_folder, backup_to
     end
 
     def dirty?

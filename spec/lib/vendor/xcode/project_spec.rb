@@ -561,6 +561,36 @@ describe Vendor::XCode::Project do
 
   end
 
+  context "#save" do
+
+    before :each do
+      @temp_path = TempProject.create(File.join(PROJECT_RESOURCE_PATH, "UtilityApplication"))
+      @temp_project = Vendor::XCode::Project.new(File.join(@temp_path, "UtilityApplication.xcodeproj"))
+    end
+
+    it "should save a backup of the project" do
+      @temp_project.create_group("Specs/Supporting Files/Something/Goes Inside/Here")
+      @temp_project.save
+
+      File.exist?(File.join(File.dirname(@temp_project.project_folder), "UtilityApplication.vendorbackup")).should be_true
+    end
+
+    it "should save another backup if the project exists" do
+      @temp_project.create_group("Specs/Supporting Files/Something/Goes Inside/Here")
+      @temp_project.save
+      File.exist?(File.join(File.dirname(@temp_project.project_folder), "UtilityApplication.vendorbackup")).should be_true
+
+      @temp_project.create_group("Specs/Supporting Files/Something/Goes Inside/Here/I/Think")
+      @temp_project.save
+      File.exist?(File.join(File.dirname(@temp_project.project_folder), "UtilityApplication.vendorbackup.1")).should be_true
+
+      @temp_project.create_group("Specs/Supporting Files/Something/Goes Inside/Here/I/Think")
+      @temp_project.save
+      File.exist?(File.join(File.dirname(@temp_project.project_folder), "UtilityApplication.vendorbackup.2")).should be_true
+    end
+
+  end
+
   context "#to_ascii_plist" do
 
     it "should convert it to the correct format" do
