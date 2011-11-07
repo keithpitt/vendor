@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = File.read("VERSION").chomp
   s.authors     = ["keithpitt"]
   s.email       = ["me@keithpitt.com"]
-  s.homepage    = "http://www.getvendoring.com"
+  s.homepage    = "http://www.vendorforge.org"
   s.summary     = %q{Dependency management for iOS and OSX development}
   s.description = %q{Vendor manages an application's dependencies}
 
