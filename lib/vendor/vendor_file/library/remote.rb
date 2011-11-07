@@ -9,6 +9,10 @@ module Vendor
         attr_accessor :equality
         attr_accessor :sources
 
+        def version
+          @version
+        end
+
         def version=(value)
           # Matches (some equality matcher, followed by some spaces, then a version)
           if value
@@ -119,11 +123,6 @@ module Vendor
 
         def description
           [ @name, @equality, @version ].compact.join(" ")
-        end
-
-        def <=>(other)
-          v = other.respond_to?(:version) ? other.version : other
-          Vendor::Version.create(@version) <=> Vendor::Version.create(v)
         end
 
         private

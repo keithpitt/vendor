@@ -12,7 +12,7 @@ module Vendor
         end
 
         def cache_path
-          File.expand_path(path)
+          File.expand_path(path) if path
         end
 
       end

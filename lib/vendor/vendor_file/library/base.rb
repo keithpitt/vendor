@@ -147,17 +147,13 @@ module Vendor
           end
         end
 
-        # What is the matching version? Well, its the actual version of the library to include.
-        # For remote libraries, the matched_version may be something different because of the equality
-        # matchers. You define a library like "DKBenchmark", "~> 0.5". The matched version might be
-        # 0.5.1.5, but with Git and Local repos, the matched_version is always the version your asking for.
-        def matched_version
-          if manifest
+        def version
+          if @version
+            @version
+          elsif manifest
             manifest['version']
           elsif vendor_spec
             vendor_spec.version
-          else
-            version
           end
         end
 
@@ -182,15 +178,15 @@ module Vendor
 
         def <=>(other)
           v = other.respond_to?(:version) ? other.version : other
-          Vendor::Version.create(matched_version) <=> Vendor::Version.create(v)
+          Vendor::Version.create(version) <=> Vendor::Version.create(v)
         end
 
         def ==(other)
-          other.name == @name && other.version == @version
+          other.name == name && other.version == version
         end
 
         def description
-          [ @name, @version ].compact.join(" ")
+          [ name, version ].compact.join(" ")
         end
 
         private
@@ -204,10 +200,14 @@ module Vendor
             return @vendor_spec if @vendor_spec
 
             # Try and find a vendorspec in the cached folder
-            file = Dir[File.join(cache_path, "*.vendorspec")].first
+            if cache_path
+              file = Dir[File.join(cache_path, "*.vendorspec")].first
 
-            if file && File.exist?(file)
-              @vendor_spec = Vendor::Spec.load(file)
+              if file && File.exist?(file)
+                @vendor_spec = Vendor::Spec.load(file)
+              else
+                false
+              end
             else
               false
             end
@@ -218,10 +218,14 @@ module Vendor
             return @manifest if @manifest
 
             # Try and find a manifest (a built vendor file)
-            file = File.join(cache_path, "vendor.json")
+            if cache_path
+              file = File.join(cache_path, "vendor.json")
 
-            if File.exist?(file)
-              @manifest = JSON.parse(File.read(file))
+              if File.exist?(file)
+                @manifest = JSON.parse(File.read(file))
+              else
+                false
+              end
             else
               false
             end
