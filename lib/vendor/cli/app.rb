@@ -64,7 +64,9 @@ module Vendor
 
       class_option "no-color", :type => :boolean, :banner => "Disable colorization in output"
       class_option "verbose",  :type => :boolean, :banner => "Enable verbose output mode", :aliases => "-V"
+
       map "--version" => :version
+      map "-v" => :version
 
       register Library, 'library', 'library <command>', 'Commands that will help you create and publish libraries', :hide => true
 
