@@ -301,6 +301,7 @@ module Vendor::XCode
       elsif options[:source_tree] == :sdkroot
 
         # Set the path and the name of the framework
+        attributes['name'] = name
         attributes['path'] = options[:file]
         attributes['sourceTree'] = "SDKROOT"
 
@@ -445,6 +446,8 @@ module Vendor::XCode
           when "sourcecode.c.objc"
             Vendor::XCode::Proxy::PBXSourcesBuildPhase
           when "wrapper.framework"
+            Vendor::XCode::Proxy::PBXFrameworksBuildPhase
+          when "compiled.mach-o.dylib"
             Vendor::XCode::Proxy::PBXFrameworksBuildPhase
         end
 
