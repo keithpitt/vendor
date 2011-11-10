@@ -1,3 +1,15 @@
+## 0.1.2 (November 8, 2011)
+
+Bug Fixes:
+
+  - When adding dylibs and framworks ensure they have the correct name
+
+## 0.1.2 (November 8, 2011)
+
+Features:
+
+  - Added support for adding dylibs to the frameworks build phase
+
 ## 0.1.1 (November 8, 2011)
 
 Bug Fixes:
