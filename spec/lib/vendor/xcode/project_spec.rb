@@ -241,10 +241,19 @@ describe Vendor::XCode::Project do
     it "should add the framework to the right targets" do
       @temp_project.should_receive(:add_file).with({ :targets => @temp_project.find_target("Integration"),
                                                      :file => "System/Library/Frameworks/KeithPitt.framework",
-                                                     :path => "Frameworks",
+                                                     :path => "Frameworks", :name => "KeithPitt.framework",
                                                      :source_tree => :sdkroot })
 
       @temp_project.add_framework "KeithPitt.framework", :targets => "Integration"
+    end
+
+    it "should add the dylibs to the right targets" do
+      @temp_project.should_receive(:add_file).with({ :targets => @temp_project.find_target("Integration"),
+                                                     :file => "usr/lib/libz.dylib",
+                                                     :path => "Frameworks", :name => "libz.dylib",
+                                                     :source_tree => :sdkroot })
+
+      @temp_project.add_framework "libz.dylib", :targets => "Integration"
     end
 
     it "shouldn't add the framework if it already exists" do

@@ -30,6 +30,7 @@ module Vendor::XCode::Proxy
         when ".a"         then "archive.ar"
         when ".strings"   then "text.plist.strings"
         when ".plist"     then "text.plist.xml"
+        when ".dylib"     then "compiled.mach-o.dylib"
         else "unknown"
       end
     end

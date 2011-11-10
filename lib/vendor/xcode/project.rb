@@ -167,6 +167,12 @@ module Vendor::XCode
       targets = targets_from_options(options)
       Vendor.ui.debug %{Adding #{framework} to targets "#{targets.map(&:name)}"}
 
+      path = if framework.match(/\.dylib/)
+        "usr/lib/#{framework}"
+      else
+        "System/Library/Frameworks/#{framework}"
+      end
+
       targets.each do |t|
         # Does the framework already exist?
         build_phase = build_phase_for_file("wrapper.framework", t)
@@ -183,7 +189,8 @@ module Vendor::XCode
 
           # If an existing framework was found, don't add it again
           unless existing_framework
-            add_file :targets => t, :file => "System/Library/Frameworks/#{framework}", :path => "Frameworks", :source_tree => :sdkroot
+            add_file :targets => t, :file => path, :name => framework,
+                     :path => "Frameworks", :source_tree => :sdkroot
           end
         end
       end
