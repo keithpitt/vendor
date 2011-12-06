@@ -144,33 +144,6 @@ running:
 $ vendor library push my_library.vendor
 ```
 
-## What about CocoaPods?
-
-During the early days of Vendor development, another dependency/package
-manager called [CocoaPods](https://github.com/alloy/cocoapods) came on the seen. I had a look into the
-project, but there were a few things that I didn't quite like.
-I prefer all the source files for my dependencies to be stored in the project itself - not hidden in a static
-library. I tend to tweak and read through those libraries, so having
-the source readily available is handy. I also don't like the approach of requiring all the libraries to
-be commited to a centralized git repo (similar to [homebrew](https://github.com/mxcl/homebrew)).
-I think it puts alot of pressure on the maintainer to make sure that he reviews all the libs and that they're
-not doing anything smelly. It also fattens the git repo :D
-
-In saying that, trying to solve the problem of iOS dependency
-management, is tough, and a big shout out to anyone that tries to solve
-the problem. I should also mention another library that I admire that is
-also trying to solve this problem: [Kit](https://github.com/nkpart/kit)
-
-I wrote Vendor the way I think dependency management should be handled,
-and in a way that I like. Vendor can work with any lib, even if it
-doesn't have a compiled vendorspec - which I think is one of the
-strengths of Vendor.
-
-I also like the idea of a central site where people can upload their own
-libraries - just like Rubygems. There isn't much of an ecosystem
-around open source iOS/OSX development, just lots of isolated Github repos and blog posts. I hope
-Vendor can fix this.
-
 ## History
 
 Vendor was inspired by a blog post entitled [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/). I had started working on Vendor after they started doing it themselves. Their repo can be found here [https://github.com/bazaarlabs/vendor](https://github.com/bazaarlabs/vendor). I took many of the ideas (and parts of this Readme) from their code.
