@@ -1,0 +1,12 @@
+Vendor::Spec.new do |s|
+
+  s.name           "EmptyVendor"
+  s.version        "0.1"
+
+  s.authors        "keithpitt"
+  s.email          "me@keithpitt.com"
+  s.description    "Blah"
+  
+  s.files          [ ]
+  
+end

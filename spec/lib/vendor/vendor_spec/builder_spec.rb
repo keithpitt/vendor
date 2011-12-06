@@ -52,33 +52,49 @@ describe Vendor::VendorSpec::Builder do
 
   context "#build" do
 
-    let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")) }
+    context "with a valid vendor spec" do
 
-    before :all do
-      builder.build
-    end
+      let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmark", "DKBenchmark.vendorspec")) }
 
-    it "should create the .vendor file" do
-      File.exist?(builder.filename).should be_true
-    end
-
-    it "should be a zip file" do
-      mimetype = `file #{builder.filename} --mime-type`.chomp
-
-      mimetype.should =~ /application\/zip/
-    end
-
-    it "should contain a vendor.json file" do
-      Zip::ZipFile.open(builder.filename) do |zipfile|
-        zipfile.file.read("vendor.json").should == builder.vendor_spec.to_json
+      before :all do
+        builder.build
       end
+
+      it "should create the .vendor file" do
+        File.exist?(builder.filename).should be_true
+      end
+
+      it "should be a zip file" do
+        mimetype = `file #{builder.filename} --mime-type`.chomp
+
+        mimetype.should =~ /application\/zip/
+      end
+
+      it "should contain a vendor.json file" do
+        Zip::ZipFile.open(builder.filename) do |zipfile|
+          zipfile.file.read("vendor.json").should == builder.vendor_spec.to_json
+        end
+      end
+
+      it "should contain the files contained in the vendor spec" do
+        Zip::ZipFile.open(builder.filename) do |zipfile|
+          zipfile.file.read("data/DKBenchmark.h") =~ /DKBenchmark\.h/
+          zipfile.file.read("data/DKBenchmark.m") =~ /DKBenchmark\.m/
+        end
+      end
+
     end
 
-    it "should contain the files contained in the vendor spec" do
-      Zip::ZipFile.open(builder.filename) do |zipfile|
-        zipfile.file.read("data/DKBenchmark.h") =~ /DKBenchmark\.h/
-        zipfile.file.read("data/DKBenchmark.m") =~ /DKBenchmark\.m/
+    context "with no files" do
+
+      let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "EmptyVendor", "EmptyVendor.vendorspec")) }
+
+      it "should not allow you to build" do
+        expect do
+          builder.build
+        end.should raise_error(Vendor::VendorSpec::Builder::NoFilesError, "No files found for packaging")
       end
+
     end
 
   end

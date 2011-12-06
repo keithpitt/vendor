@@ -3,6 +3,8 @@ module Vendor
 
     class Builder
 
+      class NoFilesError < StandardError; end
+
       require 'fileutils'
       require 'tmpdir'
       require 'find'
@@ -47,6 +49,8 @@ module Vendor
           # Remove files that are within folders with a ".", such as ".bundle"
           # and ".frameworks"
           copy_files = @vendor_spec.files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+
+          raise NoFilesError.new("No files found for packaging") if copy_files.empty?
 
           copy_files.each do |file|
             dir = File.dirname(file)
