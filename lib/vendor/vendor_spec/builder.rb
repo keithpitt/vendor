@@ -46,6 +46,8 @@ module Vendor
         def copy_files(data_dir)
           data_files = []
 
+          raise NoFilesError.new("No file definition found for #{@name}") if @vendor_spec.files.nil?
+
           # Remove files that are within folders with a ".", such as ".bundle"
           # and ".frameworks"
           copy_files = @vendor_spec.files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
