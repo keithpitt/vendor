@@ -31,11 +31,11 @@ Specify your dependencies in a Vendors file in your project's root.
 
 ```ruby
 # Downloads the latest version of DKBenchmark from
-# http://vendorforge.com
+# http://vendorkit.com
 lib "DKBenchmark"
 
 # Downloads version 0.5 of DKPredicateBuilder from
-# http://vendorforge.com
+# http://vendorkit.com
 lib "DKPredicateBuilder", '0.5'
 
 # Include all the source files found in ~/Development/DKRest/Classes
@@ -45,7 +45,7 @@ lib "DKRest", :path => "~/Development/DKRest", :require => "Classes"
 # Checks out the git repo and includes all the files found in the
 # AFNetworking folder in the repo. The require option is handy for
 # repo's that haven't created vendor libraries and pushed them to
-# Vendorforge
+# VendorKit.com
 lib "DKRest", :git => "git://github.com/gowalla/AFNetworking.git", :require => "AFNetworking"
 
 # The Vendorfile allows you to specify targets to add your libraries to.
@@ -137,7 +137,7 @@ vendor library by running:
 $ vendor library build my_library.vendorspec
 ```
 
-Now that you have a packaged library, you can push it to [http://vendorforge.org](http://vendorforge.org) by
+Now that you have a packaged library, you can push it to [http://vendorkit.com](http://vendorkit.com) by
 running:
 
 ```bash
