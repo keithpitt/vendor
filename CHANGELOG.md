@@ -1,3 +1,15 @@
+## 0.1.4 (January 13, 2012)
+
+Features:
+
+  - Updated default Vendorfile
+  - Added support for files with .c extensions (@rauluranga)
+
+Bug Fixes:
+
+  - Don't allow libraries with no vendor files
+  - Renamed vendorforge.org to vendorkit.com in various places
+
 ## 0.1.2 (November 8, 2011)
 
 Bug Fixes:
