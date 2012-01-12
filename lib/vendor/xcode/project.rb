@@ -443,7 +443,7 @@ module Vendor::XCode
       def build_phase_for_file(file_type, target)
         # Which build phase does this file belong?
         klass = case file_type
-          when "sourcecode.c.objc"
+          when "sourcecode.c.objc", "sourcecode.c.c"
             Vendor::XCode::Proxy::PBXSourcesBuildPhase
           when "wrapper.framework"
             Vendor::XCode::Proxy::PBXFrameworksBuildPhase

@@ -6,6 +6,7 @@ describe Vendor::XCode::Proxy::PBXFileReference do
 
     { ".h"         => "sourcecode.c.h",
       ".m"         => "sourcecode.c.objc",
+      ".c"         => "sourcecode.c.c",
       ".bundle"    => "wrapper.plug-in",
       ".framework" => "wrapper.framework",
       ".a"         => "archive.ar",
