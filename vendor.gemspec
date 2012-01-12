@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["me@keithpitt.com"]
   s.homepage    = "http://www.vendorforge.org"
   s.summary     = %q{Dependency management for iOS and OSX development}
-  s.description = %q{Vendor manages an application's dependencies}
+  s.description = %q{Dependency management for iOS and OSX development}
 
   s.rubyforge_project = "vendor"
 
