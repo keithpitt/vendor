@@ -25,6 +25,7 @@ module Vendor::XCode::Proxy
         when /.(png|jpg)/ then "image.#{$1}"
         when ".h"         then "sourcecode.c.h"
         when ".m"         then "sourcecode.c.objc"
+        when ".c"         then "sourcecode.c.c"
         when ".bundle"    then "wrapper.plug-in"
         when ".framework" then "wrapper.framework"
         when ".a"         then "archive.ar"
