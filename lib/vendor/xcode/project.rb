@@ -433,6 +433,7 @@ module Vendor::XCode
       rescue Vendor::Plist::AsciiParser::ParseError => e
         Vendor.ui.error "There was an error converting the XCode project back to a Plist"
         Vendor.ui.error e.inspect
+        Vendor.ui.debug to_ascii_plist
 
         false
       end

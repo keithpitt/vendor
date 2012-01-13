@@ -52,6 +52,23 @@ describe Vendor::XCode::Project do
 
     end
 
+    context "other projects in the ProjectsToTestParsing folder" do
+
+      it "should correctly load and save" do
+        projects = Dir[File.join(PROJECT_RESOURCE_PATH, "ProjectsToTestParsing/*.xcodeproj")]
+
+        projects.each do |p|
+          project = Vendor::XCode::Project.new(p)
+          contents = File.readlines(File.join(p, "project.pbxproj")).join("\n")
+          original = Vendor::Plist.parse_ascii(contents)
+          saved = Vendor::Plist.parse_ascii(project.to_ascii_plist)
+
+          original.should == saved
+        end
+      end
+
+    end
+
   end
 
   context "#name" do
@@ -563,7 +580,7 @@ describe Vendor::XCode::Project do
     end
 
     it "should raise an error if there is an invalid format" do
-      @project.should_receive(:to_ascii_plist).and_return { "asd; { f5him" }
+      @project.should_receive(:to_ascii_plist).twice.and_return { "asd; { f5him" }
 
       @project.valid?.should be_false
     end
