@@ -22,7 +22,7 @@ describe Vendor::VendorFile::Loader do
     end
 
     it "should load all the sources" do
-      @sources.map(&:uri).should == [ "http://vendorforge.com", "http://vendorage.com" ]
+      @sources.map(&:uri).should == [ "http://vendorkit.com", "http://vendorage.com" ]
     end
 
     it "should load all the libraries" do

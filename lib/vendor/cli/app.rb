@@ -35,7 +35,7 @@ module Vendor
           end
         end
 
-        desc "library push VENDOR_FILE", "Push a vendor package to vendorforge.org"
+        desc "library push VENDOR_FILE", "Push a vendor package to vendorkit.com"
         def push(file)
           begin
             Vendor::CLI::Auth.with_api_key do |api_key|
@@ -105,7 +105,7 @@ module Vendor
         Vendor::Template.copy "Vendorfile"
       end
 
-      desc "auth", "Login to your vendorforge.org account"
+      desc "auth", "Login to your vendorkit.com account"
       def auth
         begin
           Vendor::CLI::Auth.with_api_key do |api_key|

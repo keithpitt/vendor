@@ -17,7 +17,7 @@ module Vendor
       end
 
       def fetch_api_key
-        Vendor.ui.warn "Please enter your vendorforge.org login and password"
+        Vendor.ui.warn "Please enter your vendorkit.com login and password"
 
         username = ask("Login: ")
         password = ask("Password: ") { |q| q.echo = false }

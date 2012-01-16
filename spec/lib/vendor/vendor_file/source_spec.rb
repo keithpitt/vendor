@@ -11,7 +11,7 @@ describe Vendor::VendorFile::Source do
   it "should allow you to set a uri via a symbol" do
     source = Vendor::VendorFile::Source.new(:vendorforge)
 
-    source.uri.should == "http://vendorforge.com"
+    source.uri.should == "http://vendorkit.com"
   end
 
 end

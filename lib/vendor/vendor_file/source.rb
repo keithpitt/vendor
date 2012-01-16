@@ -3,7 +3,7 @@ module Vendor
 
     class Source
 
-      MAPPING = { :vendorforge => "http://vendorforge.com" }
+      MAPPING = { :vendorforge => "http://vendorkit.com", :vendorkit => "http://vendorkit.com" }
 
       attr_accessor :uri
 

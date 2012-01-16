@@ -11,7 +11,7 @@ module Vendor
     class Error < StandardError; end
 
     def api_uri
-      ENV["API_URI"] || 'http://vendorforge.org'
+      ENV["API_URI"] || 'http://vendorkit.com'
     end
 
     def api_key(username, password)

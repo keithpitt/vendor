@@ -24,47 +24,47 @@ VENDOR_JSON[:LibWithError] = { :name => "LibWithError",
                                :versions => [ [ "0.1", { :dependencies => [ ] } ] ]
                             }
 
-FakeWeb.register_uri :get, "http://keithpitt:password@vendorforge.org/users/keithpitt/api_key.json",
+FakeWeb.register_uri :get, "http://keithpitt:password@vendorkit.com/users/keithpitt/api_key.json",
                      :body => { :api_key => "secret" }.to_json
 
-FakeWeb.register_uri :get, "http://keithpitt:wrong@vendorforge.org/users/keithpitt/api_key.json",
+FakeWeb.register_uri :get, "http://keithpitt:wrong@vendorkit.com/users/keithpitt/api_key.json",
                      :status => 401
 
-FakeWeb.register_uri :get, "http://keithpitt:error@vendorforge.org/users/keithpitt/api_key.json",
+FakeWeb.register_uri :get, "http://keithpitt:error@vendorkit.com/users/keithpitt/api_key.json",
                      :status => 500
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKBenchmark.json",
                      :body => VENDOR_JSON[:DKBenchmark].to_json
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark-With-Some-Crazy-Number-Name-.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKBenchmark-With-Some-Crazy-Number-Name-.json",
                      :body => VENDOR_JSON[:DKBenchmarkCrazyName].to_json
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/WithAnError.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/WithAnError.json",
                      :status => 500
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DoesNotExist.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DoesNotExist.json",
                      :status => 404
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark/versions/0.1/download",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKBenchmark/versions/0.1/download",
                      :body => File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKBenchmark/versions/0.2/download",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKBenchmark/versions/0.2/download",
                      :body => File.read(File.join(PACKAGED_VENDOR_PATH, "DKBenchmark-0.1.vendor"))
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/LibWithError.json",
                      :body => VENDOR_JSON[:LibWithError].to_json
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/LibWithError/versions/0.1/download",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/LibWithError/versions/0.1/download",
                      :status => 500
 
 ###
 # DEPENDENCY CALLS
 ###
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKRest.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKRest.json",
                      :body => %{{"name":"DKRest","description":"Classes that make it easy to work with REST Services","release":"0.1","versions":[["0.1",{"dependencies":[["DKAPIRequest","0.1"],["DKCoreData","0.1"],["DKFile","0.1"],["DKPredicateBuilder","0.1"],["DKSupport","0.1"]]}]]}}
 
-FakeWeb.register_uri :get, "http://vendorforge.org/vendors/DKCoreData.json",
+FakeWeb.register_uri :get, "http://vendorkit.com/vendors/DKCoreData.json",
                      :body => %{{"name":"DKCoreData","description":"A set of classes that make it easy to work with the Core Data framework on iOS and OSX","release":"0.1","versions":[["1.5.2",{"dependencies":[["DKFile","0.1"],["DKPredicateBuilder","0.1"],["DKSupport","0.1"]]}]]}}
 
 FakeWeb.allow_net_connect = false
