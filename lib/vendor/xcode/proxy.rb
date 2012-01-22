@@ -21,6 +21,7 @@ module Vendor
       autoload :XCBuildConfiguration,      "vendor/xcode/proxy/xc_build_configuration"
       autoload :XCConfigurationList,       "vendor/xcode/proxy/xc_configuration_list"
       autoload :XCVersionGroup,            "vendor/xcode/proxy/xc_version_group"
+      autoload :Unknown,                   "vendor/xcode/proxy/unknown"
 
     end
 

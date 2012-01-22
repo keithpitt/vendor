@@ -54,10 +54,10 @@ describe Vendor::XCode::Project do
 
     context "other projects in the ProjectsToTestParsing folder" do
 
-      it "should correctly load and save" do
-        projects = Dir[File.join(PROJECT_RESOURCE_PATH, "ProjectsToTestParsing/*.xcodeproj")]
+      projects = Dir[File.join(PROJECT_RESOURCE_PATH, "ProjectsToTestParsing/*.xcodeproj")]
 
-        projects.each do |p|
+      projects.each do |p|
+        it "should correctly load and save '#{p}'" do
           project = Vendor::XCode::Project.new(p)
           contents = File.readlines(File.join(p, "project.pbxproj")).join("\n")
           original = Vendor::Plist.parse_ascii(contents)
