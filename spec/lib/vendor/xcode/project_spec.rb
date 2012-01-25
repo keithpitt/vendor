@@ -301,18 +301,66 @@ describe Vendor::XCode::Project do
     it "should create an array of options if the setting is known to be a selection" do
       @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
       @temp_project.add_build_setting "OTHER_LDFLAGS", "-Something", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "OTHER_LDFLAGS", ["-SomethingElse"], :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "OTHER_LDFLAGS", ["-one", "-two"], :targets => "Specs", :changer => "SomeLib"
 
       @target.build_configuration_list.build_configurations.each do |config|
-        config.build_settings["OTHER_LDFLAGS"].should == [ "-ObjC", "-Something" ]
+        config.build_settings["OTHER_LDFLAGS"].should == [ "-ObjC", "-Something", "-SomethingElse", "-one", "-two" ]
       end
     end
 
-    it "should not duplicate build settings" do
+    it "should not duplicate entries in selection build settings" do
       @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
-      @temp_project.add_build_setting "OTHER_LDFLAGS", "-ObjC", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "OTHER_LDFLAGS", ["-ObjC", "-Something"], :targets => "Specs", :changer => "SomeLib"
 
       @target.build_configuration_list.build_configurations.each do |config|
-        config.build_settings["OTHER_LDFLAGS"].should == "-ObjC"
+        config.build_settings["OTHER_LDFLAGS"].should == ["-ObjC", "-Something"]
+      end
+    end
+
+    it "should ignore leading/trailing spaces in selection settings" do
+        @temp_project.add_build_setting "OTHER_LDFLAGS", "  -ObjC", :targets => "Specs", :changer => "SomeLib"
+        @temp_project.add_build_setting "OTHER_LDFLAGS", [" -ObjC  ", " -Something  "], :targets => "Specs", :changer => "SomeLib"
+
+        @target.build_configuration_list.build_configurations.each do |config|
+          config.build_settings["OTHER_LDFLAGS"].should == ["-ObjC", "-Something"]
+        end
+      end
+    
+    it "should add a path string" do
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "/dev/null", :targets => "Specs", :changer => "SomeLib"
+      
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["USER_HEADER_SEARCH_PATHS"].should == "/dev/null"
+      end
+    end
+
+    it "should add multiple path strings" do
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "/dev/null", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "/user/home", :targets => "Specs", :changer => "SomeLib"
+      
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["USER_HEADER_SEARCH_PATHS"].should == "/dev/null /user/home"
+      end
+    end
+
+    it "should not add duplicate path strings" do
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "/dev/null", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "/user/home", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", ["/user/home", "/dev/null"], :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["USER_HEADER_SEARCH_PATHS"].should == "/dev/null /user/home"
+      end
+    end
+
+    it "should ignore leading/trailing spaces in path strings" do
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", " /dev/null  ", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "   /user/home", :targets => "Specs", :changer => "SomeLib"
+      @temp_project.add_build_setting "USER_HEADER_SEARCH_PATHS", "   /dev/null", :targets => "Specs", :changer => "SomeLib"
+
+      @target.build_configuration_list.build_configurations.each do |config|
+        config.build_settings["USER_HEADER_SEARCH_PATHS"].should == "/dev/null /user/home"
       end
     end
 

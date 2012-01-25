@@ -6,7 +6,8 @@ module Vendor::XCode
 
     # Build settings and the format that they should be stored in
     BUILD_SETTING_TYPES = {
-      "OTHER_LDFLAGS" => :array
+      "OTHER_LDFLAGS" => :array,
+      "USER_HEADER_SEARCH_PATHS" => :path_array
     }
 
     require 'fileutils'
@@ -216,30 +217,50 @@ module Vendor::XCode
             # Is this setting known to have multiple values?
             if (setting_type = BUILD_SETTING_TYPES[name])
 
-              # If its an array
+              # If it's an array
               if setting_type == :array
-                # Is it already an array, if so, check to see if
-                # it already exists, and if it doesn't add it.
-                if build_settings[name].kind_of?(Array)
-                  unless build_settings[name].include?
-                    Vendor.ui.debug("  Added build setting (#{name.inspect} = #{value.inspect}) to #{debug_key}")
 
-                    build_settings[name] << value
-                  end
-                else
-                  Vendor.ui.debug("  Added build setting (#{name.inspect} = #{value.inspect}) to #{debug_key}")
+                # wrap existing and new settings values in arrays (if needed) and cleanup strings 
+                build_settings[name] = [build_settings[name]].flatten.collect(&:strip)
+                values = [value].flatten().collect(&:strip)
+                
+                (values & build_settings[name]).each { |v|
+                  Vendor.ui.debug("  Build setting (#{name.inspect} = #{v.inspect}) already set in #{debug_key}")
+                }
+                (values - build_settings[name]).each { |v|
+                  Vendor.ui.debug("  Adding build setting (#{name.inspect} = #{v.inspect}) to #{debug_key}")
+                }
 
-                  # Don't add it if the single build value is already there
-                  unless build_settings[name].strip == value.strip
-                    build_settings[name] = [ build_settings[name], value ]
-                  end
-                end
+                # union of previous and new values
+                build_settings[name] |= values
+                
+              # If it's a path
+              elsif setting_type == :path_array
+                
+                # create arrays of paths for existing and new values, cleanup strings
+                existing_paths = build_settings[name].split
+                new_paths = value.kind_of?(Array) ? value.each(&:strip!) : value.split
+                
+                (new_paths & existing_paths).each { |v|
+                  Vendor.ui.debug("  Build setting (#{name.inspect} = #{v.inspect}) already set in #{debug_key}")
+                }
+                (new_paths - existing_paths).each { |v|
+                  Vendor.ui.debug("  Adding build setting (#{name.inspect} = #{v.inspect}) to #{debug_key}")
+                }
+                
+                # union of previous and new values
+                build_settings[name] = (existing_paths | new_paths).join(" ")
+                  
               end
 
             else
               # If its an unknown type, then we should just throw a warning
               # because we should'nt just change stuff willy, nilly.
-              Vendor.ui.warn("  Build setting #{name.inspect} wanted to change to #{value.inspect}, but it was already #{build_settings[name].inspect} in #{debug_key}")
+              if build_settings[name] == value
+                Vendor.ui.debug("  Build setting (#{name.inspect} = #{value.inspect}) already set in #{debug_key}")
+              else
+                Vendor.ui.warn("  Build setting #{name.inspect} wanted to change to #{value.inspect}, but it was already #{build_settings[name].inspect} in #{debug_key}")
+              end
             end
 
           else
