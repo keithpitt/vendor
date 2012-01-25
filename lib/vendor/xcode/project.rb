@@ -47,7 +47,11 @@ module Vendor::XCode
       @objects_by_id = {}
 
       @objects = parsed['objects'].map do |id, attributes|
-        klass = Vendor::XCode::Proxy.const_get(attributes['isa'])
+        begin
+          klass = Vendor::XCode::Proxy.const_get(attributes['isa'])
+        rescue NameError => e
+          klass = Vendor::XCode::Proxy::Unknown
+        end
 
         @objects_by_id[id] = klass.new(:project => self, :id => id, :attributes => attributes)
       end
