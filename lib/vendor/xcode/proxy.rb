@@ -5,6 +5,7 @@ module Vendor
     module Proxy
 
       autoload :Base,                      "vendor/xcode/proxy/base"
+      autoload :PBXAggregateTarget,        "vendor/xcode/proxy/pbx_aggregate_target"
       autoload :PBXProject,                "vendor/xcode/proxy/pbx_project"
       autoload :PBXFileReference,          "vendor/xcode/proxy/pbx_file_reference"
       autoload :PBXGroup,                  "vendor/xcode/proxy/pbx_group"

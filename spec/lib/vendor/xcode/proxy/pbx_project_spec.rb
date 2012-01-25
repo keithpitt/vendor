@@ -20,7 +20,10 @@ describe Vendor::XCode::Proxy::PBXProject do
   end
 
   it "should reference the targets" do
-    @pbx_project.targets.should == [ @project.find_object("5378749E14010A0A00D9B746") ]
+    @pbx_project.targets.should == [
+      @project.find_object("5378749E14010A0A00D9B746"),
+      @project.find_object("53BD73C714D0AF9A00E30313")
+    ]
   end
 
 end

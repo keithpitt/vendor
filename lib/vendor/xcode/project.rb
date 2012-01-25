@@ -266,8 +266,11 @@ module Vendor::XCode
         raise StandardError.new("Could not find file `#{options[:file]}`") unless File.exists?(options[:file])
       end
 
-      # Find targets
-      targets = targets_from_options(options)
+      # Find targets and filter out aggregate targets (we can't add files to
+      # those bad boys)
+      targets = targets_from_options(options).reject do |t|
+        t.kind_of? Vendor::XCode::Proxy::PBXAggregateTarget
+      end
 
       # Create the group
       group = create_group(options[:path])

@@ -11,7 +11,7 @@ describe Vendor::XCode::Project do
     context "ProjectWithSpecs.xcodeproj" do
 
       it "should load all the objects" do
-        @project.objects.length.should == 48
+        @project.objects.length.should == 52
       end
 
       it "should load the object version" do

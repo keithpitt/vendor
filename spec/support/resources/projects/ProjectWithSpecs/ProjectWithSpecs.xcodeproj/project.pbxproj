@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		53BD73C714D0AF9A00E30313 /* AggregateTarget */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 53BD73CA14D0AF9A00E30313 /* Build configuration list for PBXAggregateTarget "AggregateTarget" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = AggregateTarget;
+			productName = AggregateTarget;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		537874B014010A0A00D9B746 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 537874AF14010A0A00D9B746 /* main.m */; };
 		537874BD14010A1F00D9B746 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 537874BC14010A1F00D9B746 /* UIKit.framework */; };
@@ -161,7 +174,7 @@
 /* Begin PBXProject section */
 		5378747F140109AE00D9B746 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectName" */;
+			buildConfigurationList = 53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectWithSpecs" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -174,6 +187,7 @@
 			projectRoot = "";
 			targets = (
 				5378749E14010A0A00D9B746 /* Specs */,
+				53BD73C714D0AF9A00E30313 /* AggregateTarget */,
 			);
 		};
 /* End PBXProject section */
@@ -293,10 +307,24 @@
 			};
 			name = Release;
 		};
+		53BD73C814D0AF9A00E30313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		53BD73C914D0AF9A00E30313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectName" */ = {
+		53787482140109AE00D9B746 /* Build configuration list for PBXProject "ProjectWithSpecs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				53787484140109AE00D9B746 /* Debug */,
@@ -313,6 +341,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		53BD73CA14D0AF9A00E30313 /* Build configuration list for PBXAggregateTarget "AggregateTarget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BD73C814D0AF9A00E30313 /* Debug */,
+				53BD73C914D0AF9A00E30313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
