@@ -10,7 +10,9 @@ module Vendor
     attr_reader :build_settings
 
     BUILD_SETTING_NAMES = {
-      :other_linker_flags => "OTHER_LDFLAGS"
+      :other_linker_flags => "OTHER_LDFLAGS",
+      :always_search_user_paths => "ALWAYS_SEARCH_USER_PATHS",
+      :user_header_search_paths => "USER_HEADER_SEARCH_PATHS"
     }
 
     ATTRIBUTES.each do |attr|
