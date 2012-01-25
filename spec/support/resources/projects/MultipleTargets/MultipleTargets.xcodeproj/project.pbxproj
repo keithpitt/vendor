@@ -6,6 +6,19 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		53A7DCC114D0B3AE00A4FE42 /* AggregateTarget */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 53A7DCC414D0B3AE00A4FE42 /* Build configuration list for PBXAggregateTarget "AggregateTarget" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = AggregateTarget;
+			productName = AggregateTarget;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		53F42B5E14667527006B8F7C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5D14667527006B8F7C /* UIKit.framework */; };
 		53F42B6014667527006B8F7C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F42B5F14667527006B8F7C /* Foundation.framework */; };
@@ -285,6 +298,7 @@
 				53F42B8014667530006B8F7C /* MultipleTargets-iPad */,
 				53F42B9B14667536006B8F7C /* Specs */,
 				53F42BAF1466753B006B8F7C /* Integration */,
+				53A7DCC114D0B3AE00A4FE42 /* AggregateTarget */,
 			);
 		};
 /* End PBXProject section */
@@ -423,6 +437,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		53A7DCC214D0B3AE00A4FE42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		53A7DCC314D0B3AE00A4FE42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		53F42B7B14667527006B8F7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -573,6 +601,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		53A7DCC414D0B3AE00A4FE42 /* Build configuration list for PBXAggregateTarget "AggregateTarget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53A7DCC214D0B3AE00A4FE42 /* Debug */,
+				53A7DCC314D0B3AE00A4FE42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		53F42B5314667526006B8F7C /* Build configuration list for PBXProject "MultipleTargets" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -261,7 +261,7 @@ describe Vendor::XCode::Project do
                                                      :path => "Frameworks", :name => "KeithPitt.framework",
                                                      :source_tree => :sdkroot })
 
-      @temp_project.add_framework "KeithPitt.framework", :targets => "Integration"
+      @temp_project.add_framework "KeithPitt.framework", :targets => [ "Integration", "AggregateTarget" ]
     end
 
     it "should add the dylibs to the right targets" do

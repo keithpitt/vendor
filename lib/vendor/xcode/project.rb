@@ -167,8 +167,10 @@ module Vendor::XCode
     end
 
     def add_framework(framework, options = {})
-      # Find targets
-      targets = targets_from_options(options)
+      # Find targets and filter out aggregate targets (we can't add files to
+      # those bad boys)
+      targets = targets_from_options(options, :ignore_aggregates => true)
+
       Vendor.ui.debug %{Adding #{framework} to targets "#{targets.map(&:name)}"}
 
       path = if framework.match(/\.dylib/)
@@ -268,9 +270,7 @@ module Vendor::XCode
 
       # Find targets and filter out aggregate targets (we can't add files to
       # those bad boys)
-      targets = targets_from_options(options).reject do |t|
-        t.kind_of? Vendor::XCode::Proxy::PBXAggregateTarget
-      end
+      targets = targets_from_options(options, :ignore_aggregates => true)
 
       # Create the group
       group = create_group(options[:path])
@@ -476,8 +476,8 @@ module Vendor::XCode
         keys.each { |k| raise StandardError.new("Missing :#{k} option") unless options[k] }
       end
 
-      def targets_from_options(options)
-        if options[:targets]
+      def targets_from_options(options, opts = {})
+        targets = if options[:targets]
           [ *options[:targets] ].map do |t|
             if t == :all
               root_object.targets
@@ -489,6 +489,12 @@ module Vendor::XCode
           end.flatten.uniq
         else
           root_object.targets
+        end
+
+        if opts[:ignore_aggregates]
+          targets.reject { |t| t.kind_of? Vendor::XCode::Proxy::PBXAggregateTarget }
+        else
+          targets
         end
       end
 
