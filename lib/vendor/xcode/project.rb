@@ -34,7 +34,7 @@ module Vendor::XCode
       # because the custom implementation isn't very reliable. We use it mainly
       # so the gem can run on systems that don't have plutil installed (like our
       # CI server). The plutil app is far more reliable.
-      if RUBY_PLATFORM !=~ /darwin/ || ENV['PARSER'] == 'custom'
+      if RUBY_PLATFORM !~ /darwin/ || ENV['PARSER'] == 'custom'
         contents = File.readlines(@pbxproject).join("\n")
         parsed = Vendor::Plist.parse_ascii(contents)
       else
