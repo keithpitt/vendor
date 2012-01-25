@@ -11,7 +11,7 @@ class String
       # as I find characters that seem to trigger quotes, I drop them in
       # here. Yes, this isn't a sustainable solution, but it works for
       # now.
-      match(/\-|\s|\+|\<|\$|\"|\[|\=|\*|@|\,/) ? self.inspect : self
+      match(/\-|\s|\+|\<|\$|\"|\[|\=|\*|@|\,|\./) ? self.inspect : self
     end
   end
 
