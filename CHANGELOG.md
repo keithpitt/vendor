@@ -1,3 +1,11 @@
+## 0.1.5 (January 27, 2012)
+
+Bug Fixes:
+
+  - Improvements to the Plist converter
+  - Fixes for projects that have Aggregate Targets
+  - Use the correct PList converter on OSX
+
 ## 0.1.4 (January 13, 2012)
 
 Features:
