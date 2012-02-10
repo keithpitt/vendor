@@ -3,7 +3,7 @@ module Vendor
   class Spec
 
     ATTRIBUTES = [ :name, :version, :email, :files, :homepage,
-                   :description, :authors, :source, :docs ]
+                   :description, :authors, :source, :docs, :per_file_flag ]
 
     attr_reader :dependencies
     attr_reader :frameworks

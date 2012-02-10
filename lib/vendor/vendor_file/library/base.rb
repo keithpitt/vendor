@@ -59,7 +59,7 @@ module Vendor
           # Install the files back into the project
           files.each do |file|
             project.add_file :targets => install_targets, :path => destination,
-                             :file => file, :source_tree => @source_tree
+                             :file => file, :source_tree => @source_tree, :per_file_flag => per_file_flag
           end
 
           # Add frameworks
@@ -116,6 +116,20 @@ module Vendor
           end
 
           build_settings || []
+        end
+
+        def per_file_flag
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
+
+          # Find the build settings
+          per_file_flag = if manifest
+            manifest['per_file_flag']
+          elsif vendor_spec
+            vendor_spec.per_file_flag
+          end
+
+          per_file_flag
         end
 
         def files

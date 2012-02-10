@@ -285,7 +285,7 @@ module Vendor::XCode
         'lastKnownFileType' => type,
         'sourceTree' => "<#{options[:source_tree].to_s}>"
       }
-
+      
       # Handle the different source tree types
       if options[:source_tree] == :group
 
@@ -330,9 +330,13 @@ module Vendor::XCode
       # Add the file id to the groups children
       group.attributes['children'] << file.id
 
+      if options[:per_file_flag]
+        settings = {"COMPILER_FLAGS" => options[:per_file_flag]}
+      end
+
       # Add the file to targets
       targets.each do |t|
-        add_file_to_target file, t
+        add_file_to_target file, t, settings
       end
 
       # Mark as dirty
@@ -360,7 +364,7 @@ module Vendor::XCode
 
     end
 
-    def add_file_to_target(file, target)
+    def add_file_to_target(file, target, settings)
 
       build_phase = build_phase_for_file(file.last_known_file_type, target)
 
@@ -368,10 +372,15 @@ module Vendor::XCode
 
         Vendor.ui.debug "Adding #{file.attributes} to #{target.name} (build_phase = #{build_phase.class.name})"
 
+        attributes = { 'fileRef' => file.id }
+        if settings != nil
+          attributes['settings'] = settings
+        end
+        
         # Add the file to XCode
         build_file = Vendor::XCode::Proxy::PBXBuildFile.new(:project => self,
                                                                  :id => Vendor::XCode::Proxy::Base.generate_id,
-                                                         :attributes => { 'fileRef' => file.id })
+                                                         :attributes => attributes)
 
         # Set the parent
         build_file.parent = build_phase

@@ -355,7 +355,8 @@ describe Vendor::XCode::Project do
         @first_file_added = @temp_project.add_file :targets => [ @target ], :file => first_file,
                                                    :path => "Controllers/SecondViewController", :source_tree => :group
         @second_file_added = @temp_project.add_file :targets => [ @target ], :file => second_file,
-                                                    :path => "Controllers/SecondViewController", :source_tree => :group
+                                                    :path => "Controllers/SecondViewController", :source_tree => :group, 
+                                                    :per_file_flag => "-fno-objc-arc"
       end
 
       it "should mark the project as dirty" do
@@ -384,7 +385,7 @@ describe Vendor::XCode::Project do
         @first_file_added.isa.should == "PBXFileReference"
         @second_file_added.isa.should == "PBXFileReference"
       end
-
+      
       it 'should have an ID' do
         @first_file_added.id.should_not be_nil
         @second_file_added.id.should_not be_nil
@@ -413,6 +414,13 @@ describe Vendor::XCode::Project do
         build_phase.files[-1].isa.should == "PBXBuildFile"
         build_phase.files[-1].should be_kind_of(Vendor::XCode::Proxy::PBXBuildFile)
         build_phase.files[-1].file_ref.should == @second_file_added
+      end
+
+      it 'should add settings to build_phase' do
+        build_phase = @target.build_phases.first
+
+        build_phase.files[0].attributes["settings"].should be_nil
+        build_phase.files[1].settings.should == {"COMPILER_FLAGS" => "-fno-objc-arc"}
       end
 
       it "should throw an error if you try and add to a target that doesn't exist" do
