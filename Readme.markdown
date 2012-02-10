@@ -120,6 +120,8 @@ Vendor::Spec.new do |s|
   s.build_setting  "CLANG_WARN_OBJCPP_ARC_ABI", false
   s.build_setting  "GCC_PRECOMPILE_PREFIX_HEADER", "YES"
 
+  s.per_file_flag  "-fno-objc-arc"
+
   s.framework      "CoreGraphics.framework"
   s.framework      "UIKit.framework"
 
