@@ -21,4 +21,6 @@ Vendor::Spec.new do |s|
 
   s.build_setting   :other_linker_flags, "-ObjC"
 
+  s.per_file_flag	"-fno-objc-arc"
+
 end

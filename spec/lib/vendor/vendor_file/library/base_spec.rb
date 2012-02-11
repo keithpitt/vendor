@@ -234,6 +234,46 @@ describe Vendor::VendorFile::Library::Base do
 
   end
 
+  describe "#per_file_flag" do
+
+    before :each do
+      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
+    end
+
+    context "with no manifest or vendorspec" do
+
+      it "should have no per_file_flag" do
+        lib_with_no_manifest_or_vendorspec.per_file_flag.should be_nil
+      end
+
+    end
+
+    context "with a vendorspec" do
+
+      it "should have per_file_flag" do
+        lib_with_vendorspec.per_file_flag.should == "-fno-objc-arc"
+      end
+
+    end
+
+    context "with a manifest" do
+
+      it "should have per_file_flag" do
+        lib_with_manifest.per_file_flag.should == "-fno-objc-arc"
+      end
+
+    end
+
+    context "with no per file settings" do
+
+      it "should be nil" do
+        lib_with_nothing.per_file_flag.should be_nil
+      end
+
+    end
+
+  end
+
   describe "#files" do
 
     before :each do

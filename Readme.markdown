@@ -120,6 +120,8 @@ Vendor::Spec.new do |s|
   s.build_setting  "CLANG_WARN_OBJCPP_ARC_ABI", false
   s.build_setting  "GCC_PRECOMPILE_PREFIX_HEADER", "YES"
 
+  s.per_file_flag  "-fno-objc-arc"
+
   s.framework      "CoreGraphics.framework"
   s.framework      "UIKit.framework"
 
@@ -143,6 +145,16 @@ running:
 ```bash
 $ vendor library push my_library.vendor
 ```
+
+## Compiler flags
+
+Vendor supports supplying compiler flags to all files in a dependency. This is handy when you want to include a dependency that isn't ARC-compliant in an ARC project. Classes with explicit memory management in an ARC project must be compiled with the -fno-objc-arc flag. To add this flag to all files in a dependency, add the following to your vendor spec:
+
+    s.per_file_flag  "-fno-objc-arc" 
+
+Or, to your Vendorfile:
+
+    :per_file_flag => "-fno-objc-arc"
 
 ## History
 
