@@ -146,6 +146,16 @@ running:
 $ vendor library push my_library.vendor
 ```
 
+## Compiler flags
+
+Vendor supports supplying compiler flags to all files in a dependency. This is handy when you want to include a dependency that isn't ARC-compliant in an ARC project. Classes with explicit memory management in an ARC project must be compiled with the -fno-objc-arc flag. To add this flag to all files in a dependency, add the following to your vendor spec:
+
+    s.per_file_flag  "-fno-objc-arc" 
+
+Or, to your Vendorfile:
+
+    :per_file_flag => "-fno-objc-arc"
+
 ## History
 
 Vendor was inspired by a blog post entitled [Vendor – Bringing Bundler to iOS](http://engineering.gomiso.com/2011/08/08/vendor-the-best-way-to-manage-ios-libraries/). I had started working on Vendor after they started doing it themselves. Their repo can be found here [https://github.com/bazaarlabs/vendor](https://github.com/bazaarlabs/vendor). I took many of the ideas (and parts of this Readme) from their code.
