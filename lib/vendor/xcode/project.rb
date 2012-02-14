@@ -41,6 +41,8 @@ module Vendor::XCode
         
         add_frameworks_to_frameworks_build_phase frameworks_added, target.framework_build_phase
         
+        add_build_settings_to_target_configurations target, library.build_settings
+        
       end
     
       project.save!
@@ -147,6 +149,12 @@ module Vendor::XCode
     def add_frameworks_to_frameworks_build_phase frameworks, framework_build_phase
       frameworks.each do |framework| 
         framework_build_phase.add_build_file framework
+      end
+    end
+    
+    def add_build_settings_to_target_configurations target, build_settings
+      target.configs.each do |config|
+        build_settings.each {|name,value| config.set name, value }
       end
     end
     
