@@ -34,8 +34,12 @@ module Vendor::XCode
       frameworks_added = add_required_frameworks_to_project library.frameworks
       
       project_targets.each do |target|
-        
-        add_source_files_to_sources_build_phase files_added, target.sources_build_phase
+
+        # Currently this is in place to support an incoming pull request #8
+        # @see https://github.com/keithpitt/vendor/pull/8/files
+
+        per_file_flag = (library.responds_to? :per_file_flag) ? library.per_file_flag : nil
+        add_source_files_to_sources_build_phase files_added, target.sources_build_phase, per_file_flag
         
         add_resource_files_to_resources_build_phase files_added, target.resources_build_phase
         
@@ -134,9 +138,13 @@ module Vendor::XCode
     end
     
     
-    def add_source_files_to_sources_build_phase files, sources_build_phase
+    def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
       files.find_all {|file| File.extname(file.name) =~ /\.mm?$/ }.each do |file|
-        sources_build_phase.add_build_file file
+        if per_file_flag
+          sources_build_phase.add_build_file file, { 'COMPILER_FLAGS' => per_file_flag }
+        else
+          sources_build_phase.add_build_file file
+        end
       end
     end
     
