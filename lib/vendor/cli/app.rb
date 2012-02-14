@@ -1,3 +1,5 @@
+require 'xcoder'
+
 module Vendor
 
   module CLI
@@ -73,31 +75,91 @@ module Vendor
       desc "install", "Install the libraries defined in your Vendorfile to the current project"
       def install
         vendorfile = File.expand_path("Vendorfile")
-
+        
         unless File.exist?(vendorfile)
           Vendor.ui.error "Could not find Vendorfile"
           exit 1
         end
-
-        projects = Dir["*.xcodeproj"]
-
-        if projects.length > 1
-          Vendor.ui.error "Mutiple projects found #{projects.join(', ')}. I don't know how to deal with this yet."
-          exit 1
-        end
-
-        project = Vendor::XCode::Project.new(projects.first)
-
+        
         loader = Vendor::VendorFile::Loader.new
         loader.load vendorfile
-        loader.install project
+        
+        Dir["*.xcodeproj"].each do |project_path|
+          
+          Vendor.ui.info "Examining #{project_path}"
+          
+          project = Xcode.project project_path
+          
+          loader.libraries_to_install do |library,targets|
+            
+            library.download
+            
+            if targets == [:all]
+              project_targets = project.targets
+            else
+              project_targets = targets.map {|name| project.target(name) }
+            end
+            
+            if project_targets.empty?
+              Vendor.ui.info "No targets have been specified in #{project.name}"
+              return
+            end
+            
+            FileUtils.mkdir_p "Vendor/#{library.name}"
+            
+            project.group("Vendor/#{library.name}") do
+              library.files.each do |file| 
+                Vendor.ui.info "* Installing file: #{file}"
+                create_file 'name' => File.basename(file), 'path' => "Vendor/#{library.name}/#{File.basename(file)}"
+                FileUtils.cp file, "Vendor/#{library.name}/#{File.basename(file)}"
+              end
+            end
+            
+            frameworks_added = library.frameworks.map do |framework_name|
+              if framework_name =~ /^.+\.dylib$/
+                Vendor.ui.info "* Installing System Library: #{framework_name}"
+                project.frameworks_group.create_system_library(framework_name)
+              else
+                Vendor.ui.info "* Installing System Framework: #{framework_name}"
+                project.frameworks_group.create_system_framework(framework_name)
+              end
+            end
+            
+            project_targets.each do |target|
+              
+              Vendor.ui.info "Target #{target.name} build phases"
+              
+              target.sources_build_phase do
+                library.files.find_all {|file| File.extname(file) =~ /\.mm?$/ }.each do |file|
+                  Vendor.ui.info "#{target.name} # adding build file: Vendor/#{library.name}/#{File.basename(file)}"
+                  add_build_file project.file("Vendor/#{library.name}/#{File.basename(file)}")
+                end
+              end
+              
+              target.resources_build_phase do
+                library.files.reject {|file| File.extname(file) =~ /\.(mm?|h)$/ }.each do |file|
+                  Vendor.ui.info "#{target.name} # adding resources file: Vendor/#{library.name}/#{File.basename(file)}"
+                  add_build_file project.file("Vendor/#{library.name}/#{File.basename(file)}")
+                end
+              end
+              
+              target.framework_build_phase do
+                frameworks_added.each do |framework| 
+                  Vendor.ui.info "#{target.name} # adding build framework: #{framework.name}"
+                  add_build_file framework
+                end
+              end
+              
+            end
+            
+          end
 
-        if project.dirty?
-          project.save
           Vendor.ui.success "Finished installing into #{project.name}"
-        else
-          Vendor.ui.info "No changes were made to #{project.name}"
+          
+          project.save!
+          
         end
+
       end
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"

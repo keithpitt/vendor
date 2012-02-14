@@ -23,6 +23,14 @@ module Vendor
         self.libraries = @dsl.libraries
       end
 
+      def libraries_to_install
+        unless @graph.version_conflicts?
+          @graph.libraries_to_install.each do |library,targets|
+            yield library, targets if block_given?
+          end
+        end
+      end
+      
       def install(project)
         unless @graph.version_conflicts?
           @graph.libraries_to_install.each do |lib|
