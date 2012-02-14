@@ -65,14 +65,18 @@ module Vendor::XCode
       else
         
         # Take each specified target names and compare those with the targets
-        # specified within the project. Find all that match and return them
+        # specified within the project. Find all that match and return them,
+        # ignoring aggregate targets that may match the name as they are
+        # not capable of love that comes with bearing files.
         
         # @note project#target(name) seems like it would be a better choice,
         #    however, the Xcoder implementation raises an error when a target
         #    does not match the specified name.
         
-        project_targets = specified_targets.map do |name| 
-          project.targets.find_all {|target| target.name == name }
+        project_targets = specified_targets.each do |name| 
+          
+          project.targets.reject {|target| target.isa == "PBXAggregateTarget" }.find_all {|target| target.name == name }
+          
         end.flatten
       end
       
