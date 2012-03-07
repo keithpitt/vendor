@@ -162,7 +162,7 @@ module Vendor::XCode
     
     def add_build_settings_to_target_configurations target, build_settings
       target.configs.each do |config|
-        build_settings.each {|name,value| config.set name, value }
+        build_settings.each {|name,value| config.append name, value }
       end
     end
     
