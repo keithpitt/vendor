@@ -31,5 +31,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "rubyzip"
   s.add_runtime_dependency "rest-client"
   s.add_runtime_dependency "highline"
+  s.add_runtime_dependency "xcoder", "~> 0.1.7"
 
 end

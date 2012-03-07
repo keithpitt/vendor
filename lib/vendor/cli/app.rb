@@ -73,31 +73,27 @@ module Vendor
       desc "install", "Install the libraries defined in your Vendorfile to the current project"
       def install
         vendorfile = File.expand_path("Vendorfile")
-
+        
         unless File.exist?(vendorfile)
           Vendor.ui.error "Could not find Vendorfile"
           exit 1
         end
-
-        projects = Dir["*.xcodeproj"]
-
-        if projects.length > 1
-          Vendor.ui.error "Mutiple projects found #{projects.join(', ')}. I don't know how to deal with this yet."
-          exit 1
-        end
-
-        project = Vendor::XCode::Project.new(projects.first)
+        
+        project_paths = Dir["*.xcodeproj"]
 
         loader = Vendor::VendorFile::Loader.new
         loader.load vendorfile
-        loader.install project
-
-        if project.dirty?
-          project.save
-          Vendor.ui.success "Finished installing into #{project.name}"
-        else
-          Vendor.ui.info "No changes were made to #{project.name}"
+        
+        project_paths.each do |project_path|
+          Vendor.ui.info "Examining #{project_path}"
+          
+          loader.libraries_to_install do |library,targets|
+            library.download
+            Vendor::XCode::Project.new(project_path).install(library,targets)
+          end
+          
         end
+
       end
 
       desc "init", "Generate a simple Vendorfile, placed in the current directory"

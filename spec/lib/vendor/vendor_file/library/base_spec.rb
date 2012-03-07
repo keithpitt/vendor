@@ -24,54 +24,6 @@ describe Vendor::VendorFile::Library::Base do
     lib.targets.should == [ "Specs" ]
   end
 
-  describe "#install" do
-
-    before :each do
-      Vendor.stub(:library_path).and_return CACHED_VENDOR_RESOURCE_PATH
-    end
-
-    context "with an existing installation" do
-
-      before :each do
-        lib_with_manifest.install project
-
-        # Install it again
-        lib_with_manifest.install project
-      end
-
-      it "should add the group to the project" do
-        group = project.find_group("Vendor/DKBenchmark-0.1-Manifest")
-        group.should_not be_nil
-      end
-
-      it "should add the files to the project" do
-        children = project.find_group("Vendor/DKBenchmark-0.1-Manifest").children
-        children.length.should == 2
-      end
-
-    end
-
-    context "with a fresh installation" do
-
-      before :each do
-        # Install it again
-        lib_with_manifest.install project
-      end
-
-      it "should add the group to the project" do
-        group = project.find_group("Vendor/DKBenchmark-0.1-Manifest")
-        group.should_not be_nil
-      end
-
-      it "should add the files to the project" do
-        children = project.find_group("Vendor/DKBenchmark-0.1-Manifest").children
-        children.length.should == 2
-      end
-
-    end
-
-  end
-
   describe "#cache_path" do
 
     it "should return the location where the lib is to be stored" do
