@@ -35,44 +35,6 @@ module Vendor
           # Do nothing by default, leave that up to the implementation
         end
 
-        # This method sucks. What we should be doing is passing a library to the Xcode project class
-        # to install. We shouldn't be interacting with it like this. Really, VendorFile::Library should
-        # extend Xcode::Library or something. That was its a little more modular.
-        def install(project, options = {})
-          # If the cache doesn't exist, download it
-          download unless cache_exists?
-
-          Vendor.ui.info %{Installing #{display_name}}
-
-          # Combine the local targets, with those targets specified in the options. Also
-          # for sanity reasons, flatten and uniqify them.
-          if @targets || options[:targets]
-            install_targets = [ @targets, options[:targets] ].compact.flatten.uniq
-          end
-
-          # The destination in the XCode project
-          destination = "Vendor/#{name}"
-
-          # Remove the group, and recreate
-          project.remove_group destination
-
-          # Install the files back into the project
-          files.each do |file|
-            project.add_file :targets => install_targets, :path => destination,
-                             :file => file, :source_tree => @source_tree
-          end
-
-          # Add frameworks
-          frameworks.each do |framework|
-            project.add_framework framework, :targets => install_targets
-          end
-
-          # Add compiler flags
-          build_settings.each do |build_setting|
-            project.add_build_setting build_setting[0], build_setting[1], :targets => install_targets, :from => self
-          end
-        end
-
         def dependencies
           # If the cache doesn't exist, download it
           download unless cache_exists?
