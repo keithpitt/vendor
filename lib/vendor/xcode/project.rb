@@ -115,7 +115,7 @@ module Vendor::XCode
         
         # Copy the project's logical files
         
-        library_group.create_file 'name' => File.basename(file), 'path' => "#{pathname}/#{File.basename(file)}"
+        library_group.create_file 'name' => File.basename(file), 'path' => "#{pathname}/#{File.basename(file)}", 'sourceTree' => 'SOURCE_ROOT'
         
       end
       
