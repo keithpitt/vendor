@@ -38,7 +38,7 @@ module Vendor::XCode
         # Currently this is in place to support an incoming pull request #8
         # @see https://github.com/keithpitt/vendor/pull/8/files
 
-        per_file_flag = (library.responds_to? :per_file_flag) ? library.per_file_flag : nil
+        per_file_flag = (library.respond_to? :per_file_flag) ? library.per_file_flag : nil
         add_source_files_to_sources_build_phase files_added, target.sources_build_phase, per_file_flag
         
         add_resource_files_to_resources_build_phase files_added, target.resources_build_phase
