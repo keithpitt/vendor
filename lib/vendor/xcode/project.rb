@@ -117,7 +117,7 @@ module Vendor::XCode
         
         library_group.create_file 'name' => File.basename(file), 'path' => "#{pathname}/#{File.basename(file)}", 'sourceTree' => 'SOURCE_ROOT'
         
-      end
+      end.compact
       
     end
     
@@ -139,7 +139,7 @@ module Vendor::XCode
     
     
     def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
-      files.find_all {|file| File.extname(file.name) =~ /\.mm?$/ }.each do |file|
+      files.find_all {|file| File.extname(file.path.to_s) =~ /\.mm?$/ }.each do |file|
         if per_file_flag
           sources_build_phase.add_build_file file, { 'COMPILER_FLAGS' => per_file_flag }
         else
@@ -149,7 +149,7 @@ module Vendor::XCode
     end
     
     def add_resource_files_to_resources_build_phase files, resources_build_phase
-      files.reject {|file| File.extname(file.name) =~ /\.(mm?|h)$/ }.each do |file|
+      files.reject {|file| File.extname(file.path.to_s).to_s =~ /\.(mm?|h)$/ }.each do |file|
         resources_build_phase.add_build_file file
       end
     end
