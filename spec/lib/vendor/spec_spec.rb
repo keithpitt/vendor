@@ -100,6 +100,16 @@ describe Vendor::Spec do
 
   end
 
+  context "#per_file_flag" do
+    
+    it "should set a per file flag" do
+      spec.per_file_flag "-fno-objc-arc"
+      
+      spec.per_file_flag.should == "-fno-objc-arc"
+    end
+    
+  end
+  
   context '#to_json' do
 
     it 'should return the vendor spec as a JSON string' do

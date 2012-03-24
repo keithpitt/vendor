@@ -152,6 +152,10 @@ module Vendor
     attribute :files, :required
     
     # @attribute
+    # Specifying a build target specific flag for the source files
+    attribute :per_file_flag
+    
+    # @attribute
     # A description to give users context about this particular vendor specification
     attribute :description
 

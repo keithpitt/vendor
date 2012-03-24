@@ -119,6 +119,21 @@ module Vendor
           end
         end
 
+        def per_file_flag
+          # If the cache doesn't exist, download it
+          download unless cache_exists?
+
+          # Find the build settings
+          per_file_flag = if manifest
+            manifest['per_file_flag']
+          elsif vendor_spec
+            vendor_spec.per_file_flag
+          end
+
+          per_file_flag
+        end
+
+
         def version_matches_any?(other_versions)
           # If we have an equality matcher, we need sort through
           # the versions, and try and find the best match
