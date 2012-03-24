@@ -82,20 +82,14 @@ describe Vendor::Spec do
     it "should allow you to remap names with a symbol" do
       spec.build_setting :other_linker_flags, "-ObjC"
 
-      spec.build_settings.should == [ [ "OTHER_LDFLAGS", "-ObjC" ] ]
-    end
-
-    it "should raise an error if a mapping for the symbol doesn't exist" do
-      expect do
-        spec.build_setting :blah, "-ObjC"
-      end.should raise_error(StandardError)
+      spec.build_settings.should == [ [ :other_linker_flags, "-ObjC" ] ]
     end
 
     it "should turn the value to YES if you pass true" do
       spec.build_setting :other_linker_flags, true
       spec.build_setting :other_linker_flags, false
 
-      spec.build_settings.should == [ [ "OTHER_LDFLAGS", "YES" ], [ "OTHER_LDFLAGS", "NO" ] ]
+      spec.build_settings.should == [ [ :other_linker_flags, true ], [ :other_linker_flags, false ] ]
     end
 
   end
@@ -123,7 +117,7 @@ describe Vendor::Spec do
       json["name"].should == "foo"
       json["dependencies"].should == [ [ "JSONKit", "0.5" ] ]
       json["frameworks"].should == [ "Foundation.framework" ]
-      json["build_settings"].should == [ [ "OTHER_LDFLAGS", "YES" ] ]
+      json["build_settings"].should == [ [ "other_linker_flags", true ] ]
     end
 
   end

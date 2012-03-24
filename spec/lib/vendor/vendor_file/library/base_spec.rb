@@ -163,7 +163,7 @@ describe Vendor::VendorFile::Library::Base do
     context "with a vendorspec" do
 
       it "should have build_settings" do
-        lib_with_vendorspec.build_settings.should == [ [ "OTHER_LDFLAGS", "-ObjC" ] ]
+        lib_with_vendorspec.build_settings.should == [ [ :other_linker_flags, "-ObjC" ] ]
       end
 
     end

@@ -181,10 +181,6 @@ module Vendor
     attribute :docs
  
     
-    BUILD_SETTING_NAMES = {
-      :other_linker_flags => "OTHER_LDFLAGS"
-    }
-
     # @see build_setting
     attr_reader :build_settings
    
@@ -217,22 +213,7 @@ module Vendor
     # @return [void]
     # 
     def build_setting(setting, value)
-      # If you pass in a symbol, it'll try and map it.
-      if setting.kind_of?(Symbol)
-        symbol = setting
-        setting = BUILD_SETTING_NAMES[symbol]
-        raise StandardError.new("No mapping for '#{symbol}' in #{BUILD_SETTING_NAMES.inspect}") unless setting
-      end
-
-      # YES/NO Mappings
-      if value === true
-      value = "YES"
-      elsif value === false
-        value = "NO"
-      end
-
-      
-      @build_settings << [ setting, value ]
+     @build_settings << [ setting, value ]
     end
     
     
