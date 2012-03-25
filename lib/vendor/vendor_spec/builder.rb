@@ -43,14 +43,23 @@ module Vendor
 
       private
 
+        # Remove files that are within folders with a ".", such as ".bundle"
+        # and ".frameworks" 
+        def filter_files(files)
+          Array(files).reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+        end
+
+        # Find all the files within the vendor spec to install
+        def vendor_spec_files_to_install
+          filter_files(@vendor_spec.files) + filter_files(@vendor_spec.resources)
+        end
+
         def copy_files(data_dir)
           data_files = []
 
           raise NoFilesError.new("No file definition found for #{@name}") if @vendor_spec.files.nil?
 
-          # Remove files that are within folders with a ".", such as ".bundle"
-          # and ".frameworks"
-          copy_files = @vendor_spec.files.reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
+          copy_files = vendor_spec_files_to_install
 
           raise NoFilesError.new("No files found for packaging") if copy_files.empty?
 
