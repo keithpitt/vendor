@@ -81,35 +81,12 @@ module Vendor
         end
 
         def files
-          # If the cache doesn't exist, download it
-          download unless cache_exists?
-
-          # Calculate the files we need to add. There are 3 different types
-          # of installation:
-          # 1) Installation from a manifest (a built lib)
-          # 2) Loading the .vendorspec and seeing what files needed to be added
-          # 3) Try to be smart and try and find files to install
-          install_files = if manifest
-                            manifest['files'].map do |file|
-                              File.join(cache_path, "data", file)
-                            end
-                          elsif vendor_spec
-                            vendor_spec.files.map do |file|
-                              File.join(cache_path, file)
-                            end
-                          else
-                            location = [ cache_path, self.require, "**/*.*" ].compact
-                            Dir[ File.join *location ]
-                          end
-
-          # Remove files that are within folders with a ".", such as ".bundle"
-          # and ".frameworks"
-          install_files.reject do |file|
-            file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
-          end
+          install_files_for_files_in 'files'
         end
 
-        alias_method :resources, :files
+        def resources
+          install_files_for_files_in 'resources'
+        end
 
         def version
           if @version
@@ -212,6 +189,36 @@ module Vendor
             else
               false
             end
+          end
+
+          def install_files_for_files_in section
+            # If the cache doesn't exist, download it
+            download unless cache_exists?
+
+            # Calculate the files we need to add. There are 3 different types
+            # of installation:
+            # 1) Installation from a manifest (a built lib)
+            # 2) Loading the .vendorspec and seeing what files needed to be added
+            # 3) Try to be smart and try and find files to install
+            install_files = if manifest
+                              Array(manifest[section]).map do |file|
+                                File.join(cache_path, "data", file)
+                              end
+                            elsif vendor_spec
+                              vendor_spec.send(section).map do |file|
+                                File.join(cache_path, file)
+                              end
+                            else
+                              location = [ cache_path, self.require, "**/*.*" ].compact
+                              Dir[ File.join *location ]
+                            end
+
+            # Remove files that are within folders with a ".", such as ".bundle"
+            # and ".frameworks"
+            install_files.reject do |file|
+              file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
+            end
+
           end
 
       end
