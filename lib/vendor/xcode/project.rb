@@ -34,7 +34,7 @@ module Vendor::XCode
 
      files_added = create_library_folders_and_groups library_pathname, library.files
       
-      resources_added = create_library_folders_and_groups library_pathname, library.resources
+      resources_added = create_library_folders_and_groups library_pathname, library.resources, 'resource'
       
       frameworks_added = add_required_frameworks_to_project library.frameworks
   
@@ -107,7 +107,7 @@ module Vendor::XCode
     # @return [Array<FileReference>] an array of all the files that were added 
     #   to the project.
     #
-    def create_library_folders_and_groups(pathname,files)
+    def create_library_folders_and_groups(pathname,files,section="")
       
       # Create the physical path for the library
       
@@ -117,7 +117,7 @@ module Vendor::XCode
       
       library_group = project.group pathname
       
-      Vendor.ui.info "* Installing #{files.count} file(s)\n\n"
+      Vendor.ui.info "* Installing #{files.count} #{section} file(s)\n\n"
       
       files.map do |file| 
         
@@ -212,13 +212,15 @@ module Vendor::XCode
     
     def add_build_settings_to_target_configurations target, build_settings
      
-      Vendor.ui.info "* Configuring Target Build\n\n"
+      Vendor.ui.info "* Build Configuration Settings\n\n"
       
       target.configs.each do |config|
         
+        Vendor.ui.debug "    > #{config.name} Configuration\n\n"
+        
         build_settings.each do |name,value| 
           
-          Vendor.ui.debug "    > Setting `#{name}` to value `#{value}`\n\n"
+          Vendor.ui.debug "    > Setting `#{name}` to `#{value}`\n\n"
           
           config.append name, value
 
