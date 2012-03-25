@@ -109,6 +109,8 @@ module Vendor
           end
         end
 
+        alias_method :resources, :files
+
         def version
           if @version
             @version
