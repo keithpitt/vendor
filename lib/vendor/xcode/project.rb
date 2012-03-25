@@ -20,17 +20,19 @@ module Vendor::XCode
     #
     def install(library,targets)
       
+      Vendor.ui.info "## Installing __#{library.name} (#{library.version})__\n\n"
+      
       project_targets = project_targets_from_specified_targets(targets)
       
       if project_targets.empty?
-        Vendor.ui.warn "The project '#{project.name}' does not have any matching targets"
+        Vendor.ui.warn "* The project '#{project.name}' does not have any matching targets: #{targets.join(", ")}"
         return
       end
       
       library_pathname = "Vendor/#{library.name}"
-
       
-      files_added = create_library_folders_and_groups library_pathname, library.files
+
+     files_added = create_library_folders_and_groups library_pathname, library.files
       
       resources_added = create_library_folders_and_groups library_pathname, library.resources
       
@@ -44,7 +46,7 @@ module Vendor::XCode
       
       project_targets.each do |target|
         
-        Vendor.ui.debug "\n= Configuring Build Target `#{target.name}`"
+        Vendor.ui.info "\n### Configuring Build Target '__#{target.name}__'\n\n"
         
         add_source_files_to_sources_build_phase source_files, target.sources_build_phase, library.per_file_flag
         
@@ -115,13 +117,14 @@ module Vendor::XCode
       
       library_group = project.group pathname
       
+      Vendor.ui.info "* Installing #{files.count} file(s)\n\n"
+      
       files.map do |file| 
         
         target_filepath = "#{pathname}/#{File.basename(file)}"
         
-        Vendor.ui.debug "* [FILES] Installing File"
-        Vendor.ui.debug "            from: #{file}"
-        Vendor.ui.debug "              to: #{target_filepath}"
+        Vendor.ui.debug "    > from: #{file}\n\n"
+        Vendor.ui.debug "    >   to: #{target_filepath}\n\n"
    
         # Copy the physical file to the library path
         
@@ -155,13 +158,15 @@ module Vendor::XCode
     def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
       
       unless sources_build_phase
-        Vendor.ui.warn "! [SOURCE] No sources build phase exists for this target"
+        Vendor.ui.warn "* No sources build phase exists for this target\n"
         return
       end
+
+      Vendor.ui.info "* Sources Build Phase - adding #{files.count} file(s)\n\n"
       
       files.each do |file|
 
-        Vendor.ui.debug "* [SOURCE]     Adding : #{file.path}"
+        Vendor.ui.debug "    > #{file.path}\n\n"
         
         if per_file_flag
           sources_build_phase.add_build_file file, { 'COMPILER_FLAGS' => per_file_flag }
@@ -174,13 +179,15 @@ module Vendor::XCode
     def add_resource_files_to_resources_build_phase files, resources_build_phase
 
       unless resources_build_phase
-        Vendor.ui.warn "! [RESOURCES] No resources build phase exists for this target"
+        Vendor.ui.warn "* No resources build phase exists for this target\n"
         return
       end
       
+      Vendor.ui.info "* Resources Build Phase - adding #{files.count} file(s)\n\n"
+      
       files.each do |file|
 
-        Vendor.ui.debug "* [RESOURCES]  Adding : #{file.path}"
+        Vendor.ui.debug "    > #{file.path}\n\n"
         
         resources_build_phase.add_build_file file
       end
@@ -189,13 +196,15 @@ module Vendor::XCode
     def add_frameworks_to_frameworks_build_phase frameworks, framework_build_phase
 
       unless framework_build_phase
-        Vendor.ui.warn "! [FRAMEWORKS] No framework build phase exists for this target"
+        Vendor.ui.warn "* No framework build phase exists for this target\n"
         return
       end
+
+      Vendor.ui.info "* Frameworks Build Phase - adding #{frameworks.count} framework(s)\n\n"
       
       frameworks.each do |framework|
         
-        Vendor.ui.debug "* [FRAMEWORKS] Adding : #{framework.name}"
+        Vendor.ui.debug "    > #{framework.name}\n\n"
         
         framework_build_phase.add_build_file framework
       end
@@ -203,11 +212,13 @@ module Vendor::XCode
     
     def add_build_settings_to_target_configurations target, build_settings
      
+      Vendor.ui.info "* Configuring Target Build\n\n"
+      
       target.configs.each do |config|
         
         build_settings.each do |name,value| 
           
-          Vendor.ui.debug "* [CONFIG] Adding setting `#{name}` to value `#{value}`"
+          Vendor.ui.debug "    > Setting `#{name}` to value `#{value}`\n\n"
           
           config.append name, value
 
