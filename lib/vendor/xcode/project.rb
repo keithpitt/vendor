@@ -31,13 +31,15 @@ module Vendor::XCode
 
       files_added = create_library_folders_and_groups library_pathname, library.files
       
+      resources_added = create_library_folders_and_groups library_pathname, library.resources
+      
       frameworks_added = add_required_frameworks_to_project library.frameworks
       
       project_targets.each do |target|
 
         add_source_files_to_sources_build_phase files_added, target.sources_build_phase, library.per_file_flag
         
-        add_resource_files_to_resources_build_phase files_added, target.resources_build_phase
+        add_resource_files_to_resources_build_phase resources_added, target.resources_build_phase
         
         add_frameworks_to_frameworks_build_phase frameworks_added, target.framework_build_phase
         
