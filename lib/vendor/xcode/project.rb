@@ -23,7 +23,7 @@ module Vendor::XCode
       project_targets = project_targets_from_specified_targets(targets)
       
       if project_targets.empty?
-        Vendor.ui.info "The project '#{project.name}' does not have any matching targets"
+        Vendor.ui.warn "The project '#{project.name}' does not have any matching targets"
         return
       end
       
@@ -74,7 +74,9 @@ module Vendor::XCode
     def project_targets_from_specified_targets(specified_targets)
       
       if specified_targets == [:all]
-        project_targets = project.targets
+        
+        project.targets
+        
       else
         
         # Take each specified target names and compare those with the targets
@@ -86,7 +88,7 @@ module Vendor::XCode
         #    however, the Xcoder implementation raises an error when a target
         #    does not match the specified name.
         
-        specified_targets.map do |name| 
+        specified_targets.uniq.map do |name| 
           
           project.targets.reject {|target| target.isa == "PBXAggregateTarget" }.find_all {|target| target.name == name }
           
@@ -117,8 +119,9 @@ module Vendor::XCode
         
         target_filepath = "#{pathname}/#{File.basename(file)}"
         
-        Vendor.ui.debug "* [FILES] Installing from: #{file}"
-        Vendor.ui.debug "                       to: #{target_filepath}"
+        Vendor.ui.debug "* [FILES] Installing File"
+        Vendor.ui.debug "            from: #{file}"
+        Vendor.ui.debug "              to: #{target_filepath}"
    
         # Copy the physical file to the library path
         
@@ -150,9 +153,15 @@ module Vendor::XCode
     
     
     def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
+      
+      unless sources_build_phase
+        Vendor.ui.warn "! [SOURCE] No sources build phase exists for this target"
+        return
+      end
+      
       files.each do |file|
 
-        Vendor.ui.debug "* [SOURCE] Adding     : #{file.path}"
+        Vendor.ui.debug "* [SOURCE]     Adding : #{file.path}"
         
         if per_file_flag
           sources_build_phase.add_build_file file, { 'COMPILER_FLAGS' => per_file_flag }
@@ -163,15 +172,27 @@ module Vendor::XCode
     end
     
     def add_resource_files_to_resources_build_phase files, resources_build_phase
+
+      unless resources_build_phase
+        Vendor.ui.warn "! [RESOURCES] No resources build phase exists for this target"
+        return
+      end
+      
       files.each do |file|
 
-        Vendor.ui.debug "* [RESOURCES] Adding  : #{file.path}"
+        Vendor.ui.debug "* [RESOURCES]  Adding : #{file.path}"
         
         resources_build_phase.add_build_file file
       end
     end
     
     def add_frameworks_to_frameworks_build_phase frameworks, framework_build_phase
+
+      unless framework_build_phase
+        Vendor.ui.warn "! [FRAMEWORKS] No framework build phase exists for this target"
+        return
+      end
+      
       frameworks.each do |framework|
         
         Vendor.ui.debug "* [FRAMEWORKS] Adding : #{framework.name}"
@@ -182,12 +203,8 @@ module Vendor::XCode
     
     def add_build_settings_to_target_configurations target, build_settings
      
-      unless target.is_a?(Xcode::ConfigurationOwner)
-        Vendor.ui.warn "Target `#{target.name}` does not support build configurations"
-        return
-      end
-     
       target.configs.each do |config|
+        
         build_settings.each do |name,value| 
           
           Vendor.ui.debug "* [CONFIG] Adding setting `#{name}` to value `#{value}`"
