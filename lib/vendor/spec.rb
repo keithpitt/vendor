@@ -148,9 +148,13 @@ module Vendor
     attribute :version, :required
 
     # @attribute
-    # The files to include in this release of the vendor specification
+    # The source files to include in this release of the vendor specification
     attribute :files, :required
-    
+
+    # @attribute
+    # The resource files to include in this release of the vendor specification
+    attribute :resources
+ 
     # @attribute
     # Specifying a build target specific flag for the source files
     attribute :per_file_flag
@@ -180,7 +184,6 @@ module Vendor
     # specification.
     attribute :docs
  
-    
     # @see build_setting
     attr_reader :build_settings
    
@@ -213,7 +216,7 @@ module Vendor
     # @return [void]
     # 
     def build_setting(setting, value)
-     @build_settings << [ setting, value ]
+      @build_settings << [ setting, value ]
     end
     
     

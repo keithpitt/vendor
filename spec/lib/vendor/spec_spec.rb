@@ -71,6 +71,19 @@ describe Vendor::Spec do
 
   end
 
+  describe "#resources" do
+    
+   let(:multiple_resources) { [ "resources/close-button.png", "resources/close-button@2x.png" ] }
+    
+    context "adding multiple resources" do
+      it "should add the resources to the resources property" do
+        spec.resources multiple_resources
+        spec.resources.should == multiple_resources
+      end
+    end
+   
+  end
+  
   context "#build_setting" do
 
     it "should set a build setting" do
@@ -106,18 +119,25 @@ describe Vendor::Spec do
   
   context '#to_json' do
 
+    let(:source_files) { [ "file1.h", "file1.m" ] }
+    let(:resource_files) {  [ "back.png", "back@2x.png" ] }
+    
     it 'should return the vendor spec as a JSON string' do
       spec.name = "foo"
       spec.framework "Foundation.framework"
       spec.build_setting :other_linker_flags, true
       spec.dependency "JSONKit", "0.5"
-
+      spec.files source_files
+      spec.resources resource_files
+      
       json = JSON.parse(spec.to_json)
 
       json["name"].should == "foo"
       json["dependencies"].should == [ [ "JSONKit", "0.5" ] ]
       json["frameworks"].should == [ "Foundation.framework" ]
       json["build_settings"].should == [ [ "other_linker_flags", true ] ]
+      json["files"].should == source_files
+      json["resources"].should == resource_files
     end
 
   end
