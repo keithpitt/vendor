@@ -29,17 +29,26 @@ module Vendor::XCode
       
       library_pathname = "Vendor/#{library.name}"
 
+      
       files_added = create_library_folders_and_groups library_pathname, library.files
       
+      resources_added = create_library_folders_and_groups library_pathname, library.resources
+      
       frameworks_added = add_required_frameworks_to_project library.frameworks
+  
+     
+      source_files = files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.mm?$/ }
+
+      framework_files = frameworks_added + files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.a$/ }
+
       
       project_targets.each do |target|
-
-        add_source_files_to_sources_build_phase files_added, target.sources_build_phase, library.per_file_flag
+         
+        add_source_files_to_sources_build_phase source_files, target.sources_build_phase, library.per_file_flag
         
-        add_resource_files_to_resources_build_phase files_added, target.resources_build_phase
+        add_resource_files_to_resources_build_phase resources_added, target.resources_build_phase
         
-        add_frameworks_to_frameworks_build_phase frameworks_added, target.framework_build_phase
+        add_frameworks_to_frameworks_build_phase framework_files, target.framework_build_phase
         
         add_build_settings_to_target_configurations target, library.build_settings
         
@@ -125,7 +134,7 @@ module Vendor::XCode
     #
     def add_required_frameworks_to_project(frameworks)
       frameworks.map do |framework_name|
-        if framework_name =~ /^.+\.dylib$/
+        if File.extname(framework_name) =~ /^\.dylib$/
           project.frameworks_group.create_system_library(framework_name)
         else
           project.frameworks_group.create_system_framework(framework_name)
@@ -135,7 +144,7 @@ module Vendor::XCode
     
     
     def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
-      files.find_all {|file| File.extname(file.path.to_s) =~ /\.mm?$/ }.each do |file|
+      files.each do |file|
         if per_file_flag
           sources_build_phase.add_build_file file, { 'COMPILER_FLAGS' => per_file_flag }
         else
@@ -145,7 +154,7 @@ module Vendor::XCode
     end
     
     def add_resource_files_to_resources_build_phase files, resources_build_phase
-      files.reject {|file| File.extname(file.path.to_s).to_s =~ /\.(mm?|h)$/ }.each do |file|
+      files.each do |file|
         resources_build_phase.add_build_file file
       end
     end

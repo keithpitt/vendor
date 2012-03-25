@@ -114,7 +114,8 @@ Vendor::Spec.new do |s|
   s.source         "https://github.com/keithpitt/DKBenchmark"
   s.docs           "https://github.com/keithpitt/DKBenchmark/wiki"
 
-  s.files          [ "DKBenchmark.h", "DKBenchmark.m" ]
+  s.files          [ "DKBenchmark.h", "DKBenchmark.m", "static-lib.a" ]
+  s.resources      [ "images/loading.png", "images/loading@2x.png" ]
 
   s.build_setting  :other_linker_flags, [ "-ObjC", "+lsdd" ]
   s.build_setting  "CLANG_WARN_OBJCPP_ARC_ABI", false
