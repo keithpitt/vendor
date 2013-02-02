@@ -43,15 +43,9 @@ module Vendor
 
       private
 
-        # Remove files that are within folders with a ".", such as ".bundle"
-        # and ".frameworks" 
-        def filter_files(files)
-          Array(files).reject { |file| file =~ /\/?[^\/]+\.[^\/]+\// }
-        end
-
         # Find all the files within the vendor spec to install
         def vendor_spec_files_to_install
-          filter_files(@vendor_spec.files) + filter_files(@vendor_spec.resources)
+          Array(@vendor_spec.files) + Array(@vendor_spec.resources)
         end
 
         def copy_files(data_dir)
@@ -63,26 +57,15 @@ module Vendor
 
           raise NoFilesError.new("No files found for packaging") if copy_files.empty?
 
-          copy_files.each do |file|
-            dir = File.dirname(file)
-            path = File.join(@folder, file)
-            copy_to_dir = File.expand_path(File.join(data_dir, dir))
-            copy_to_file = File.join(copy_to_dir, File.basename(file))
+          FileUtils.mkdir_p data_dir unless File.exists? data_dir
+          
+          FileUtils.cp_r copy_files, data_dir
 
-            Vendor.ui.debug "Creating dir #{copy_to_dir}"
-            FileUtils.mkdir_p copy_to_dir
-
-            Vendor.ui.debug "Copying #{path} to #{copy_to_file}"
-            FileUtils.cp_r path, copy_to_file
-
-            data_files << copy_to_file
-          end
-
-          data_files
+          Dir.glob(File.join([data_dir, "**/*"]))
         end
 
         def zip_file(filename, files, base_dir)
-          Zip::ZipFile.open(filename, Zip::ZipFile::CREATE)do |zipfile|
+          Zip::ZipFile.open(filename, Zip::ZipFile::CREATE) do |zipfile|
 
             files.each do |file|
               path = file.gsub(base_dir, '').gsub(/^\//, '')
