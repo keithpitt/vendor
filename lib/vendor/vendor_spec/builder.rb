@@ -57,11 +57,30 @@ module Vendor
 
           raise NoFilesError.new("No files found for packaging") if copy_files.empty?
 
-          FileUtils.mkdir_p data_dir unless File.exists? data_dir
-          
-          FileUtils.cp_r copy_files, data_dir
+          copy_files.each do |file|
+            dir = File.dirname(file)
+            path = File.join(@folder, file)
+            if File.directory? path
+              copy_to_dir = File.expand_path(File.join(data_dir, dir, File.basename(file)))
+              copy_to_file = File.expand_path(copy_to_dir)
+            else
+              copy_to_dir = File.expand_path(File.join(data_dir, dir))
+              copy_to_file = File.join(copy_to_dir, File.basename(file))
+            end
 
-          Dir.glob(File.join([data_dir, "**/*"]))
+            Vendor.ui.debug "Creating dir #{copy_to_dir}"
+            FileUtils.mkdir_p copy_to_dir
+
+            Vendor.ui.debug "Copying #{path} to #{copy_to_file}"
+            FileUtils.copy_entry path, copy_to_file
+
+            data_files << copy_to_file
+            if File.directory?(path)
+              data_files.concat(Dir.glob(File.join(copy_to_file, "**", "*")))
+            end
+          end
+          
+          data_files
         end
 
         def zip_file(filename, files, base_dir)
