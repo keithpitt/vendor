@@ -21,7 +21,7 @@ module Vendor::XCode
     def install(library,targets)
       
       Vendor.ui.info "## Installing __#{library.name} (#{library.version})__\n\n"
-      
+
       project_targets = project_targets_from_specified_targets(targets)
       
       if project_targets.empty?
@@ -31,8 +31,7 @@ module Vendor::XCode
       
       library_pathname = "Vendor/#{library.name}"
       
-
-     files_added = create_library_folders_and_groups library_pathname, library.files
+      files_added = create_library_folders_and_groups library_pathname, library.files
       
       resources_added = create_library_folders_and_groups library_pathname, library.resources, 'resource'
       
@@ -41,7 +40,7 @@ module Vendor::XCode
      
       source_files = files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.mm?$/ }
 
-      framework_files = frameworks_added + files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.a$/ }
+      framework_files = frameworks_added + files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.a$|\.framework$/ }
 
       
       project_targets.each do |target|
@@ -128,7 +127,7 @@ module Vendor::XCode
    
         # Copy the physical file to the library path
         
-        FileUtils.cp file, target_filepath 
+        FileUtils.cp_r file, target_filepath 
         
         # Copy the project's logical files
         

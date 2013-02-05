@@ -205,19 +205,13 @@ module Vendor
                                 File.join(cache_path, "data", file)
                               end
                             elsif vendor_spec
-                              vendor_spec.send(section).map do |file|
+                              Array(vendor_spec.send(section)).map do |file|
                                 File.join(cache_path, file)
                               end
                             else
                               location = [ cache_path, self.require, "**/*.*" ].compact
                               Dir[ File.join *location ]
                             end
-
-            # Remove files that are within folders with a ".", such as ".bundle"
-            # and ".frameworks"
-            install_files.reject do |file|
-              file.gsub(cache_path, "") =~ /\/?[^\/]+\.[^\/]+\//
-            end
 
           end
 
