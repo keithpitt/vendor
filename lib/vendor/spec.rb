@@ -144,7 +144,7 @@ module Vendor
     attribute :name, :required
     
     # @attribute
-    # The verison of this release
+    # The version of this release
     attribute :version, :required
 
     # @attribute

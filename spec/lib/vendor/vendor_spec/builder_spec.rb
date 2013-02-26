@@ -97,6 +97,32 @@ describe Vendor::VendorSpec::Builder do
 
     end
 
+    context "with a framework" do
+
+      let (:builder) { Vendor::VendorSpec::Builder.new(File.join(VENDOR_RESOURCE_PATH, "DKBenchmarkFramework", "DKBenchmark.vendorspec")) }
+
+      before :all do
+        builder.build
+      end
+
+      it "should create the .vendor file" do
+        File.exist?(builder.filename).should be_true
+      end
+      
+      it "should contain the files contained in the vendor spec" do
+        Zip::ZipFile.open(builder.filename) do |zipfile|
+          zipfile.file.exists?("data/DKBenchmark.framework").should be_true
+          zipfile.file.exists?("data/DKBenchmark.framework/Versions/A/DKBenchmark").should be_true
+          zipfile.file.read("data/DKBenchmark.framework/Versions/A/Headers/DKBenchmark.h") =~ /DKBenchmark\.h/
+          zipfile.file.read("data/DKBenchmark.framework/DKBenchmark") =~ /^book\x00\x00\x00\x00mark\x00\x00\x00\x00/ #os x alias
+          zipfile.file.read("data/DKBenchmark.framework/Headers") =~ /^book\x00\x00\x00\x00mark\x00\x00\x00\x00/ #os x alias
+          zipfile.file.read("data/DKBenchmark.framework/Versions/Current") =~ /^book\x00\x00\x00\x00mark\x00\x00\x00\x00/ #os x alias
+        end
+      end
+      
+
+    end
+
   end
 
 end
