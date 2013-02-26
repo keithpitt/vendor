@@ -46,7 +46,7 @@ lib "DKRest", :path => "~/Development/DKRest", :require => "Classes"
 # AFNetworking folder in the repo. The require option is handy for
 # repo's that haven't created vendor libraries and pushed them to
 # VendorKit.com
-lib "DKRest", :git => "git://github.com/gowalla/AFNetworking.git", :require => "AFNetworking"
+lib "DKRest", :git => "git://github.com/AFNetworking/AFNetworking.git", :require => "AFNetworking"
 
 # The Vendorfile allows you to specify targets to add your libraries to.
 # By default, each library will be added to all targets, but if you have
