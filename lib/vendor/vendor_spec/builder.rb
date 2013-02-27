@@ -4,6 +4,7 @@ module Vendor
     class Builder
 
       class NoFilesError < StandardError; end
+      class MissingFileError < StandardError; end
 
       require 'fileutils'
       require 'tmpdir'
@@ -63,9 +64,11 @@ module Vendor
             if File.directory? path
               copy_to_dir = File.expand_path(File.join(data_dir, dir, File.basename(file)))
               copy_to_file = File.expand_path(copy_to_dir)
-            else
+            elsif File.exists? path 
               copy_to_dir = File.expand_path(File.join(data_dir, dir))
               copy_to_file = File.join(copy_to_dir, File.basename(file))
+            else
+              raise MissingFileError.new("File #{path} specified in vendorspec does not exist")
             end
 
             Vendor.ui.debug "Creating dir #{copy_to_dir}"

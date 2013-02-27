@@ -32,33 +32,23 @@ module Vendor::XCode
       library_pathname = "Vendor/#{library.name}"
       
       files_added = create_library_folders_and_groups library_pathname, library.files
-      
       resources_added = create_library_folders_and_groups library_pathname, library.resources, 'resource'
-      
       frameworks_added = add_required_frameworks_to_project library.frameworks
   
-     
       source_files = files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.mm?$/ }
-
       framework_files = frameworks_added + files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.a$|\.framework$/ }
-
+      custom_framework_files = files_added.find_all {|file| File.extname(file.path.to_s) =~ /\.framework$/ }
       
       project_targets.each do |target|
-        
         Vendor.ui.info "\n### Configuring Build Target '__#{target.name}__'\n\n"
-        
         add_source_files_to_sources_build_phase source_files, target.sources_build_phase, library.per_file_flag
-        
         add_resource_files_to_resources_build_phase resources_added, target.resources_build_phase
-        
         add_frameworks_to_frameworks_build_phase framework_files, target.framework_build_phase
-        
+        add_custom_frameworks_to_framework_search_paths target, custom_framework_files
         add_build_settings_to_target_configurations target, library.build_settings
-        
       end
     
       project.save!
-      
     end
     
     private
@@ -153,6 +143,16 @@ module Vendor::XCode
       end
     end
     
+    def add_custom_frameworks_to_framework_search_paths(target, custom_frameworks)
+      Vendor.ui.info "* Framework search paths - adding #{custom_frameworks.count} custom framework(s)\n\n"
+      target.configs.each do |config|        
+        custom_frameworks.each do |framework| 
+          Vendor.ui.debug "    > Adding `#{framework.name}` to `#{config.name}`\n\n"
+          
+          config.append 'FRAMEWORK_SEARCH_PATHS', "\"$(SRCROOT)/#{framework.path}\""
+        end
+      end
+    end
     
     def add_source_files_to_sources_build_phase files, sources_build_phase, per_file_flag
       
