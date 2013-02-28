@@ -19,7 +19,10 @@ module Vendor
       def fetch_api_key
         Vendor.ui.warn "Please enter your vendorkit.com login and password"
 
-        username = ask("Login: ")
+        username = ask("Login: ") {|q|
+          q.validate = /^\w+$/
+          q.responses[:not_valid] = "You must use your login (not an email address)"
+        }
         password = ask("Password: ") { |q| q.echo = false }
 
         Vendor::Config.set(:"credentials.vendorforge_api_key", Vendor::API.api_key(username, password))
